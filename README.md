@@ -21,7 +21,7 @@ BUILD TABS with:
 
 
 Loading tabwins.vim creates vim commands that have name formats
-as described in TabwinsUsage.
+as described in the TabwinsUsage section of doc/tabwins.txt.
 
 Default settings load Vim menu Tabwins, for access to selected 
 tab-builder commands.  Those and additional tab builders are 
