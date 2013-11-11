@@ -24,7 +24,6 @@ Loading tabwins.vim creates vim commands that have name formats
 as described in |TabwinsUsage|.
 
 Default settings load Vim menu Tabwins, for access to selected 
-                      ~~~~~~~~~~~~~~~~~
 tab-builder commands.  Those and additional tab builders are 
 available via vim commands defined in tabwins.vim. The menu has 
 only a small portion of the tab builders defined in tabwins.vim,
