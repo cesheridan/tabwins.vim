@@ -48,7 +48,7 @@ subdirs to the same subdirs in ~/.vim.
 
 # Documentation
 
-See doc/tabwins.txt for more information, or view this file via
+See doc/tabwins.txt for more information, or view that file via
 Vim :help.
 
 An html version of the .txt file is at
