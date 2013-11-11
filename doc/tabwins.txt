@@ -1,0 +1,365 @@
+*tabwins.txt* Build commands for creating tabs of symmetric, asymmetric, & populated sets of windows.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+||                                                                ||   ~
+||             _        _                _                        ||   ~
+||            | |      | |              (_)                       ||   ~
+||            | |_ __ _| |__   __      ___ _ __  ___              ||   ~
+||            | __/ _` | '_ \  \ \ /\ / / | '_ \/ __|             ||   ~
+||            | || (_| | |_) |  \ V  V /| | | | \__ \             ||   ~
+||             \__\__,_|_.__/    \_/\_/ |_|_| |_|___/             ||   ~
+||                                                                ||   ~
+||                                                                ||   ~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+====================================================================
+CONTENTS                                            *TabwinsContents*
+====================================================================
+
+    1. Introduction ......... |TabwinsIntroduction|
+    2. Usage ................ |TabwinsUsage|
+    3. Vertical & Horizontal  |TabwinsVandH|
+    4. Tabwins Menu ......... |TabwinsMenu|
+    5. Configuration ........ |TabwinsConfiguration|
+    6. Adding New Builders .. |TabwinsAddingNewBuilders|
+    7. License .............. |TabwinsLicense|
+    8. Bugs ................. |TabwinsBugs|
+    9. Credits .............. |TabwinsCredits|
+
+
+====================================================================
+Section 1: Introduction                         *TabwinsIntroduction*
+====================================================================
+
+tabwins.vim creates and enables definition of Vim commands that ~
+BUILD TABS with: ~
+
+  1) SYMMETRIC  window structures of EMPTY BUFFERS  ~
+
+     e.g. :V4x2 for 4 columns, each with 2 windows
+
+
+  2) ASYMMETRIC window structures of EMPTY BUFFERS ~
+
+     e.g. :V2113 for 4 columns, of 2, 1, 1, & 3 windows respectively
+
+
+  3) EITHER of the above structures, with BUFFERS POPULATED ~
+     by files, dirs, or results of running :execute on ~
+     user-specified strings. ~
+
+     e.g. :Vim_help_tab1 for an asymmetric V1312 tab of Vim help entries
+
+
+Loading tabwins.vim creates vim commands that have name formats
+as described in |TabwinsUsage|.
+
+Default settings load Vim menu Tabwins, for access to selected 
+                      ~~~~~~~~~~~~~~~~~
+tab-builder commands.  Those and additional tab builders are 
+available via vim commands defined in tabwins.vim. The menu has 
+only a small portion of the tab builders defined in tabwins.vim,
+and the user is encouraged to add tab builder commands as needed.
+
+By enabling customized tab creation ~during~ sessions, tabwins.vim
+gives Vim users immediate access to the window structures and
+content that they most commonly use.  The Vim user is saved from
+having to reload backed up Vim sessions, and the consequent 
+loss of current configuration, and the loss of user focus that 
+follows.  
+
+Easy access to the power of the Vim GUI. ~
+
+
+This plugin is structured for deployment in a pathogen-managed
+bundle directory.
+
+See the remainder of tabwins.txt for more information.
+
+
+====================================================================
+Section 2: Usage                                       *TabwinsUsage*
+====================================================================
+
+  See |TabwinsVandH| for background about Vertical/Horizontal 
+  and primary/secondary axes.
+   
+  Loading tabwins.vim creates vim commands that have name formats
+  as described below.
+
+
+  WINDOWS OF EMPTY BUFFERS, SYMMETRIC & ASYMMETRIC ~
+
+  1) :V{N} & :H{N}   -- e.g. :V3 & :H4 ~
+  
+    One-dimensional tabs, w/ primary axis identifed by V or H, and 
+    w/ N windows.  
+    
+    E.g. :V3 creates a tab of 3 vertical windows, and :H4 creates 
+    a tab of 4 horizontal windows.
+
+    Loading tabwins.vim creates :HN & :VN commands where N is from
+    1 to the value of the relevant axis size in:
+       g:tabwins_max_v_size 
+       g:tabwins_max_h_size 
+
+
+
+  2) :V{I}x{J} & :H{I}x{J}  -- e.g. :V3x2 & :H4x3 ~
+
+    Two-dimensional tabs, w/ primary axis identifed by 
+    V or H. 
+    
+    E.g. V3x2 means a tab of 3 vertical spaces, and inside
+    each vertical space, 2 horizontal windows. Whereas H4x3 
+    means a tab of 4 rows, each w/ 3 windows.
+
+    The window structures in group 1) are all in
+    this group, but here with names like V5x1 rather 
+    than the simpler V5.
+
+    Loading tabwins.vim creates :VIxJ & :HIxJ commands where 
+    the set of {I}x{J} is the permutations of:
+       g:tabwins_max_v_size 
+       g:tabwins_max_h_size 
+
+
+
+  3) :V{J...} & :H{J...}  --  e.g. :V1321 & :H122  ~
+
+    Tabs w/ primary axis identifed by V or H.  Each integer 
+    specifies the number of windows inside each successive vertical 
+    or horizontal space. 
+    
+    E.g. V23 means a tab w/ 2 vertical spaces, the left having 
+    2 horizontal windows, and the right having 3 horizontal windows. 
+    Whereas H14 means two rows, the top w/ 1 window and the 
+    lower row w/ 4 windows.
+
+    Loading tabwins.vim creates the V{J...} & H{J...} commands
+    defined by functions 
+      Create_tab_v*() and  
+      Create_tab_h*().
+
+
+  POPULATED WINDOWS ~
+
+  These can be both Symmetric and Asymmetric, for both V and H priority 
+  tabs.  The user specifies the content that fills each window buffer.
+  See the examples in the Tabwins menu, as well as documentation in
+  |TabwinsAddingNewBuilders|.
+
+
+  OPERATING SYSTEMS ~
+
+  Core code has run successfully for gvim on Linux, Sun Solaris, HPUX,
+  iMac OS X, MSWIN, & cygwin. 
+  
+  On MSWIN, demos of populated tabs may fail to load some buffer 
+  content due to MSWIN file system syntax conventions.
+
+
+====================================================================
+Section 3: Vertical & Horizontal                    *TabwinsVandH*
+====================================================================
+
+Windows are built one axis at a time. The first axis built
+is the primary axis, and the other axis is the secondary axis.
+       ~~~~~~~~~~~~                            ~~~~~~~~~~~~~~~
+If the window starts by building the vertical axis, then the
+vertical axis is the primary axis, and the horizontal axis
+is the secondary axis. And vice-versa.
+
+What's the difference between Horizontal and Vertical Tabs ? ~
+
+  Structurally, V2x3 is the same as H3x2.  The only difference
+  is how vim numbers the tabs, based on the axis that is the 
+  primary axis.  
+  
+  IF the primary axis is vertical, then numbering starts in 
+  col 1 and goes down the windows in col 1, then to the top 
+  of col 2, then down col 2, and so on.  
+  
+  IF the primary axis is horizontal, numbering starts in 
+  row 1 and goes left to right, then to row 2, left to right, 
+  and so on.
+
+  Most of the asymmetric tab builders defined in the plugin 
+  use a Vertical primary axis.  The Vim user can define any 
+  mix of primary axis in their own tab builders -- See
+  |TabwinsAddingNewBuilders|
+
+====================================================================
+Section 4: Tabwins Menu                                *TabwinsMenu*
+====================================================================
+
+In the Tabwins menu as delivered with this plugin, the 
+extent that populated tabs fill their buffers is dependent
+on the shell vars available to the Vim session.  
+
+The menu items document some of these vars.  
+
+The tab of dot files will be populated to the extent that $HOME 
+holds the specified files.
+
+The user is encouraged to customize tab builders to match their
+usage.
+
+Update or replace func
+  Tabwins_menu_build() ~
+in tabwins.vim to access any set of tab builders.
+
+
+====================================================================
+Section 5: Configuration                      *TabwinsConfiguration*
+====================================================================
+
+The below globals are defined in tabwins.vim and are overridable.
+
+To prevent 'Tabwins' menu addition when tabwins loads:
+  let g:load_tabwins_menu_is_wanted       = 'N' ~
+
+To change the 'Tabwins' menu number:
+  let g:tabwins_menu_number = {menu_number} ~
+
+To change the default top-line of netrw windows:
+  let g:tabwins_netrw_line_number_default = {N} ~
+Calls to Fill_tab() can override this on a per-tab basis.
+
+To change the default netrw liststyle:
+  let g:tabwins_netrw_liststyle_default   = {N} ~
+Calls to Fill_tab() can override this on a per-tab basis.
+
+To change V/H max dimensions:
+  let g:tabwins_max_v_size                = {N}~
+  let g:tabwins_max_h_size                = {N}  ~
+
+
+====================================================================
+Section 6: Adding New Builders      *TabwinsAddingNewBuilders*
+====================================================================
+
+1) ADDING SYMMETRIC TAB COMMANDS  (Empty Buffers) ~
+
+Bump either/both values of:
+  g:tabwins_max_v_size ~
+  g:tabwins_max_h_size ~
+above the values assigned in tabwins.vim. Loading tabwins.vim will
+build commands for all the permutations of the size vars.
+
+Of course, the set of symmetric tab builder commands can be reduced by 
+updating the same globals.
+
+
+
+2) ADDING ASYMMETRIC TAB COMMANDS  (Empty Buffers)~
+
+Copy and update any of the 
+  Create_tab_v{J...}()     ~
+  Create_tab_h{J...}() ~
+functions.
+
+See the comments in the asymmetric command building code in tabwins.vim. 
+building code.
+
+
+
+3) ADDING COMMANDS FOR TABS OF POPULATED BUFFERS ~
+
+Update, clone, or replace any of the 
+  Open_tab_*() ~
+functions in tabwins.vim to create populated window structures.
+
+Example in tabwins.vim:  ~
+
+    " ---------------------------------------------------------------
+    function! Open_tab_home_dir() ~
+    " ---------------------------------------------------------------
+      "1ST, Create the windowed-tab ~
+      :V1321 
+      "VERTICAL ASYMMETRIC TAB.  4 cols, from left to right with
+      "1, 3, 2, and then 1 window successively.
+
+      "2ND, Fill buffers in the tab ~
+      call Fill_tab({ 
+      \ 'line_number_at_window_top' : 1, ~
+      \ 'window_fill_specs' : [ ~
+      \   'Explore ~/',
+      \
+      \   'edit! ~/.bashrc',
+      \   '~/.gitignore',
+      \   'enew!',
+      \
+      \   '~/.perldb',
+      \   '~/.vimrc',
+      \
+      \   '~/.vim'
+      \ ]
+      \})
+      "Fill_tab() fills windows in the order of elements
+      "in 'window_fill_specs' You want to spec something for each
+      "of the windows created by :V1321 above,
+      "either commands, filepaths, or dirpaths.
+
+      "3d, optional, apply Vim resize and/or other commands to the windows/buffers. ~
+    endfunction
+
+
+Every tab-builder calls Fill_tab(), with signature:  ~
+
+      " --------------------------------------------------------------- 
+      function! Fill_tab(args_hash) ~
+      " --------------------------------------------------------------- 
+        let l:args = extend({
+      \   'explore_cmd_name'          : 'Explore', ~
+      \   'window_fill_specs'         : [], ~
+      \   'netrw_liststyle'           : g:tabwins_netrw_liststyle_default, ~
+      \   'line_number_at_window_top' : g:tabwins_netrw_line_number_dirpath, ~
+      \   'first_window_number'       : 1, ~
+      \   'ending_window_number'      : 1, ~
+      \   },
+      \   deepcopy(a:args_hash,1)
+      \ )
+
+See the Open_tab_*() functions for examples of overriding Fill_tab() ~
+defaults. ~
+
+See the NOTE: comments in tabwins.vim for more information. Note particularly ~
+the directives about window deletion order in calls to Close_windows(). ~
+
+
+====================================================================
+Section 7: License                                  *TabwinsLicense*
+====================================================================
+
+Copyright (c) 2013, Charles E. Sheridan
+
+This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation,
+version 2 of the License.
+This program is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE.
+
+See the GNU General Public License version 2 for more details.
+
+
+====================================================================
+Section 8: Bugs                                        *TabwinsBugs*
+====================================================================
+
+Send bug reports and proposed fixes to 
+  opensource at att.net
+
+
+====================================================================
+Section 9: Credits                                   *TabwinsCredits*
+====================================================================
+
+ Author:  Charles E. Sheridan 
+Contact:  opensource at att.net

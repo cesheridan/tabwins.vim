@@ -1,7 +1,20 @@
-"#################################################################################
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" ||                                                             ||   ~
+" ||             _        _                _                     ||   ~
+" ||            | |      | |              (_)                    ||   ~
+" ||            | |_ __ _| |__   __      ___ _ __  ___           ||   ~
+" ||            | __/ _` | '_ \  \ \ /\ / / | '_ \/ __|          ||   ~
+" ||            | || (_| | |_) |  \ V  V /| | | | \__ \          ||   ~
+" ||             \__\__,_|_.__/    \_/\_/ |_|_| |_|___/          ||   ~
+" ||                                                             ||   ~
+" ||                                                             ||   ~
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+"###############################################################################
 "       Filename:  tabwins.vim
 "         Author:  Charles E. Sheridan
-"        Version:  0.12
 "        License:  Copyright (c) 2013, Charles E. Sheridan
 "                  This program is free software; you can redistribute it
 "                  and/or modify it under the terms of the GNU General Public
@@ -12,7 +25,10 @@
 "                  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
 "                  PURPOSE.
 "                  See the GNU General Public License version 2 for more details.
-"#################################################################################
+"  Documentation:  See tabwins.txt
+"###############################################################################
+
+let g:tabwins_version = 1.7.0
 
 " User decides whether to reload.  Overhead should be small,
 " so default is to permit reload, facilitating iterative update.
@@ -21,110 +37,7 @@
 "    endif
 let g:tabwins_is_loaded = 'Y'
 
-" --------------------------------------------------------------- 
-" SUMMARY
-" --------------------------------------------------------------- 
-" tabwins.vim builds and enables definition of Vim commands that
-" create vim tabs with:
-"   1) SYMMETRIC  window structures of empty buffers
-"   2) ASYMMETRIC window structures of empty buffers
-"   3) either/both of the above structures, with buffers POPULATED 
-"      by files, dirs, or results of user-specified executable strings.
-"
-" Default settings load Vim menu Tabwins. The above capabilities
-"                       ~~~~~~~~~~~~~~~~
-" are accessible from this menu.  The same is available via
-" Vim commands defined in this plugin. The menu has only a small 
-" subset of the tab builders defined here, and the user can add
-" tab builders.
-"
-" By enabling this kind of tab creation ~during~ sessions, this plugin
-" gives Vim users immediate access to the specific window structures
-" and content that they most commonly use.
-"
-" The Vim user can easily do this without the disruption of reloading
-" backed up Vim sessions, which loses current configurations and 
-" distracts user focus.  The power of the gvim GUI is much 
-" more readily available.
 
-" Core code has run successfully for gvim on Linux, Sun Solaris, HPUX,
-" iMac OS X, MSWIN, & cygwin. Usage in MSWIN involved local configs
-" of filepath syntax, so some of the content in the demo tabs
-" may not load in MSWIN.  The MSWIN user can update the examples 
-" w/ appropriate MSWIN filesytem syntax.  This issue should not
-" surface for cygwin-vim on MSWIN.
-
-" To prevent 'Tabwins' menu addition when tabwins loads, put
-"   g:load_tabwins_menu_is_wanted = 'N'
-" in place of the 'Y' init further below in this plugin.
-
-" To change the 'Tabwins' menu number, change the value of
-"   g:tabwins_menu_number
-" defined further below.
-
-" ---------------------------------------------------------------
-" TABWINS MNEMONICS
-" ---------------------------------------------------------------
-"   Windows are built one axis at a time. The first axis built
-"   is the primary axis, and the other axis is the secondary axis.
-"          ~~~~~~~~~~~~                            ~~~~~~~~~~~~~~
-"   So, if the window starts by building the vertical axis, then
-"   the vertical axis is the primary axis and the horizontal axis
-"   is the secondary axis. And vice-versa.
-"
-"
-"   {V|H}n: a one-dim tab, w/ primary axis identifed by 
-"     V or H, and w/ 'n' windows.  E.g. V3 means a tab of 
-"                                  ~~~~~~~
-"     3 vertical windows, and H4 means a tab of 4 horizontal windows.
-"
-"
-"   {V|H}ixj:  Usuallly a two-dim tab, w/ primary  axis identifed by 
-"     V or H.  E.g. V3x2 means a tab of 3 vertical spaces, and inside
-"             ~~~~~~~~~~
-"     each vertical space, 2 horizontal windows. Wheres H4x3 means
-"     a tab of 4 rows, each w/ 3 windows.
-"
-"
-"   {V|H}{j...}:  A tab w/ primary axis identifed by 
-"     V or H.  Each integer specs the number of windows inside each
-"     successive vertical or horizontal space. e.g. V23 means a tab
-"                                              ~~~~~~~~
-"     w/ 2 vertical spaces, the first having 2 horizontal windows, 
-"     and the 2nd having 3 horizontal windows. Wheres H14 means
-"     two rows, the first w/ 1 window and the lower. 2nd row 
-"     w/ 4 windows.
-"
-"  What's the difference between Horizontal and Vertical Tabs ?
-"    Structurally, V2x3 is the same as H3x2.  The only difference
-"    between the two is the way that vim numbers the tabs, based
-"    on the axis that is the primary axis.  IF the primary axis
-"    is vertical, then numbering starts in col 1 and goes Down
-"    the windows in col 1, then to the top of col 2, then Down
-"    col 2, and so on.  IF the primary axis is Horizontal,
-"    numbering starts in row 1 and goes Left to Right, then
-"    to row 2, Left to Right, and so on.
-"
-"    Most of the asymmetric tab builders defined here use a
-"    Vertical primary axis.  The Vim user can define any mix of 
-"    primary axis in their tab builders.
-
-" --------------------------------------------------------------- 
-" ADDING YOUR OWN TAB BUILDERS
-" --------------------------------------------------------------- 
-" ADDING SYMMETRIC TAB COMMANDS: Bump either/both values of:
-"    g:tabwins_max_v_size
-"    g:tabwins_max_h_size
-" above the defaults, which are likely already larger than most 
-" users need.
-"
-" ADDING ASYMMETRIC TAB COMMANDS: see the notes in the asymmetric
-" command building code below, after the symmetric command 
-" building code.
-"
-" Update or replace func
-"   Tabwins_menu_build()
-" to access any set of tab builders.
 " --------------------------------------------------------------- 
 "  GLOBALS
 " --------------------------------------------------------------- 
@@ -147,16 +60,29 @@ if !exists("g:tabwins_menu_number")
 endif
 
 " Configs for netrw display.
-let g:netrw_liststyle_default   = 1
-let g:netrw_line_number_dirpath = 3
+let g:tabwins_netrw_liststyle_default   = 1
+let g:tabwins_netrw_line_number_default = 1
+let g:tabwins_netrw_line_number_dirpath = 3
+" --------------------------------------------------------------- 
+function! Report_error(args_hash)
+" --------------------------------------------------------------- 
+  let l:args = extend({ 
+\   'message' : 'ERROR!'},
+\   deepcopy(a:args_hash,1)
+\)
+  echohl  ERROR
+  echomsg l:args['message']
+  echohl  NONE
+endfunction
 " --------------------------------------------------------------- 
 function! Create_tab (primary_axis, primary_size, secondary_size)
 " --------------------------------------------------------------- 
   if (a:primary_axis !~? '^[HV]\c')
-    echoerr 
-      \ 'ERROR: Invalid primary_axis: ' . a:primary_axis . '.'
-      \ 'Valid values begin with "H" or "V"'
-    return
+    let l:message =
+    \ 'ERROR: Invalid primary_axis: ' . a:primary_axis . '.'
+    \ 'Valid values begin with "H" or "V"'
+    call Report_error({ 'message' : l:message })
+    return 0
   endif
 
   tab new
@@ -245,9 +171,9 @@ function! Explore_file_system_element(args_hash)
   " NOTE-DOC: Handles both files and dirs.
   let l:args = extend({
 \   'explore_cmd_name'          : 'Explore',
-\   'netrw_liststyle'           : g:netrw_liststyle_default,
+\   'netrw_liststyle'           : g:tabwins_netrw_liststyle_default,
 \   'file_system_element_names' : '',
-\   'line_number_at_window_top' : g:netrw_line_number_dirpath,
+\   'line_number_at_window_top' : g:tabwins_netrw_line_number_default ,
 \   },
 \   deepcopy(a:args_hash,1)
 \ )
@@ -297,7 +223,7 @@ function! Explore_file_system_element(args_hash)
     " This is the default at init, but always set this here, 
     "as some local buffers may have overriden it.
   else
-    let w:netrw_liststyle = g:netrw_liststyle_default
+    let w:netrw_liststyle = g:tabwins_netrw_liststyle_default
   endif
 
  "execute l:args['explore_cmd_name'] . ' ' . l:args['file_system_element_names']
@@ -319,8 +245,8 @@ function! Fill_tab(args_hash)
   let l:args = extend({
 \   'explore_cmd_name'          : 'Explore',
 \   'window_fill_specs'         : [],
-\   'netrw_liststyle'           : g:netrw_liststyle_default,
-\   'line_number_at_window_top' : g:netrw_line_number_dirpath,
+\   'netrw_liststyle'           : g:tabwins_netrw_liststyle_default,
+\   'line_number_at_window_top' : g:tabwins_netrw_line_number_dirpath ,
 \   'first_window_number'       : 1,
 \   'ending_window_number'      : 1,
 \   },
@@ -419,17 +345,13 @@ function! Is_positive_int(args_hash)
 \   deepcopy(a:args_hash,1)
 \ )
   if (  l:args['value'] =~ '\D')
-    echohl ERROR
-    echo 
-    \ "ERROR -- " l:args['var_name'] . " IS NOT A POSITIVE INT:  " .
-    \ g:tabwins_max_v_size
-    echohl None
-
+    call Report_error({ 'message' :
+    \ "ERROR -- " . l:args['var_name'] . " IS NOT A POSITIVE INT:  "
+    \})
     return 0
   endif
     return 1
 endfunction
-
 
 " ===============================================================
 " --- SYMMETRIC TABS
@@ -439,23 +361,22 @@ endfunction
 function! Screen_globals()
 " --------------------------------------------------------------- 
   "Remove '+' signs at begin of dim vars
-  if (  g:tabwins_max_v_size   =~ '^+')
-    let g:tabwins_max_v_size   = substitute(g:tabwins_max_v_size, '+', '', 'g')
+  if (  g:tabwins_max_v_size =~ '^+')
+    let g:tabwins_max_v_size = substitute(g:tabwins_max_v_size, '+', '', 'g')
   endif
   if (  g:tabwins_max_h_size =~ '^+')
-    let g:tabwins_max_h_size = substitute(g:tabwins_max_h_size,   '+', '', 'g')
+    let g:tabwins_max_h_size = substitute(g:tabwins_max_h_size, '+', '', 'g')
   endif
   "Yes, this would remove any '+' that are oddly inside the strings, if there were also '+' at the begin
 
+  if !Is_positive_int({'value' : g:tabwins_max_h_size, 'var_name' : 'g:tabwins_max_h_size' })
+    return 0
+  endif
+  if !Is_positive_int({'value' : g:tabwins_max_v_size, 'var_name' : 'g:tabwins_max_v_size' })
+    return 0
+  endif
 
-   if !Is_positive_int({'value' : g:tabwins_max_h_size, 'var_name' : 'g:tabwins_max_h_size' })
-     return 0
-   endif
-   if !Is_positive_int({'value' : g:tabwins_max_v_size, 'var_name' : 'g:tabwins_max_v_size' })
-     return 0
-   endif
-
-   return 1
+  return 1
 endfunction
 " --------------------------------------------------------------- 
 function! Build_cmds_for_symmetrical_tabs(args_hash)
@@ -481,13 +402,11 @@ function! Build_cmds_for_symmetrical_tabs(args_hash)
     let  l:secondary_dim_max = g:tabwins_max_v_size
 
   else
-    echohl ERROR
-    echo 
+    return 0
+    call Report_error({ 'message' :
     \ "ERROR: Build_cmds_for_symmetrical_tabs() Unrecognized 'primary_dim' = " .
     \ l:args['primary_dim']
-    echohl None
-
-    return 0
+    \})
   endif
 
   "--- BUILD CMDS !
@@ -552,12 +471,16 @@ BuildCmdsForSymmetricalTabsH
 "(v)split then :edit, likely because the 2nd approach has to 
 "constantly rebalance windows filled w/ buffers?
 
+"For asymmetric windows, the approach here is to first build a
+"tab of symmetric windows, and then delete the unneeded windows,
+"resulting in the intended asymmetric windows.
+
 "NOTE-DOC-VIM-WINDOW-MGT: Since Vim numbers windows down then to the 
 "right, the highest number is always bottom right.  Each window closure
 "forces a renumbering of windows that have a higher number than the 
-"window that has just closed.  So, below window close order goes
-"from higher window number to lower window number, so that closing
-"does not change the order of other windows. Which means
+"window that has just closed.  So, window close orders go
+"from higher window number to lower window number, so that closing a
+"window does not change the order of remaining windows. Which means
 "that the 2nd and later closes in each func below can rely on the
 "initial window nums that resulted from calls to Create_tab().
 
@@ -567,7 +490,10 @@ BuildCmdsForSymmetricalTabsH
 "to identify 3 vertical cols that going Left=>Right have 1, 2, & then 3
 "windows in successive columns.
 
-
+" NOTE-DOC-IMPORTANT: New asymmetric commands must call
+" Close_windows() with window_numbers in descending 
+" order !!! See comments in that func.
+"
 " --------------------------------------------------------------- 
 " Vertical Asymmetric
 " --------------------------------------------------------------- 
@@ -577,10 +503,6 @@ BuildCmdsForSymmetricalTabsH
 " following inventory of asymmetric command builders can be 
 " supplemented by the users as-needed.
 "
-" IMPORTANT: New asymmetric commands must call
-" Close_windows() with window_numbers in descending 
-" order !!! See comments in that func. See above notes about
-" order of vim window numbering.
 
 function! Create_tab_v31()
   call    Create_tab ('V', 2, 3)
@@ -814,6 +736,15 @@ function! Create_tab_v14()
 endfunction
 command! V14 :call Create_tab_v14()
 
+function! Create_tab_v1511()
+  call    Create_tab ('V', 4, 5)
+  call    Close_windows ({
+  \ 'window_numbers' : [20,19,18,17, 15,14,13,12,  5,4,3,2 ]
+  \})
+endfunction
+command! V1511 :call Create_tab_v1511()
+
+command! V14 :call Create_tab_v14()
 function! Create_tab_v121()
   call    Create_tab ('V', 3, 2)
   call    Close_windows ({
@@ -1091,59 +1022,43 @@ command! H113 :call Create_tab_h113()
 " ===============================================================
 
 " ---------------------------------------------------------------
-function! Tabwins_filled_tab_demo1()
+function! Open_tab_unix_filesystem_1()
 " ---------------------------------------------------------------
-  :V2
-  "VERTICAL SYMMETRIC TAB.  2 Vertical windows.
-
-  "Fill_tab() fills windows in the order of elements
-  "in 'window_fill_specs' You want to spec something for each
-  "of the windows created by :V2 above.
-  "You can spec commands, filepaths, or dirpaths.
-
-  call Fill_tab({
-  \ 'line_number_at_window_top' : 1,
-  \ 'window_fill_specs' : [
-  \   'Explore ~/',
-  \
-  \   '/usr/bin'
-  \ ]
-  \})
-endfunction
-command! TWftd1 :call Tabwins_filled_tab_demo1()
-" ---------------------------------------------------------------
-function! Tabwins_filled_tab_demo2()
-" ---------------------------------------------------------------
-  :H2
-  "HORIZONTAL SYMMETRIC TAB.  2 Horizontal windows.
+  :V212
 
   "Fill_tab() fills windows in the order of elements
   "in 'window_fill_specs' You want to spec something for each
   "of the windows created by :H2 above.
   "You can spec commands, filepaths, or dirpaths.
 
+  let l:home_parent_dirpath = substitute(finddir($HOME), '\/\w\+$', '', 'g')
+
   call Fill_tab({
   \ 'line_number_at_window_top' : 1,
+  \ 'ending_window_number'      : 5,
   \ 'window_fill_specs' : [
-  \   'Explore ~/',
+  \   '/bin',
+  \   '/opt/local/bin',
   \
-  \   '/usr/bin'
+  \   '/usr/bin',
+  \
+  \   'Explore' . l:home_parent_dirpath,
+  \   'Explore ~/'
   \ ]
   \})
+"                                    !perl -e '$h=$ENV{HOME}; $parent=$h; $parent =~ s|/\w+$||; print $parent;'
+" let g:home_parent_dirpath = system("perl -e '$h=$ENV{HOME}; $parent=$h; $parent =~ s|/\w+$||; print $parent;'")
 endfunction
-command! TWftd2 :call Tabwins_filled_tab_demo2()
+command! Otuf1 :call Open_tab_unix_filesystem_1()
 " ---------------------------------------------------------------
-function! Tabwins_filled_tab_demo3()
+function! Open_tab_home_dir()
 " ---------------------------------------------------------------
+  "1ST, Create the windowed-tab
   :V1321
   "VERTICAL ASYMMETRIC TAB.  4 cols, from left to right with
-  "1, 3, 2, and then 1 window in successive cols.
+  "1, 3, 2, and then 1 window successively.
 
-  "Fill_tab() fills windows in the order of elements
-  "in 'window_fill_specs' You want to spec something for each
-  "of the windows created by :V1321 above.
-  "You can spec commands, filepaths, or dirpaths.
-
+  "2ND, Fill buffers in the tab
   call Fill_tab({
   \ 'line_number_at_window_top' : 1,
   \ 'window_fill_specs' : [
@@ -1156,11 +1071,97 @@ function! Tabwins_filled_tab_demo3()
   \   '~/.perldb',
   \   '~/.vimrc',
   \
-  \   '/usr/bin'
+  \   '~/.vim'
+  \ ]
+  \})
+  "Fill_tab() fills windows in the order of elements
+  "in 'window_fill_specs' You want to spec something for each
+  "of the windows created by :V1321 above,
+  "either commands, filepaths, or dirpaths.
+
+  "3d, optional, apply Vim resize and/or other commands to the windows/buffers.
+endfunction
+command! Othd :call Open_tab_home_dir()
+" ---------------------------------------------------------------
+function!             Open_tab_vim_help_quickref_and_index()
+" ---------------------------------------------------------------
+  :V2
+
+  let l:vim_doc_dirpath = $VIMRUNTIME . '/doc'
+  call Fill_tab({
+  \ 'window_fill_specs' : [
+  \   l:vim_doc_dirpath . '/quickref.txt',
+  \   l:vim_doc_dirpath . '/index.txt',
   \ ]
   \})
 endfunction
-command! TWftd3 :call Tabwins_filled_tab_demo3()
+command! Otvhqi :call Open_tab_vim_help_quickref_and_index()
+" ---------------------------------------------------------------
+function!             Open_tab_vim_help_tocs_args_and_opts()
+" ---------------------------------------------------------------
+  :V4
+  let l:vim_doc_dirpath = $VIMRUNTIME . '/doc'
+  call Fill_tab({
+  \ 'window_fill_specs' : [
+  \   l:vim_doc_dirpath . '/usr_toc.txt',
+  \   l:vim_doc_dirpath . '/help.txt',
+  \   l:vim_doc_dirpath . '/starting.txt',
+  \   l:vim_doc_dirpath . '/options.txt',
+  \ ]
+  \})
+endfunction
+command! Otvhtao :call Open_tab_vim_help_tocs_args_and_opts()
+" ---------------------------------------------------------------
+function!           Open_vim_help_tabs()
+" ---------------------------------------------------------------
+  call Open_tab_vim_help_quickref_and_index()
+  call Open_tab_vim_help_tocs_args_and_opts()
+endfunction
+command! Otvh :call Open_vim_help_tabs()
+" ---------------------------------------------------------------
+function!             Open_tab_vim_dirs()
+" ---------------------------------------------------------------
+  :V323
+  let l:vim_doc_dirpath = $VIMRUNTIME . '/doc'
+  call Fill_tab({
+  \ 'window_fill_specs' : [
+  \ 'ending_window_number' : 2,
+  \   $VIM,
+  \   $VIMRUNTIME,
+  \   $VIMRUNTIME . '/doc',
+  \
+  \   $VIMRUNTIME . '/autoload',
+  \   $VIMRUNTIME . '/autoload/README.txt',
+  \
+  \   $VIMRUNTIME . '/tools',
+  \   $VIMRUNTIME . '/plugin',
+  \   $VIMRUNTIME . '/macros',
+  \ ]
+  \})
+endfunction
+command! Otvd :call Open_tab_vim_dirs()
+" ---------------------------------------------------------------
+function!             Open_tab_perl5_lib()
+" ---------------------------------------------------------------
+"  NOTE-DOC: Current shell MUST have set $PERL5LIB.
+  :V1511
+  call Fill_tab({
+  \ 'window_fill_specs' : [
+  \   $PERL5LIB,
+  \
+  \   $PERL5LIB . '/Moose',
+  \   $PERL5LIB . '/Moo',
+  \   $PERL5LIB . '/Net',
+  \   $PERL5LIB . '/IO',
+  \   $PERL5LIB . '/Statistics',
+  \
+  \   $PERL5LIB . '/Data/Dumper.pm',
+  \
+  \   $PERL5LIB . '/Getopt/Long.pm',
+  \ ]
+  \})
+endfunction
+command! Otp5l :call Open_tab_perl5_lib()
 " ---------------------------------------------------------------
 function! Tabwins_menu_build()
 " ---------------------------------------------------------------
@@ -1205,11 +1206,20 @@ function! Tabwins_menu_build()
   amenu Tabwins.-Sep150-                   <Nop>
 
   "--- Populated
-  amenu Tabwins.Populated\ Tabs.1          :silent! TWftd1<CR>
-  amenu Tabwins.Populated\ Tabs.2          :silent! TWftd2<CR>
-  amenu Tabwins.Populated\ Tabs.3          :silent! TWftd3<CR>
+  amenu Tabwins.Populated\ Tabs.1\ unix_filesystem_1                                     :silent! call Open_tab_unix_filesystem_1()<CR>
+  amenu Tabwins.Populated\ Tabs.2\ perl5_lib\ (Assumes\ $PERL5LIB\ defined)              :silent! call Open_tab_perl5_lib()<CR>
+  amenu Tabwins.Populated\ Tabs.-Sep100-                                               <Nop>
+
+  amenu Tabwins.Populated\ Tabs.3\ vim_help_quickref_and_index                           :silent! call Open_tab_vim_help_quickref_and_index()<CR>
+  amenu Tabwins.Populated\ Tabs.4\ vim_help_tocs_args_and_opts                           :silent! call Open_tab_vim_help_tocs_args_and_opts()<CR>
+  amenu Tabwins.Populated\ Tabs.5\ BOTH\ vim\ help\ tabs                                 :silent! call Open_vim_help_tabs()<CR>
+  amenu Tabwins.Populated\ Tabs.-Sep200-                                               <Nop>
+
+  amenu Tabwins.Populated\ Tabs.6\ vim_dirs\ \ (Assumes\ $VIM\ &&\ $VIMRUNTIME\ defined) :silent! call Open_tab_vim_dirs()<CR>
+  amenu Tabwins.Populated\ Tabs.-Sep300-                                               <Nop>
+
+  amenu Tabwins.Populated\ Tabs.7\ home_dir\ (Assumes\ several\ ~/\ dot\ files)          :silent! call Open_tab_home_dir()<CR>
 endfunction
-" ---------------------------------------------------------------
 " ---------------------------------------------------------------
 if g:load_tabwins_menu_is_wanted =~ '^Y\c'
   call Tabwins_menu_build()
