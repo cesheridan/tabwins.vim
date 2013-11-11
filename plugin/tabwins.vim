@@ -26,6 +26,8 @@
 "                  PURPOSE.
 "                  See the GNU General Public License version 2 for more details.
 "  Documentation:  See tabwins.txt
+"                  OR
+"                  http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html
 "###############################################################################
 
 let g:tabwins_version = 1.7.0
@@ -61,8 +63,13 @@ endif
 
 " Configs for netrw display.
 let g:tabwins_netrw_liststyle_default   = 1
-let g:tabwins_netrw_line_number_default = 1
+
 let g:tabwins_netrw_line_number_dirpath = 3
+"so that top line of netrw window is the path, replacing 2 lines
+"of netwr banner overhead above with file listings.
+
+let g:tabwins_netrw_line_number_default = g:tabwins_netrw_line_number_dirpath
+
 " --------------------------------------------------------------- 
 function! Report_error(args_hash)
 " --------------------------------------------------------------- 
@@ -173,7 +180,7 @@ function! Explore_file_system_element(args_hash)
 \   'explore_cmd_name'          : 'Explore',
 \   'netrw_liststyle'           : g:tabwins_netrw_liststyle_default,
 \   'file_system_element_names' : '',
-\   'line_number_at_window_top' : g:tabwins_netrw_line_number_default ,
+\   'line_number_at_window_top' : g:tabwins_netrw_line_number_default,
 \   },
 \   deepcopy(a:args_hash,1)
 \ )
@@ -246,7 +253,7 @@ function! Fill_tab(args_hash)
 \   'explore_cmd_name'          : 'Explore',
 \   'window_fill_specs'         : [],
 \   'netrw_liststyle'           : g:tabwins_netrw_liststyle_default,
-\   'line_number_at_window_top' : g:tabwins_netrw_line_number_dirpath ,
+\   'line_number_at_window_top' : g:tabwins_netrw_line_number_default,
 \   'first_window_number'       : 1,
 \   'ending_window_number'      : 1,
 \   },
@@ -586,6 +593,16 @@ function! Create_tab_v23()
 endfunction
 command! V23 :call Create_tab_v23()
 
+function! Create_tab_v234()
+  call    Create_tab ('V', 3, 4)
+  call    Close_windows ({
+  \ 'window_numbers' : [8, 4,3]
+  \})
+endfunction
+command! V234 :call Create_tab_v234()
+
+
+command! V23 :call Create_tab_v23()
 function! Create_tab_v211()
   call    Create_tab ('V', 3, 2)
 
@@ -1024,26 +1041,27 @@ command! H113 :call Create_tab_h113()
 " ---------------------------------------------------------------
 function! Open_tab_unix_filesystem_1()
 " ---------------------------------------------------------------
-  :V212
+  :V234
 
   "Fill_tab() fills windows in the order of elements
   "in 'window_fill_specs' You want to spec something for each
   "of the windows created by :H2 above.
   "You can spec commands, filepaths, or dirpaths.
 
-  let l:home_parent_dirpath = substitute(finddir($HOME), '\/\w\+$', '', 'g')
-
   call Fill_tab({
-  \ 'line_number_at_window_top' : 1,
-  \ 'ending_window_number'      : 5,
+  \ 'ending_window_number'      : 3,
   \ 'window_fill_specs' : [
+  \   '/',
+  \   '/dev',
+  \
   \   '/bin',
+  \   '/usr/bin',
   \   '/opt/local/bin',
   \
-  \   '/usr/bin',
-  \
-  \   'Explore' . l:home_parent_dirpath,
-  \   'Explore ~/'
+  \   '/opt/X11',
+  \   '/opt/X11/bin',
+  \   '/opt/X11/lib',
+  \   '/opt/X11/share',
   \ ]
   \})
 "                                    !perl -e '$h=$ENV{HOME}; $parent=$h; $parent =~ s|/\w+$||; print $parent;'
@@ -1054,32 +1072,41 @@ command! Otuf1 :call Open_tab_unix_filesystem_1()
 function! Open_tab_home_dir()
 " ---------------------------------------------------------------
   "1ST, Create the windowed-tab
-  :V1321
-  "VERTICAL ASYMMETRIC TAB.  4 cols, from left to right with
-  "1, 3, 2, and then 1 window successively.
+  :V232
+  "VERTICAL ASYMMETRIC TAB.  3 cols, from left to right with
+  "2, 3, and then 2 windows successively.
 
-  "2ND, Fill buffers in the tab
+  let l:home_parent_dirpath = substitute(finddir($HOME), '\/\w\+$', '', 'g')
+
+  "2ND, Fill buffers in the new tab
   call Fill_tab({
   \ 'line_number_at_window_top' : 1,
   \ 'window_fill_specs' : [
-  \   'Explore ~/',
+  \   $HOME,
+  \   'Explore' . l:home_parent_dirpath,
   \
   \   'edit! ~/.bashrc',
   \   '~/.gitignore',
   \   'enew!',
   \
-  \   '~/.perldb',
   \   '~/.vimrc',
-  \
-  \   '~/.vim'
+  \   '~/.vim',
   \ ]
   \})
   "Fill_tab() fills windows in the order of elements
   "in 'window_fill_specs' You want to spec something for each
   "of the windows created by :V1321 above,
   "either commands, filepaths, or dirpaths.
+  "Specs can include shell or vim vars, and if files or dirs
+  "the spec can include a vim command or use the default :edit or
+  ":Explore call in Fill_tab()
 
   "3d, optional, apply Vim resize and/or other commands to the windows/buffers.
+  2wincmd w
+  resize 30
+
+  1wincmd w
+  "And end back in window 1
 endfunction
 command! Othd :call Open_tab_home_dir()
 " ---------------------------------------------------------------
@@ -1160,6 +1187,16 @@ function!             Open_tab_perl5_lib()
   \   $PERL5LIB . '/Getopt/Long.pm',
   \ ]
   \})
+  1wincmd w
+  vertical resize 30
+
+  2wincmd w
+  vertical resize 80
+
+  1wincmd w
+  "intended vertical dims require 1-2 order
+  "above, but want active window at end to 
+  "be 1
 endfunction
 command! Otp5l :call Open_tab_perl5_lib()
 " ---------------------------------------------------------------
@@ -1206,19 +1243,19 @@ function! Tabwins_menu_build()
   amenu Tabwins.-Sep150-                   <Nop>
 
   "--- Populated
-  amenu Tabwins.Populated\ Tabs.1\ unix_filesystem_1                                     :silent! call Open_tab_unix_filesystem_1()<CR>
-  amenu Tabwins.Populated\ Tabs.2\ perl5_lib\ (Assumes\ $PERL5LIB\ defined)              :silent! call Open_tab_perl5_lib()<CR>
+  amenu Tabwins.Populated\ Tabs.1\ \ \ \ :V234\ with\ unix_filesystem_1                                     :silent! call Open_tab_unix_filesystem_1()<CR>
+  amenu Tabwins.Populated\ Tabs.2\ \ \ \ :V1511\ with\ perl5_lib\ (Assumes\ $PERL5LIB\ defined)             :silent! call Open_tab_perl5_lib()<CR>
   amenu Tabwins.Populated\ Tabs.-Sep100-                                               <Nop>
 
-  amenu Tabwins.Populated\ Tabs.3\ vim_help_quickref_and_index                           :silent! call Open_tab_vim_help_quickref_and_index()<CR>
-  amenu Tabwins.Populated\ Tabs.4\ vim_help_tocs_args_and_opts                           :silent! call Open_tab_vim_help_tocs_args_and_opts()<CR>
-  amenu Tabwins.Populated\ Tabs.5\ BOTH\ vim\ help\ tabs                                 :silent! call Open_vim_help_tabs()<CR>
+  amenu Tabwins.Populated\ Tabs.3\ \ \ \ :V2\ with\ vim_help_quickref_and_index                             :silent! call Open_tab_vim_help_quickref_and_index()<CR>
+  amenu Tabwins.Populated\ Tabs.4\ \ \ \ :V4\ with\ vim_help_tocs_args_and_opts                             :silent! call Open_tab_vim_help_tocs_args_and_opts()<CR>
+  amenu Tabwins.Populated\ Tabs.5\ \ \ \ BOTH\ vim\ help\ tabs                                              :silent! call Open_vim_help_tabs()<CR>
   amenu Tabwins.Populated\ Tabs.-Sep200-                                               <Nop>
 
-  amenu Tabwins.Populated\ Tabs.6\ vim_dirs\ \ (Assumes\ $VIM\ &&\ $VIMRUNTIME\ defined) :silent! call Open_tab_vim_dirs()<CR>
+  amenu Tabwins.Populated\ Tabs.6\ \ \ \ :V323\ with\ vim_dirs\ \ (Assumes\ $VIM\ &&\ $VIMRUNTIME\ defined) :silent! call Open_tab_vim_dirs()<CR>
   amenu Tabwins.Populated\ Tabs.-Sep300-                                               <Nop>
 
-  amenu Tabwins.Populated\ Tabs.7\ home_dir\ (Assumes\ several\ ~/\ dot\ files)          :silent! call Open_tab_home_dir()<CR>
+  amenu Tabwins.Populated\ Tabs.7\ \ \ \ :V232\ with\ home_dir\ (Assumes\ several\ ~/\ dot\ files)         :silent! call Open_tab_home_dir()<CR>
 endfunction
 " ---------------------------------------------------------------
 if g:load_tabwins_menu_is_wanted =~ '^Y\c'
