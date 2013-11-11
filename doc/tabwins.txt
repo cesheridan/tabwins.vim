@@ -35,6 +35,10 @@ CONTENTS                                            *TabwinsContents*
 Section 1: Introduction                         *TabwinsIntroduction*
 ====================================================================
 
+See the screen captures at ~
+  https://github.com/cesheridan/graphics/tree/master/tabwins ~
+
+
 tabwins.vim creates and enables definition of Vim commands that ~
 BUILD TABS with: ~
 
@@ -370,6 +374,7 @@ The github repository for this plugin is
 The top-level of the github repository includes an html version of 
 this Vim .txt file, viewable in rendered form via
    http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html    ~
+
 The .zip vim.org distribution of this plugin is taken from the 
 github repository.
 
