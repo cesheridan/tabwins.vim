@@ -1,5 +1,9 @@
 # Introduction
 
+See the screen captures at
+  https://github.com/cesheridan/graphics/tree/master/tabwins
+
+
 tabwins.vim creates and enables definition of Vim commands that 
 BUILD TABS with: 
 
