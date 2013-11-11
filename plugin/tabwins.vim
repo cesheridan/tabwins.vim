@@ -62,13 +62,17 @@ if !exists("g:tabwins_menu_number")
 endif
 
 " Configs for netrw display.
-let g:tabwins_netrw_liststyle_default   = 1
+if !exists("g:tabwins_netrw_liststyle_default")
+let         g:tabwins_netrw_liststyle_default   = 1
+endif
 
-let g:tabwins_netrw_line_number_dirpath = 3
+let         g:tabwins_netrw_line_number_dirpath = 3
 "so that top line of netrw window is the path, replacing 2 lines
 "of netwr banner overhead above with file listings.
 
-let g:tabwins_netrw_line_number_default = g:tabwins_netrw_line_number_dirpath
+if !exists("g:tabwins_netrw_line_number_default ")
+  let       g:tabwins_netrw_line_number_default = g:tabwins_netrw_line_number_dirpath
+endif
 
 " --------------------------------------------------------------- 
 function! Report_error(args_hash)
@@ -223,15 +227,9 @@ function! Explore_file_system_element(args_hash)
   " NOTE-DOC-VIM-WindowVar_vs_GlobalVar: MUST refer to the
   " w-scoped 'w:netrw_liststyle' in order to actually make
   " the window show the intended liststyle.  Merely setting
-  " g:netrw_liststyle will NOT determine how the following
-  " Explore cmd draws the netrw window !!
-  if has_key (              l:args,'netrw_liststyle')
-    let w:netrw_liststyle = l:args['netrw_liststyle']
-    " This is the default at init, but always set this here, 
-    "as some local buffers may have overriden it.
-  else
-    let w:netrw_liststyle = g:tabwins_netrw_liststyle_default
-  endif
+  " g:netrw_liststyle will NOT determine how the Explore 
+  " cmd draws the netrw window !!
+  let w:netrw_liststyle = l:args['netrw_liststyle']
 
  "execute l:args['explore_cmd_name'] . ' ' . l:args['file_system_element_names']
   "NOTE-DOC: a:args could be a var that needs interpretation,

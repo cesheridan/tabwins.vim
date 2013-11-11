@@ -276,54 +276,56 @@ functions in tabwins.vim to create populated window structures.
 
 Example in tabwins.vim:  ~
 
-    " ---------------------------------------------------------------
-    function! Open_tab_home_dir() ~
-    " ---------------------------------------------------------------
-      "1ST, Create the windowed-tab ~
-      :V1321 
-      "VERTICAL ASYMMETRIC TAB.  4 cols, from left to right with
-      "1, 3, 2, and then 1 window successively.
+      " ---------------------------------------------------------------
+      function! Open_tab_home_dir() ~
+      " ---------------------------------------------------------------
+        "1ST, Create the windowed-tab ~
+        :V232
+        "VERTICAL ASYMMETRIC TAB.  3 cols, from left to right with
+        "2, 3, and then 2 windows successively.
 
-      "2ND, Fill buffers in the tab ~
-      call Fill_tab({ 
-      \ 'line_number_at_window_top' : 1, ~
-      \ 'window_fill_specs' : [ ~
-      \   'Explore ~/',
-      \
-      \   'edit! ~/.bashrc',
-      \   '~/.gitignore',
-      \   'enew!',
-      \
-      \   '~/.perldb',
-      \   '~/.vimrc',
-      \
-      \   '~/.vim'
-      \ ]
-      \})
-      "Fill_tab() fills windows in the order of elements
-      "in 'window_fill_specs' You want to spec something for each
-      "of the windows created by :V1321 above,
-      "either commands, filepaths, or dirpaths.
+        let l:home_parent_dirpath = substitute(finddir($HOME), '\/\w\+$', '', 'g')
 
-      "3d, optional, apply Vim resize and/or other commands to the windows/buffers. ~
-    endfunction
+        "2ND, Fill buffers in the new tab ~
+        call Fill_tab({
+        \ 'line_number_at_window_top' : 1, ~
+        \ 'window_fill_specs' : [ ~
+        \   $HOME,
+        \   'Explore' . l:home_parent_dirpath,
+        \
+        \   'edit! ~/.bashrc',
+        \   '~/.gitignore',
+        \   'enew!',
+        \
+        \   '~/.vimrc',
+        \   '~/.vim',
+        \ ]
+        \})
+        "Fill_tab() fills windows in the order of elements
+        "in 'window_fill_specs' You want to spec something for each
+        "of the windows created by :V1321 above,
+        "either commands, filepaths, or dirpaths.
+        "Specs can include shell or vim vars, and if files or dirs
+        "the spec can include a vim command or use the default :edit or
+        ":Explore call in Fill_tab()
+
+        "3d, optional, apply Vim resize and/or other commands to the windows/buffers. ~
+        2wincmd w
+        resize 30
+
+        1wincmd w
+        "And end back in window 1
+      endfunction
 
 
 Every tab-builder calls Fill_tab(), with signature:  ~
 
-      " --------------------------------------------------------------- 
-      function! Fill_tab(args_hash) ~
-      " --------------------------------------------------------------- 
-        let l:args = extend({
-      \   'explore_cmd_name'          : 'Explore', ~
-      \   'window_fill_specs'         : [], ~
-      \   'netrw_liststyle'           : g:tabwins_netrw_liststyle_default, ~
-      \   'line_number_at_window_top' : g:tabwins_netrw_line_number_dirpath, ~
-      \   'first_window_number'       : 1, ~
-      \   'ending_window_number'      : 1, ~
-      \   },
-      \   deepcopy(a:args_hash,1)
-      \ )
+      'explore_cmd_name'          : 'Explore',
+      'window_fill_specs'         : [],
+      'netrw_liststyle'           : g:tabwins_netrw_liststyle_default,
+      'line_number_at_window_top' : g:tabwins_netrw_line_number_default,
+      'first_window_number'       : 1,
+      'ending_window_number'      : 1,
 
 See the Open_tab_*() functions for examples of overriding Fill_tab() ~
 defaults. ~
