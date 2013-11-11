@@ -17,7 +17,8 @@ BUILD TABS with:
      by files, dirs, or results of running :execute on 
      user-specified strings. 
 
-     e.g. :Vim_help_tab1 for an asymmetric V1312 tab of Vim help entries
+     e.g. :Open_tab_unix_filesystem_1 for an asymmetric V234 tab
+     populated with typical unix dirs.
 
 
 Loading tabwins.vim creates vim commands that have name formats
