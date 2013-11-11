@@ -27,7 +27,8 @@ CONTENTS                                            *TabwinsContents*
     6. Adding New Builders .. |TabwinsAddingNewBuilders|
     7. License .............. |TabwinsLicense|
     8. Bugs ................. |TabwinsBugs|
-    9. Credits .............. |TabwinsCredits|
+    9. Distributions ........ |TabwinsDistributions|
+   10. Credits .............. |TabwinsCredits|
 
 
 ====================================================================
@@ -358,8 +359,23 @@ Send bug reports and proposed fixes to
 
 
 ====================================================================
-Section 9: Credits                                   *TabwinsCredits*
+Section 9: Distributions                       *TabwinsDistributions*
+====================================================================
+
+The github repository for this plugin is
+   https://github.com/cesheridan/tabwins ~
+
+The top-level of the github repository includes an html version of 
+this Vim .txt file, viewable in rendered form via
+   http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html    ~
+The .zip vim.org distribution of this plugin is taken from the 
+github repository.
+
+
+====================================================================
+Section 10: Credits                                 *TabwinsCredits*
 ====================================================================
 
  Author:  Charles E. Sheridan 
 Contact:  opensource at att.net
+

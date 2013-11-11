@@ -1124,8 +1124,8 @@ function!             Open_tab_vim_dirs()
   :V323
   let l:vim_doc_dirpath = $VIMRUNTIME . '/doc'
   call Fill_tab({
-  \ 'window_fill_specs' : [
   \ 'ending_window_number' : 2,
+  \ 'window_fill_specs' : [
   \   $VIM,
   \   $VIMRUNTIME,
   \   $VIMRUNTIME . '/doc',
