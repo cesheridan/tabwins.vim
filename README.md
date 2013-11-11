@@ -49,7 +49,8 @@ subdirs to the same subdirs in ~/.vim.
 
 # Documentation
 
-See the remainder of tabwins.txt for more information.
+See doc/tabwins.txt for more information, or view this file via
+Vim :help.
 
 An html version of the .txt file is at
 http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html   
