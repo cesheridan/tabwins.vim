@@ -19,6 +19,7 @@ BUILD TABS with:
         :Tabwins         [ 12, 12 ]  OR
         :V2x12
 
+       => Use a list arg for :Tabwins* dimensions >9, as above. 
 
 
   2) ASYMMETRIC window structures of EMPTY BUFFERS 
@@ -31,7 +32,7 @@ BUILD TABS with:
        :TabwinsVertical  [ 18, 5, 26, 3 ]
        :Tabwins          [ 18, 5, 26, 3 ]
 
-       => Use a list arg for dimensions >9, as above. 
+       => Use a list arg for :Tabwins* dimensions >9, as above. 
 
 
   3) EITHER of the above structures, with BUFFERS POPULATED 
