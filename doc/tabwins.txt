@@ -46,11 +46,13 @@ BUILD TABS with: ~
 
      e.g. for 4 columns, each with 2 windows --
        :TabwinsVertical 2222  OR
+       :Tabwins         2222  OR
        :V4x2
 
 
      e.g. for 2 columns, each with 12 windows --
         :TabwinsVertical [ 12, 12 ]  OR
+        :Tabwins         [ 12, 12 ]  OR
         :V2x12
 
 
@@ -59,11 +61,13 @@ BUILD TABS with: ~
 
      e.g. for 4 columns, of 2, 1, 1, & 3 windows successively --
        :TabwinsVertical 2113 
+       :Tabwins         2113 
 
      e.g. for 4 columns, of 18, 5, 26, & 3 windows successively --
        :TabwinsVertical  [ 18, 5, 26, 3 ]
+       :Tabwins          [ 18, 5, 26, 3 ]
 
-       (sizes >9 must use list format)
+       => Use a list arg for dimensions >9, as above. ~
 
 
   3) EITHER of the above structures, with BUFFERS POPULATED ~
@@ -76,6 +80,9 @@ BUILD TABS with: ~
 Loading tabwins.vim creates Vim commands that have name formats
 as described in section |TabwinsUsage| of tabwins.txt.
 
+See section |TabwinsVandH| for definitions of Vertical and Horizontal 
+tabs, and of Primary and Secondary axes.
+
 Default settings load Vim menu Tabwins, for access to selected 
                       ~~~~~~~~~~~~~~~~~
 tab-builder commands.  Those and additional tab builders are 
@@ -83,19 +90,21 @@ available via Vim commands defined in tabwins.vim. The menu has
 only a small portion of the tab builders defined in tabwins.vim,
 and the developer is encouraged to add tab builder commands as needed.
 
-
 By enabling customized tab creation ~during~ Vim sessions, 
-tabwins.vim gives every developer immediate access to the Vim 
-window structures and content that the develoer most commonly 
-uses.  The develoer avoids having to reload backed up Vim 
-sessions,  avoids losing the current configuration, and 
-avoids the  loss of focus caused by these discontinuities.
+tabwins.vim gives each developer immediate access to the Vim 
+window structures and content that the developer uses the most.
+
+The developer 
+  avoids having to reload backed up Vim sessions,  
+  avoids losing the current configuration, and 
+  avoids loss of focus caused by these discontinuities.
 
 Easy access to the power of the Vim GUI. ~
 
+
+
 This plugin is structured for deployment in a pathogen-managed
 bundle directory.  
-
 
 See the rest of tabwins.txt for more information.
 
@@ -104,17 +113,26 @@ See the rest of tabwins.txt for more information.
 Section 2: Usage                                       *TabwinsUsage*
 ====================================================================
 
-  See |TabwinsVandH| for background about Vertical/Horizontal 
-  and primary/secondary axes.
-   
   Loading tabwins.vim creates Vim commands that have name formats
   as described below.
+
+  See |TabwinsVandH| for background about Vertical/Horizontal 
+  and primary/secondary axes.
+
+
+
+  DEFAULT AXIS :Tabwins  ~
+
+  :Tabwins is an alias for :TabwinsVertical, meaning
+  that the Vertical axis is the default primary axis.
+
 
 
   WINDOWS OF EMPTY BUFFERS, SYMMETRIC & ASYMMETRIC ~
 
   1) :V{N},  :H{N}, :TabwinsVertical {N}, :TabwinsVertical { [ I ] } ~
      e.g. :V3, :H4, :TabwinsVertical   4, :TabwinsVertical [ 12 ]
+                    :Tabwins           4, :Tabwins [ 12 ]
 
     One-dimensional tabs, w/ primary axis identifed by V or H, and 
     w/ N windows.  
@@ -127,12 +145,12 @@ Section 2: Usage                                       *TabwinsUsage*
        g:tabwins_max_v_size 
        g:tabwins_max_h_size 
 
-    For dimensions >9, the list form of :TabwinsVertical is required.
-
+    => for dimensions >9 with :Tabwins*(), use a list arg, as above. ~
 
 
   2) :V{I}x{J}  & :H{I}x{J}, :TabwinsVertical {J+}, :TabwinsVertical { [ J,J,... ] } ~
      e.g. :V3x2 &     :H4x3, :TabwinsVertical  222, :TabwinsVertical   [ 12, 12, 12 ] 
+                             :Tabwins          222, :Tabwins           [ 12, 12, 12 ] 
 
     Two-dimensional tabs, w/ primary axis identifed by 
     V or H. 
@@ -143,7 +161,7 @@ Section 2: Usage                                       *TabwinsUsage*
 
     The window structures in group 1) are all in
     this group, but here with names like V5x1 rather 
-    than the simpler V5.
+    than V5.
 
     Loading tabwins.vim creates :VIxJ & :HIxJ commands where 
     the set of {I}x{J} is the permutations of:
@@ -154,32 +172,22 @@ Section 2: Usage                                       *TabwinsUsage*
     specification, unconstrained by configuration vars, other than 
     window-per-tab limits of the Vim instance.
 
+    => for dimensions >9 with :Tabwins*(), use a list arg , as above. ~
+
 
 
   3) :TabwinsVertical/Horizontal {J+}, :TabwinsVertical/Horizontal  { [ I, J,... ] } ~
      e.g. :TabwinsVertical 273, :TabwinsVertical [ 12, 7, 16, 2 ] 
+          :Tabwins         273, :Tabwins         [ 12, 7, 16, 2 ] 
 
     Tabs w/ primary axis identifed as Vertical or Horizontal in the 
     command name.  Each integer specifies the number of windows 
     inside each successive vertical or horizontal space. 
     
-    E.g. V23 creates a tab w/ 2 vertical spaces, the left having 
-    2 horizontal windows, and the right having 3 horizontal windows. 
-    Whereas H14 means two rows, the top w/ 1 window and the 
-    lower row w/ 4 windows.
+    E.g. V273 creates a tab w/ 3 vertical spaces, the left having 
+    2 horizontal windows, the middle 7, and the right 3.
 
-    Loading tabwins.vim creates the V{J...} & H{J...} commands
-    defined by functions 
-      Create_tab_v*() and  
-      Create_tab_h*().
-
-    NOTE: tabwins.vim Release 1.8.0  ~
-    This release adds :TabwinsVertical and :TabwinsHorizontal, 
-    enabling arbitrary dimensions for BOTH symmetrical and 
-    asymmetrical window structures, within display limits of 
-    the Vim instance.  Consequently, the hard-coded asymmetrical 
-    commands of release 1.7.0, e.g :V113, will likely be removed 
-    in a future release.
+    => for dimensions >9 with :Tabwins*(), use a list arg , as above. ~
 
 
 
@@ -189,6 +197,7 @@ Section 2: Usage                                       *TabwinsUsage*
   horizontal priority tabs.  The developer specifies the content that 
   fills each window buffer.  See the examples in the Tabwins menu, 
   as well as documentation in |TabwinsAddingNewBuilders|.
+
 
 
   OPERATING SYSTEMS ~
@@ -353,9 +362,13 @@ Example in tabwins.vim:  ~
 
       NOTE: Since strings that specify commands are submitted to :execute,
       it should be possible to embed multiple commands in one of these
+                               ~~~~~~~~~~~~~~~~~~~~~~~~
       strings, e.g. the resize commands below could be included via the
       Vim \| command concatenator.  This is not yet validated -- the 
-      developer is encouraged to try this.
+      developer is encouraged to try this. Notes also that if resizes of
+      multiple windows are intended, the order of the resizes can affect
+      the result, so it may sometimes still be preferable to resize 
+      after calling Fill_tab()
 
 
 Every window-populating tab-builder calls Fill_tab(), with signature:  ~

@@ -30,7 +30,7 @@
 "                  http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html
 "###############################################################################
 
-let g:tabwins_version = 1.8.0
+let g:tabwins_version = 2.0.0
 
 " User decides whether to reload.  Overhead should be small,
 " so default is to permit reload, facilitating iterative update.
@@ -551,31 +551,37 @@ function! Tabwins_create_windowed_tab(args_hash)
   1wincmd w
 endfunction
 "echo l:win_num_to_close
-" --------------------------------------------------------------- 
-command! -nargs=1 TabwinsVertical   call Tabwins_create_windowed_tab({
-\ 'primary_dim' : 'V',
-\ 'dims'        : <args>
-\})
-" command! -nargs=1 TV :TabwinsVertical(<args>)
+
 " --------------------------------------------------------------- 
 command! -nargs=1 TabwinsHorizontal call Tabwins_create_windowed_tab({
 \ 'primary_dim' : 'H',
 \ 'dims'        : <args>
 \})
-" command! -nargs=1 TH :TabwinsHorizontal(<args>)
 " --------------------------------------------------------------- 
-
+command! -nargs=1 TabwinsVertical   call Tabwins_create_windowed_tab({
+\ 'primary_dim' : 'V',
+\ 'dims'        : <args>
+\})
 " --------------------------------------------------------------- 
-" Build commands for Symmetric tabs on plugin load
-" --------------------------------------------------------------- 
-BuildCmdsForSymmetricalTabsV
-BuildCmdsForSymmetricalTabsH
+command! -nargs=1 Tabwins           call Tabwins_create_windowed_tab({
+\ 'primary_dim' : 'V',
+\ 'dims'        : <args>
+\})
 " --------------------------------------------------------------- 
 
 
 " ===============================================================
 " --- ASYMMETRIC TABS
 " ===============================================================
+"
+" NOTE: tabwins.vim v1.8.0 adds :TabwinsVertical and :TabwinsHorizontal,
+" and these commands obviate the need to create a function for each
+" asymmetrical tab.  So tabwins v2.0.0 removes all but the below
+" asymmetric tab builder functions, which are kept as examples of
+" an earlier, less dynamic design approach. AND commented out.
+"
+" The notes below are still relevant, and so are kept, and will
+" eventually be moved to other parts of tabwins.vim.
 
 " NOTE-DOC-VIM: The approach of creating a grid of windows and 
 " then filling them w/ buffers via :edit seems to be more PER-
@@ -602,542 +608,33 @@ BuildCmdsForSymmetricalTabsH
 " for 3 vertical cols that going Left=>Right have 1, 2, & then 3
 " windows in successive columns.
 
-" NOTE-DOC-IMPORTANT: New asymmetric commands must call
-" Close_windows() with window_numbers in descending 
-" order !!! See comments in that func.
 "
-" --------------------------------------------------------------- 
-" Vertical Asymmetric
-" --------------------------------------------------------------- 
+" --- Vertical Asymmetric
 
 " NOTE-DOC: Creation of commands for asymmetric tabs is not as readily 
 " automated as command creation for symmetric tabs. SO, the 
 " following inventory of asymmetric command builders can be 
 " supplemented by the users as-needed.
-"
 
-function! Create_tab_v31()
-  call    Create_tab ('V', 2, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [6,5]
-  \})
-endfunction
-command! V31 :call Create_tab_v31()
-
-function! Create_tab_v32()
-  call    Create_tab ('V', 2, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [6]
-  \})
-endfunction
-command! V32 :call Create_tab_v32()
-
-function! Create_tab_v41()
-  call    Create_tab ('V', 2, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [8,7,6]
-  \})
-endfunction
-command! V41 :call Create_tab_v41()
-
-
-function! Create_tab_v42()
-  call    Create_tab ('V', 2, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [8,7]
-  \})
-endfunction
-command! V42 :call Create_tab_v42()
-
-function! Create_tab_v123()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [5,3,2]
-  \})
-endfunction
-command! V123 :call Create_tab_v132()
-
-
-function! Create_tab_v113()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [6,5,3,2]
-  \})
-endfunction
-command! V113 :call Create_tab_v113()
-
-function! Create_tab_v142()
-  call    Create_tab ('V', 3, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [12,11,4,3,2]
-  \})
-endfunction
-command! V142 :call Create_tab_v142()
-
-function! Create_tab_v143()
-  call    Create_tab ('V', 3, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [12,4,3,2]
-  \})
-endfunction
-command! V143 :call Create_tab_v143()
-
-function! Create_tab_v144()
-  call    Create_tab ('V', 3, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [3,2,1]
-  \})
-endfunction
-command! V144 :call Create_tab_v144()
-
-function! Create_tab_v23()
-  call    Create_tab ('V', 2, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [3]
-  \})
-endfunction
-command! V23 :call Create_tab_v23()
-
-function! Create_tab_v234()
-  call    Create_tab ('V', 3, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [8, 4,3]
-  \})
-endfunction
-command! V234 :call Create_tab_v234()
-
-
-command! V23 :call Create_tab_v23()
-function! Create_tab_v211()
-  call    Create_tab ('V', 3, 2)
-
-  "Close the bottom windows of cols 2 & 3.
-  call    Close_windows ({
-  \ 'window_numbers' : [6,4]
-  \})
-endfunction
-command! V211 :call Create_tab_v211()
-
-function! Create_tab_v212()
-  call    Create_tab ('V', 3, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [4]
-  \})
-endfunction
-command! V212 :call Create_tab_v212()
-
-function! Create_tab_v213()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [6,5,3]
-  \})
-endfunction
-command! V213 :call Create_tab_v213()
-
-function! Create_tab_v214()
-  call    Create_tab ('V', 3, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [8,7,6,4,3]
-  \})
-endfunction
-command! V214 :call Create_tab_v214()
-
-function! Create_tab_v223()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [6,3]
-  \})
-endfunction
-command! V223 :call Create_tab_v223()
-
-function! Create_tab_v224()
-  call    Create_tab ('V', 3, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [8,7,4,3]
-  \})
-endfunction
-command! V224 :call Create_tab_v224()
-
-function! Create_tab_v232()
-  call    Create_tab ('V', 3, 3)
-
-  "Close the botto windows of cols 1 & 3.
-  call    Close_windows ({
-  \ 'window_numbers' : [9,3]
-  \})
-endfunction
-command! V232 :call Create_tab_v232()
-
-function! Create_tab_v233()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [3]
-  \})
-endfunction
-command! V233 :call Create_tab_v233()
-
-function! Create_tab_v242()
-  call    Create_tab ('V', 3, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [12,11,4,3]
-  \})
-endfunction
-command! V242 :call Create_tab_v242()
-
-function! Create_tab_v322()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [9,6]
-  \})
-  "Close the bottom windows of cols 2 & 3.
-endfunction
-command! V322 :call Create_tab_v322()
-
-function! Create_tab_v21()
-  call    Create_tab ('V', 2, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [4]
-  \})
-endfunction
-command! V21 :call Create_tab_v21()
-
-function! Create_tab_v112()
-  call    Create_tab ('V', 3, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [4,2]
-  \})
-endfunction
-command! V112 :call Create_tab_v112()
-
-function! Create_tab_v122()
-  call    Create_tab ('V', 3, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [2]
-  \})
-endfunction
-command! V122 :call Create_tab_v122()
-
-
-function! Create_tab_v13()
-  call    Create_tab ('V', 2, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [3,2]
-  \})
-endfunction
-command! V13 :call Create_tab_v13()
-
-function! Create_tab_v132()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [9,3,2]
-  \})
-endfunction
-command! V132 :call Create_tab_v132()
-
-function! Create_tab_v1321()
-  call    Create_tab ('V', 4, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [12,11,9,3,2]
-  \})
-endfunction
-command! V1321 :call Create_tab_v1321()
-
-function! Create_tab_v134()
-  call    Create_tab ('V', 3, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [8,4,3,2]
-  \})
-endfunction
-command! V134 :call Create_tab_v134()
-
-function! Create_tab_v14()
-  call    Create_tab ('V', 2, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [4,3,2]
-  \})
-endfunction
-command! V14 :call Create_tab_v14()
-
-function! Create_tab_v1511()
-  call    Create_tab ('V', 4, 5)
-  call    Close_windows ({
-  \ 'window_numbers' : [20,19,18,17, 15,14,13,12,  5,4,3,2 ]
-  \})
-endfunction
-command! V1511 :call Create_tab_v1511()
-
-command! V14 :call Create_tab_v14()
-function! Create_tab_v121()
-  call    Create_tab ('V', 3, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [6,2]
-  \})
-endfunction
-command! V121 :call Create_tab_v121()
-
-function! Create_tab_v113()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [6,5,3,2]
-  \})
-endfunction
-command! V113 :call Create_tab_v113()
-
-function! Create_tab_v1112()
-  call    Create_tab ('V', 4, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [6,4,2]
-  \})
-endfunction
-command! V1112 :call Create_tab_v1112()
-
-function! Create_tab_v1122()
-  call    Create_tab ('V', 4, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [4,2]
-  \})
-endfunction
-command! V1122 :call Create_tab_v1122()
-
-function! Create_tab_v1123()
-  call    Create_tab ('V', 4, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [9,  6,5,  3,2]
-  \})
-endfunction
-command! V1123 :call Create_tab_v1123()
-
-function! Create_tab_v311()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [9,8,6,5]
-  \})
-endfunction
-command! V311 :call Create_tab_v311()
-
-
-function! Create_tab_v313()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [6,5]
-  \})
-endfunction
-command! V313 :call Create_tab_v313()
-
-function! Create_tab_v323()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [5]
-  \})
-endfunction
-command! V323 :call Create_tab_v323()
-
-function! Create_tab_v331()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [9,8]
-  \})
-endfunction
-command! V331 :call Create_tab_v331()
-
-function! Create_tab_v3111()
-  call    Create_tab ('V', 4, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [12,11, 9,8, 6,5]
-  \})
-endfunction
-command! V3111 :call Create_tab_v3111()
-
-function! Create_tab_v332()
-  call    Create_tab ('V', 3, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [9]
-  \})
-endfunction
-command! V332 :call Create_tab_v332()
-
-function! Create_tab_v413()
-  call    Create_tab ('V', 3, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [12,8,7,6]
-  \})
-endfunction
-command! V413 :call Create_tab_v413()
-
-function! Create_tab_v433()
-  call    Create_tab ('V', 3, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [12,8]
-  \})
-endfunction
-command! V433 :call Create_tab_v433()
-
-function! Create_tab_v443()
-  call    Create_tab ('V', 3, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [12]
-  \})
-endfunction
-command! V443 :call Create_tab_v443()
-
-
-function! Create_tab_v511()
-  call    Create_tab ('V', 3, 5)
-  call    Close_windows ({
-  \ 'window_numbers' : [15,14,13,12,10,9,8,7]
-  \})
-endfunction
-command! V511 :call Create_tab_v511()
-
-
-function! Create_tab_v624()
-  call    Create_tab ('V', 3, 6)
-  call    Close_windows ({
-  \ 'window_numbers' : [18,17,12,11,10,9]
-  \})
-endfunction
-command! V624 :call Create_tab_v624()
-
-function! Create_tab_v12()
-  call    Create_tab ('V', 2, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [2]
-  \})
-endfunction
-command! V12 :call Create_tab_v12()
-
-
-function! Create_tab_v1121()
-  call    Create_tab ('V', 4, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [8,4,2]
-  \})
-endfunction
-command! V1121 :call Create_tab_v1121()
-
-function! Create_tab_v1122()
-  call    Create_tab ('V', 4, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [4,2]
-  \})
-endfunction
-command! V1122 :call Create_tab_v1122()
-
-function! Create_tab_v2112()
-  call    Create_tab ('V', 4, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [6, 4]
-  \})
-endfunction
-command! V2112 :call Create_tab_v2112()
-
-function! Create_tab_v2113()
-  call    Create_tab ('V', 4, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [12,9,8,6,5,3]
-  \})
-endfunction
-command! V2113 :call Create_tab_v2113()
-
-function! Create_tab_v2114()
-  call    Create_tab ('V', 4, 4)
-  call    Close_windows ({
-  \ 'window_numbers' : [12,11,10,8,7,6,4,3]
-  \})
-endfunction
-command! V2114 :call Create_tab_v2114()
-
-function! Create_tab_v76()
-  call    Create_tab ('V', 2, 7)
-  call    Close_windows ({
-  \ 'window_numbers' : [14]
-  \})
-endfunction
-command! V76 :call Create_tab_v76()
-
-function! Create_tab_v2111()
-  call    Create_tab ('V', 4, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [8,6,4]
-  \})
-endfunction
-command! V2111 :call Create_tab_v2111()
-
-function! Create_tab_v2211()
-  call    Create_tab ('V', 4, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [8,6]
-  \})
-endfunction
-command! V2211 :call Create_tab_v2211()
-
-function! Create_tab_v2212()
-  call    Create_tab ('V', 4, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [6]
-  \})
-endfunction
-command! V2212 :call Create_tab_v2212()
-
-function! Create_tab_v2121()
-  call    Create_tab ('V', 4, 2)
-  call    Close_windows ({
-  \ 'window_numbers' : [8,4]
-  \})
-endfunction
-command! V2121 :call Create_tab_v2121()
-
-function! Create_tab_v2123()
-  call    Create_tab ('V', 4, 3)
-  call    Close_windows ({
-  \ 'window_numbers' : [ 9,6,5,3 ]
-  \})
-endfunction
-command! V2123 :call Create_tab_v2123()
-
-function! Create_tab_v11131()
-  call    Create_tab ('V', 5, 1)
-
-  4wincmd 
-  vsplit
-  vsplit
-endfunction
-
-" --------------------------------------------------------------- 
-" Horizontal Asymmetric
-" --------------------------------------------------------------- 
-"  old-style window removal -- horizontal asyms are not used by
-"  the plugin author...
-
-function! Create_tab_h122()
-  call    Create_tab ('H', 3, 2)
-
-  "Horizontal Row #1
-  2wincmd w
-  close
-endfunction
-command! H122 :call Create_tab_h122()
-
-
-function! Create_tab_h113()
-  call    Create_tab ('H', 3, 3)
-
-  "Horizontal Row #2
-  6wincmd w
-  close
-
-  5wincmd w
-  close
-
-  "Horizontal Row #1
-  3wincmd w
-  close
-
-  2wincmd w
-  close
-endfunction
-command! H113 :call Create_tab_h113()
-
+" NOTE-DOC-IMPORTANT: New asymmetric commands must call
+" Close_windows() with window_numbers in descending 
+" order !!! See comments in that func.
+
+" function! Create_tab_v2123()
+"   call    Create_tab ('V', 4, 3)
+"   call    Close_windows ({
+"   \ 'window_numbers' : [ 9,6,5,3 ]
+"   \})
+" endfunction
+" command! V2123 :call Create_tab_v2123()
+" 
+" function! Create_tab_v11131()
+"   call    Create_tab ('V', 5, 1)
+" 
+"   4wincmd 
+"   vsplit
+"   vsplit
+" endfunction
 
 " ===============================================================
 " DEMOS
@@ -1146,7 +643,7 @@ command! H113 :call Create_tab_h113()
 " ---------------------------------------------------------------
 function! Open_tab_unix_filesystem_1()
 " ---------------------------------------------------------------
-  :V234
+  :Tabwins 234
 
   " Fill_tab() fills windows in the order of elements
   " in 'window_fill_specs' You want to spec something for each
@@ -1177,8 +674,7 @@ command! Otuf1 :call Open_tab_unix_filesystem_1()
 function! Open_tab_home_dir()
 " ---------------------------------------------------------------
   " 1ST, Create the windowed-tab
-  :V232
-  " VERTICAL ASYMMETRIC TAB.  3 cols, from left to right with
+  :Tabwins 232 " VERTICAL ASYMMETRIC TAB.  3 cols, from left to right with
   " 2, 3, and then 2 windows successively.
 
   let l:home_parent_dirpath = substitute(finddir($HOME), '\/\w\+$', '', 'g')
@@ -1253,7 +749,7 @@ command! Otvh :call Open_vim_help_tabs()
 " ---------------------------------------------------------------
 function!             Open_tab_vim_dirs()
 " ---------------------------------------------------------------
-  :V323
+  :Tabwins  323
   call Fill_tab({
   \ 'ending_window_number' : 2,
   \ 'window_fill_specs' : [
@@ -1275,7 +771,7 @@ command! Otvd :call Open_tab_vim_dirs()
 function!             Open_tab_perl5lib()
 " ---------------------------------------------------------------
 "  NOTE-DOC: Current shell MUST have set $PERL5LIB.
-  :V1511
+  :Tabwins 1511
   call Fill_tab({
   \ 'window_fill_specs' : [
   \   $PERL5LIB,
@@ -1330,37 +826,45 @@ function! Tabwins_menu_build()
   amenu Tabwins.-Sep130-                    <Nop>
 
   "--- Asym V
-  amenu Tabwins.Vertical\ Asymmetric.V12    :silent! V12<CR>
-  amenu Tabwins.Vertical\ Asymmetric.V13    :silent! V13<CR>
-  amenu Tabwins.Vertical\ Asymmetric.V214   :silent! V214<CR>
-  amenu Tabwins.Vertical\ Asymmetric.V2212  :silent! V2212<CR>
-  amenu Tabwins.Vertical\ Asymmetric.V23    :silent! V23<CR>
-  amenu Tabwins.Vertical\ Asymmetric.V3111  :silent! V3111<CR>
-  amenu Tabwins.Vertical\ Asymmetric.V332   :silent! V332<CR>
-  amenu Tabwins.Vertical\ Asymmetric.V413   :silent! V413<CR>
-  amenu Tabwins.Vertical\ Asymmetric.V443   :silent! V443<CR>
+  amenu Tabwins.:TabwinsVertical\ Asymmetric.12    :silent! TabwinsVertical 12<CR>
+  amenu Tabwins.:TabwinsVertical\ Asymmetric.13    :silent! TabwinsVertical 13<CR>
+  amenu Tabwins.:TabwinsVertical\ Asymmetric.214   :silent! TabwinsVertical 214<CR>
+  amenu Tabwins.:TabwinsVertical\ Asymmetric.2212  :silent! TabwinsVertical 2212<CR>
+  amenu Tabwins.:TabwinsVertical\ Asymmetric.23    :silent! TabwinsVertical 23<CR>
+  amenu Tabwins.:TabwinsVertical\ Asymmetric.3111  :silent! TabwinsVertical 3111<CR>
+  amenu Tabwins.:TabwinsVertical\ Asymmetric.332   :silent! TabwinsVertical 332<CR>
+  amenu Tabwins.:TabwinsVertical\ Asymmetric.413   :silent! TabwinsVertical 413<CR>
+  amenu Tabwins.:TabwinsVertical\ Asymmetric.443   :silent! TabwinsVertical 443<CR>
 
   "--- Asym H
-  amenu Tabwins.Horizontal\ Asymmetric.H113 :silent! H113<CR>
-  amenu Tabwins.Horizontal\ Asymmetric.H122 :silent! H122<CR>
+  amenu Tabwins.:TabwinsHorizontal\ Asymmetric.113 :silent! TabwinsHorizontal 113<CR>
+  amenu Tabwins.:TabwinsHorizontal\ Asymmetric.122 :silent! TabwinsHorizontal 122<CR>
   amenu Tabwins.-Sep150-                   <Nop>
 
   "--- Populated
-  amenu Tabwins.Populated\ Tabs.1\ \ \ \ :V234\ with\ unix_filesystem_1                                     :silent! call Open_tab_unix_filesystem_1()<CR>
-  amenu Tabwins.Populated\ Tabs.2\ \ \ \ :V1511\ with\ perl5_lib\ (Assumes\ $PERL5LIB\ defined)             :silent! call Open_tab_perl5lib()<CR>
+  amenu Tabwins.Populated\ Tabs.1\ \ \ \ :Tabwins\ 234\ with\ unix_filesystem_1                                     :silent! call Open_tab_unix_filesystem_1()<CR>
+  amenu Tabwins.Populated\ Tabs.2\ \ \ \ :Tabwins\ 1511\ with\ perl5_lib\ (Assumes\ $PERL5LIB\ defined)             :silent! call Open_tab_perl5lib()<CR>
   amenu Tabwins.Populated\ Tabs.-Sep100-                                               <Nop>
 
-  amenu Tabwins.Populated\ Tabs.3\ \ \ \ :V2\ with\ vim_help_quickref_and_index                             :silent! call Open_tab_vim_help_quickref_and_index()<CR>
-  amenu Tabwins.Populated\ Tabs.4\ \ \ \ :V4\ with\ vim_help_tocs_args_and_opts                             :silent! call Open_tab_vim_help_tocs_args_and_opts()<CR>
+  amenu Tabwins.Populated\ Tabs.3\ \ \ \ :Tabwins\ 2\ with\ vim_help_quickref_and_index                             :silent! call Open_tab_vim_help_quickref_and_index()<CR>
+  amenu Tabwins.Populated\ Tabs.4\ \ \ \ :Tabwins\ 4\ with\ vim_help_tocs_args_and_opts                             :silent! call Open_tab_vim_help_tocs_args_and_opts()<CR>
   amenu Tabwins.Populated\ Tabs.5\ \ \ \ BOTH\ vim\ help\ tabs                                              :silent! call Open_vim_help_tabs()<CR>
   amenu Tabwins.Populated\ Tabs.-Sep200-                                               <Nop>
 
-  amenu Tabwins.Populated\ Tabs.6\ \ \ \ :V323\ with\ vim_dirs\ \ (Assumes\ $VIM\ &&\ $VIMRUNTIME\ defined) :silent! call Open_tab_vim_dirs()<CR>
+  amenu Tabwins.Populated\ Tabs.6\ \ \ \ :Tabwins\ 323\ with\ vim_dirs\ \ (Assumes\ $VIM\ &&\ $VIMRUNTIME\ defined) :silent! call Open_tab_vim_dirs()<CR>
   amenu Tabwins.Populated\ Tabs.-Sep300-                                               <Nop>
 
-  amenu Tabwins.Populated\ Tabs.7\ \ \ \ :V232\ with\ home_dir\ (Assumes\ several\ ~/\ dot\ files)          :silent! call Open_tab_home_dir()<CR>
+  amenu Tabwins.Populated\ Tabs.7\ \ \ \ :Tabwins\ 232\ with\ home_dir\ (Assumes\ several\ ~/\ dot\ files)          :silent! call Open_tab_home_dir()<CR>
 endfunction
+
+" --------------------------------------------------------------- 
+" Build commands for Symmetric tabs on plugin load
+" --------------------------------------------------------------- 
+BuildCmdsForSymmetricalTabsV
+BuildCmdsForSymmetricalTabsH
+
 " ---------------------------------------------------------------
 if g:load_tabwins_menu_is_wanted =~ '^Y\c'
   call Tabwins_menu_build()
 endif
+" ---------------------------------------------------------------
