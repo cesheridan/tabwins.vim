@@ -1,6 +1,6 @@
 # Introduction
 
-See the screen captures at
+See the screen shots at
   https://github.com/cesheridan/graphics/tree/master/tabwins
 
 
@@ -9,12 +9,25 @@ BUILD TABS with:
 
   1) SYMMETRIC  window structures of EMPTY BUFFERS  
 
-     e.g. :V4x2 for 4 columns, each with 2 windows
+     e.g. for 4 columns, each with 2 windows --
+       :TabwinsVertical 2222  OR
+       :V4x2
+
+     e.g. for 2 columns, each with 12 windows --
+        :TabwinsVertical [ 12, 12 ]  OR
+        :V2x12
+
 
 
   2) ASYMMETRIC window structures of EMPTY BUFFERS 
 
-     e.g. :V2113 for 4 columns, of 2, 1, 1, & 3 windows respectively
+     e.g. for 4 columns, of 2, 1, 1, & 3 windows successively --
+       :TabwinsVertical 2113 
+
+     e.g. for 4 columns, of 18, 5, 26, & 3 windows successively --
+       :TabwinsVertical  [ 18, 5, 26, 3 ]
+
+       (sizes >9 must use list format)
 
 
   3) EITHER of the above structures, with BUFFERS POPULATED 
@@ -27,18 +40,20 @@ BUILD TABS with:
 Loading tabwins.vim creates vim commands that have name formats
 as described in the TabwinsUsage section of doc/tabwins.txt.
 
-Default settings load Vim menu Tabwins, for access to selected 
+Default settings load Vim menu Tabwins, for access to selected
 tab-builder commands.  Those and additional tab builders are 
-available via vim commands defined in tabwins.vim. The menu has 
+available via Vim commands defined in tabwins.vim. The menu has 
 only a small portion of the tab builders defined in tabwins.vim,
-and the user is encouraged to add tab builder commands as needed.
+and the developer is encouraged to add tab builder commands as needed.
 
-By enabling customized tab creation ~during~ sessions, tabwins.vim
-gives Vim users immediate access to the window structures and
-content that they most commonly use.  The Vim user is saved from
-having to reload backed up Vim sessions, and the consequent 
-loss of current configuration, and the loss of user focus that 
-follows.  
+
+By enabling customized tab creation ~during~ Vim sessions, 
+tabwins.vim gives every developer immediate access to the Vim 
+window structures and content that the developer most commonly 
+uses.  The developer avoids having to reload backed up Vim 
+sessions,  avoids losing the current configuration, and 
+avoids the  loss of focus caused by these discontinuities.
+
 
 Easy access to the power of the Vim GUI. 
 
@@ -58,20 +73,3 @@ Vim :help.
 
 An html version of the .txt file is at
 http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html   
-
-# Pending Release
-The next release includes new commands to build arbitrarily-dimensioned symmetric AND asymmetric tabs. 
-The code is working and release is pending deployment overhead. 
-
-Example invocation1
-    Build a tab of 4 vertical spaces, w/ 1, 3, 4, and 6 windows successively from left to right. 
-    
-    :Tabwins_vertical 1346               
-
-Example invocation2
-    Build a tab of 4 vertical spaces, w/ 18, 12, 1, and 4 windows successively from left to right.  
-    
-    :Tabwins_vertical [18, 12, 1, 4]   
-    
-    Parsing of the int in the previous example treats each digit as a separate dimension, so dimensions 
-    cannot be larger than 9 for integer args.  The list arg in this example gets around that limit. 
