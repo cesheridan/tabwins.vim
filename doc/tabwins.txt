@@ -1,4 +1,4 @@
-*tabwins.txt* Build commands for creating tabs of symmetric, asymmetric, & populated sets of windows.
+*tabwins.txt* Commands for creating tabs of symmetric and asymmetric windows, empty or populated.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,7 +35,7 @@ CONTENTS                                            *TabwinsContents*
 Section 1: Introduction                         *TabwinsIntroduction*
 ====================================================================
 
-See the screen captures at ~
+See the screen shots at ~
   https://github.com/cesheridan/graphics/tree/master/tabwins ~
 
 
@@ -44,45 +44,60 @@ BUILD TABS with: ~
 
   1) SYMMETRIC  window structures of EMPTY BUFFERS  ~
 
-     e.g. :V4x2 for 4 columns, each with 2 windows
+     e.g. for 4 columns, each with 2 windows --
+       :TabwinsVertical 2222  OR
+       :V4x2
+
+
+     e.g. for 2 columns, each with 12 windows --
+        :TabwinsVertical [ 12, 12 ]  OR
+        :V2x12
+
 
 
   2) ASYMMETRIC window structures of EMPTY BUFFERS ~
 
-     e.g. :V2113 for 4 columns, of 2, 1, 1, & 3 windows respectively
+     e.g. for 4 columns, of 2, 1, 1, & 3 windows successively --
+       :TabwinsVertical 2113 
+
+     e.g. for 4 columns, of 18, 5, 26, & 3 windows successively --
+       :TabwinsVertical  [ 18, 5, 26, 3 ]
+
+       (sizes >9 must use list format)
 
 
   3) EITHER of the above structures, with BUFFERS POPULATED ~
      by files, dirs, or results of running :execute on ~
-     user-specified strings. ~
+     developer-specified strings. ~
 
      e.g. :Open_tab_unix_filesystem_1 for an asymmetric V234 tab 
      populated with typical unix dirs.
 
-Loading tabwins.vim creates vim commands that have name formats
-as described in |TabwinsUsage|.
+Loading tabwins.vim creates Vim commands that have name formats
+as described in section |TabwinsUsage| of tabwins.txt.
 
 Default settings load Vim menu Tabwins, for access to selected 
                       ~~~~~~~~~~~~~~~~~
 tab-builder commands.  Those and additional tab builders are 
-available via vim commands defined in tabwins.vim. The menu has 
+available via Vim commands defined in tabwins.vim. The menu has 
 only a small portion of the tab builders defined in tabwins.vim,
-and the user is encouraged to add tab builder commands as needed.
+and the developer is encouraged to add tab builder commands as needed.
 
-By enabling customized tab creation ~during~ sessions, tabwins.vim
-gives Vim users immediate access to the window structures and
-content that they most commonly use.  The Vim user is saved from
-having to reload backed up Vim sessions, and the consequent 
-loss of current configuration, and the loss of user focus that 
-follows.  
+
+By enabling customized tab creation ~during~ Vim sessions, 
+tabwins.vim gives every developer immediate access to the Vim 
+window structures and content that the develoer most commonly 
+uses.  The develoer avoids having to reload backed up Vim 
+sessions,  avoids losing the current configuration, and 
+avoids the  loss of focus caused by these discontinuities.
 
 Easy access to the power of the Vim GUI. ~
 
-
 This plugin is structured for deployment in a pathogen-managed
-bundle directory.
+bundle directory.  
 
-See the remainder of tabwins.txt for more information.
+
+See the rest of tabwins.txt for more information.
 
 
 ====================================================================
@@ -92,14 +107,15 @@ Section 2: Usage                                       *TabwinsUsage*
   See |TabwinsVandH| for background about Vertical/Horizontal 
   and primary/secondary axes.
    
-  Loading tabwins.vim creates vim commands that have name formats
+  Loading tabwins.vim creates Vim commands that have name formats
   as described below.
 
 
   WINDOWS OF EMPTY BUFFERS, SYMMETRIC & ASYMMETRIC ~
 
-  1) :V{N} & :H{N}   -- e.g. :V3 & :H4 ~
-  
+  1) :V{N},  :H{N}, :TabwinsVertical {N}, :TabwinsVertical { [ I ] } ~
+     e.g. :V3, :H4, :TabwinsVertical   4, :TabwinsVertical [ 12 ]
+
     One-dimensional tabs, w/ primary axis identifed by V or H, and 
     w/ N windows.  
     
@@ -111,14 +127,17 @@ Section 2: Usage                                       *TabwinsUsage*
        g:tabwins_max_v_size 
        g:tabwins_max_h_size 
 
+    For dimensions >9, the list form of :TabwinsVertical is required.
 
 
-  2) :V{I}x{J} & :H{I}x{J}  -- e.g. :V3x2 & :H4x3 ~
+
+  2) :V{I}x{J}  & :H{I}x{J}, :TabwinsVertical {J+}, :TabwinsVertical { [ J,J,... ] } ~
+     e.g. :V3x2 &     :H4x3, :TabwinsVertical  222, :TabwinsVertical   [ 12, 12, 12 ] 
 
     Two-dimensional tabs, w/ primary axis identifed by 
     V or H. 
     
-    E.g. V3x2 means a tab of 3 vertical spaces, and inside
+    E.g. V3x2 creates a tab of 3 vertical spaces, and inside
     each vertical space, 2 horizontal windows. Whereas H4x3 
     means a tab of 4 rows, each w/ 3 windows.
 
@@ -131,15 +150,20 @@ Section 2: Usage                                       *TabwinsUsage*
        g:tabwins_max_v_size 
        g:tabwins_max_h_size 
 
+    The :TabwinsVertical/Horizontal form accepts arbitrary dimension 
+    specification, unconstrained by configuration vars, other than 
+    window-per-tab limits of the Vim instance.
 
 
-  3) :V{J...} & :H{J...}  --  e.g. :V1321 & :H122  ~
 
-    Tabs w/ primary axis identifed by V or H.  Each integer 
-    specifies the number of windows inside each successive vertical 
-    or horizontal space. 
+  3) :TabwinsVertical/Horizontal {J+}, :TabwinsVertical/Horizontal  { [ I, J,... ] } ~
+     e.g. :TabwinsVertical 273, :TabwinsVertical [ 12, 7, 16, 2 ] 
+
+    Tabs w/ primary axis identifed as Vertical or Horizontal in the 
+    command name.  Each integer specifies the number of windows 
+    inside each successive vertical or horizontal space. 
     
-    E.g. V23 means a tab w/ 2 vertical spaces, the left having 
+    E.g. V23 creates a tab w/ 2 vertical spaces, the left having 
     2 horizontal windows, and the right having 3 horizontal windows. 
     Whereas H14 means two rows, the top w/ 1 window and the 
     lower row w/ 4 windows.
@@ -149,13 +173,22 @@ Section 2: Usage                                       *TabwinsUsage*
       Create_tab_v*() and  
       Create_tab_h*().
 
+    NOTE: tabwins.vim Release 1.8.0  ~
+    This release adds :TabwinsVertical and :TabwinsHorizontal, 
+    enabling arbitrary dimensions for BOTH symmetrical and 
+    asymmetrical window structures, within display limits of 
+    the Vim instance.  Consequently, the hard-coded asymmetrical 
+    commands of release 1.7.0, e.g :V113, will likely be removed 
+    in a future release.
+
+
 
   POPULATED WINDOWS ~
 
-  These can be both Symmetric and Asymmetric, for both V and H priority 
-  tabs.  The user specifies the content that fills each window buffer.
-  See the examples in the Tabwins menu, as well as documentation in
-  |TabwinsAddingNewBuilders|.
+  These can be both symmetric and asymmetric, for both vertical and 
+  horizontal priority tabs.  The developer specifies the content that 
+  fills each window buffer.  See the examples in the Tabwins menu, 
+  as well as documentation in |TabwinsAddingNewBuilders|.
 
 
   OPERATING SYSTEMS ~
@@ -174,14 +207,14 @@ Section 3: Vertical & Horizontal                    *TabwinsVandH*
 Windows are built one axis at a time. The first axis built
 is the primary axis, and the other axis is the secondary axis.
        ~~~~~~~~~~~~                            ~~~~~~~~~~~~~~~
-If the window starts by building the vertical axis, then the
+If the tab starts by building the vertical axis, then the
 vertical axis is the primary axis, and the horizontal axis
 is the secondary axis. And vice-versa.
 
 What's the difference between Horizontal and Vertical Tabs ? ~
 
   Structurally, V2x3 is the same as H3x2.  The only difference
-  is how vim numbers the tabs, based on the axis that is the 
+  is how Vim numbers the tabs, based on the axis that is the 
   primary axis.  
   
   IF the primary axis is vertical, then numbering starts in 
@@ -193,7 +226,7 @@ What's the difference between Horizontal and Vertical Tabs ? ~
   and so on.
 
   Most of the asymmetric tab builders defined in the plugin 
-  use a Vertical primary axis.  The Vim user can define any 
+  use a vertical primary axis.  Developers can define any 
   mix of primary axis in their own tab builders -- See
   |TabwinsAddingNewBuilders|
 
@@ -201,21 +234,19 @@ What's the difference between Horizontal and Vertical Tabs ? ~
 Section 4: Tabwins Menu                                *TabwinsMenu*
 ====================================================================
 
-In the Tabwins menu as delivered with this plugin, the 
+In the Tabwins menu delivered with the plugin, the 
 extent that populated tabs fill their buffers is dependent
-on the shell vars available to the Vim session.  
+on the shell vars available to the Vim session, and files/dirs
+present in the local environment.
 
-The menu items document some of these vars.  
+The menu items reference some of these shell vars.  
 
-The tab of dot files will be populated to the extent that $HOME 
-holds the specified files.
-
-The user is encouraged to customize tab builders to match their
-usage.
+The developer is encouraged to customize tab builders to match 
+local usage.
 
 Update or replace func
   Tabwins_menu_build() ~
-in tabwins.vim to access any set of tab builders.
+in tabwins.vim to include any set of tab builders.
 
 
 ====================================================================
@@ -244,7 +275,7 @@ To change V/H max dimensions:
 
 
 ====================================================================
-Section 6: Adding New Builders      *TabwinsAddingNewBuilders*
+Section 6: Adding New Builders            *TabwinsAddingNewBuilders*
 ====================================================================
 
 1) ADDING SYMMETRIC TAB COMMANDS  (Empty Buffers) ~
@@ -267,8 +298,7 @@ Copy and update any of the
   Create_tab_h{J...}() ~
 functions.
 
-See the comments in the asymmetric command building code in tabwins.vim. 
-building code.
+See the comments in the asymmetric command building code.
 
 
 
@@ -295,7 +325,7 @@ Example in tabwins.vim:  ~
         \ 'line_number_at_window_top' : 1, ~
         \ 'window_fill_specs' : [ ~
         \   $HOME,
-        \   'Explore' . l:home_parent_dirpath,
+        \   'Explore ' . l:home_parent_dirpath,
         \
         \   'edit! ~/.bashrc',
         \   '~/.gitignore',
@@ -307,10 +337,10 @@ Example in tabwins.vim:  ~
         \})
         "Fill_tab() fills windows in the order of elements
         "in 'window_fill_specs' You want to spec something for each
-        "of the windows created by :V1321 above,
+        "of the windows created by :V232 above,
         "either commands, filepaths, or dirpaths.
-        "Specs can include shell or vim vars, and if files or dirs
-        "the spec can include a vim command or use the default :edit or
+        "Specs can include shell or Vim vars, and if files or dirs
+        "the spec can include a Vim command or use the default :edit or
         ":Explore call in Fill_tab()
 
         "3d, optional, apply Vim resize and/or other commands to the windows/buffers. ~
@@ -321,8 +351,14 @@ Example in tabwins.vim:  ~
         "And end back in window 1
       endfunction
 
+      NOTE: Since strings that specify commands are submitted to :execute,
+      it should be possible to embed multiple commands in one of these
+      strings, e.g. the resize commands below could be included via the
+      Vim \| command concatenator.  This is not yet validated -- the 
+      developer is encouraged to try this.
 
-Every tab-builder calls Fill_tab(), with signature:  ~
+
+Every window-populating tab-builder calls Fill_tab(), with signature:  ~
 
       'explore_cmd_name'          : 'Explore',
       'window_fill_specs'         : [],
@@ -375,7 +411,7 @@ The top-level of the github repository includes an html version of
 this Vim .txt file, viewable in rendered form via
    http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html    ~
 
-The .zip vim.org distribution of this plugin is taken from the 
+The .zip distribution at vim.org is taken from the 
 github repository.
 
 
