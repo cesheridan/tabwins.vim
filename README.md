@@ -42,7 +42,7 @@ BUILD TABS with:
      e.g. :Open_tab_unix_filesystem_1 for an asymmetric V234 tab populated with typical unix dirs.
 
 
-See section TabwinsVandH of doc/tabwins.txt for definitions of 
+See section 'Vertical & Horizontal' in doc/tabwins.txt for definitions of 
 Vertical and Horizontal tabs, and of Primary and Secondary axes.
 
 Default settings load Vim menu Tabwins, for access to selected 
