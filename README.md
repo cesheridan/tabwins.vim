@@ -42,17 +42,6 @@ follows.
 
 Easy access to the power of the Vim GUI. 
 
-# Pending Release: 
-The next release includes new commands to build arbitrarily-dimensioned symmetric AND asymmetric tabs. 
-The code is working and release is pending deployment overhead. 
-Example invocations: 
-     "Build a tab of 4 vertical spaces, w/ 1, 3, 4, and 6 windows successively from left to right. 
-    :Tabwins_vertical 1346               
-
-    "Build a tab of 4 vertical spaces, w/ 18, 12, 1, and 4 windows successively from left to right.   
-    :Tabwins_vertical [18, 12, 1, 4]   
-    => parsing of the int in the previous example treats each digit as a separate dimension, so dimensions 
-         cannot be larger than 9 for integer args.  The list arg in this example gets around that limit. 
 
 # Deployment
 
@@ -70,4 +59,19 @@ Vim :help.
 An html version of the .txt file is at
 http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html   
 
+# Pending Release
+The next release includes new commands to build arbitrarily-dimensioned symmetric AND asymmetric tabs. 
+The code is working and release is pending deployment overhead. 
 
+Example invocation1
+    Build a tab of 4 vertical spaces, w/ 1, 3, 4, and 6 windows successively from left to right. 
+    
+    :Tabwins_vertical 1346               
+
+Example invocation2
+    Build a tab of 4 vertical spaces, w/ 18, 12, 1, and 4 windows successively from left to right.  
+    
+    :Tabwins_vertical [18, 12, 1, 4]   
+    
+    Parsing of the int in the previous example treats each digit as a separate dimension, so dimensions 
+    cannot be larger than 9 for integer args.  The list arg in this example gets around that limit. 
