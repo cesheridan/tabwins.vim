@@ -70,10 +70,14 @@ let         g:tabwins_netrw_line_number_dirpath = 3
 " so that top line of netrw window is the path, replacing 2 lines
 " of netwr banner overhead above with file listings.
 
-if !exists("g:tabwins_netrw_line_number_default ")
+if !exists("g:tabwins_netrw_line_number_default")
   let       g:tabwins_netrw_line_number_default = g:tabwins_netrw_line_number_dirpath
 endif
 
+" g:netrw_liststyle is declared in the netrw plugin
+if !exists("g:netrw_liststyle")
+  let       g:netrw_liststyle = g:tabwins_netrw_liststyle_default
+endif
 " --------------------------------------------------------------- 
 function! Report_error(args_hash)
 " --------------------------------------------------------------- 
@@ -165,7 +169,7 @@ function! Explore_netrw_directory_buffer(args_hash)
 " --------------------------------------------------------------- 
 " Format a buffer after it's been loaded from an :Explore cmd.
   let l:args = extend({
-\   'line_number_at_window_top' : g:netrw_line_number_first_file_system_item,
+\   'line_number_at_window_top' : g:tabwins_netrw_line_number_default,
 \   },
 \   deepcopy(a:args_hash,1)
 \ )
@@ -263,6 +267,7 @@ function! Fill_tab(args_hash)
 "return
   let g:initial_netrw_liststyle =  g:netrw_liststyle
   let g:netrw_liststyle         =  l:args['netrw_liststyle']
+  " g:netrw_liststyle is declared in the netrw plugin
 
   " In the current tab, cycles thru windows from 'first_window_number',
   " filling them successively with the output of Function_ref().
