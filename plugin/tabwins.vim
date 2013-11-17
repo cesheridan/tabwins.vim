@@ -30,7 +30,7 @@
 "                  http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html
 "###############################################################################
 
-let g:tabwins_version = 2.0.0
+let g:tabwins_version = 2.1.0
 
 " User decides whether to reload.  Overhead should be small,
 " so default is to permit reload, facilitating iterative update.
@@ -86,9 +86,9 @@ function! Report_error(args_hash)
   echohl  NONE
 endfunction
 " --------------------------------------------------------------- 
-function! Create_tab (primary_axis, primary_size, secondary_size)
+function! Create_windowed_tab_symmetric(primary_axis, primary_size, secondary_size)
 " --------------------------------------------------------------- 
-  if (a:primary_axis !~? '^[HV]\c')
+  if (a:primary_axis !~? '^[VH]\c')
     let l:message =
     \ 'ERROR: Invalid primary_axis: ' . a:primary_axis . '.'
     \ 'Valid values begin with "H" or "V"'
@@ -247,9 +247,10 @@ endfunction
 " --------------------------------------------------------------- 
 function! Fill_tab(args_hash)
 " --------------------------------------------------------------- 
+"v2.1.1: 'fill_content' was previously 'window_fill_specs'
   let l:args = extend({
 \   'explore_cmd_name'          : 'Explore',
-\   'window_fill_specs'         : [],
+\   'fill_content'              : [],
 \   'netrw_liststyle'           : g:tabwins_netrw_liststyle_default,
 \   'line_number_at_window_top' : g:tabwins_netrw_line_number_default,
 \   'first_window_number'       : 1,
@@ -257,6 +258,9 @@ function! Fill_tab(args_hash)
 \   },
 \   deepcopy(a:args_hash,1)
 \ )
+"echo 'Fill_tab'
+"echo l:args
+"return
   let g:initial_netrw_liststyle =  g:netrw_liststyle
   let g:netrw_liststyle         =  l:args['netrw_liststyle']
 
@@ -270,7 +274,8 @@ function! Fill_tab(args_hash)
 
   " NOTE-DOC: below hash for Vim v7.2 -- see NOTE-DOC further down 
   let l:current_window_number =  l:args['first_window_number']
-  for l:window_fill_spec in (l:args['window_fill_specs'])
+  for l:window_fill_spec in (l:args['fill_content'])
+
     " Go to the window
     execute l:current_window_number . 'wincmd w'
     " --------------------------------------------------------
@@ -286,7 +291,7 @@ function! Fill_tab(args_hash)
     " on each iteration.
     " NOTE-VIM-DOC: Technique to avoid a Var overwrite inside an iteration --
     " use a new index into a hash !!!
-    if(filereadable(l:window_fill_spec) || isdirectory(l:window_fill_spec))
+    if filereadable(l:window_fill_spec) || isdirectory(l:window_fill_spec)
       call Explore_file_system_element({
       \  'file_system_element_names' : l:window_fill_spec,
       \  'explore_cmd_name'          : l:args['explore_cmd_name'],
@@ -344,17 +349,21 @@ endfunction
 function! Is_int(args_hash)
 " --------------------------------------------------------------- 
   let l:args = extend({
-\   'value'    : 'UNDEFINED',
-\   'var_name' : 'An unspecified var name',
+\   'value'                     : 'UNDEFINED',
+\   'var_name'                  : 'An unspecified var name',
+\   'report_if_false_is_wanted' : 'N',
 \   },
 \   deepcopy(a:args_hash,1)
 \ )
- "if (  type(l:args['value']) != type(5) )
-  if (  l:args['value'] =~ '\D')
-    call Report_error({ 'message' :
-    \ "ERROR -- " . l:args['var_name'] . " IS NOT AN INTEGER:  " .
-    \ l:args['value']
-    \})
+  if type(l:args['value']) != type(5)
+ "if (  l:args['value'] =~ '\D')
+   "if match(l:args['report_if_false_is_wanted'], '/^Y/\c')
+    if l:args['report_if_false_is_wanted'] == 'Y'
+      call Report_error({ 'message' :
+      \ "ERROR -- " . l:args['var_name'] . " IS NOT AN INTEGER:  " .
+      \ l:args['value']
+      \})
+    endif
     return 0
   endif
     return 1
@@ -422,17 +431,30 @@ function! Build_cmds_for_symmetrical_tabs(args_hash)
     for l:count2 in range(1, l:secondary_dim_max)
       let l:cmd_name
       \ = l:args['primary_dim'] .           l:count1 . 'x'    .  l:count2
-      "e.g 'V2x3'
+      "e.g 'V2x1'
 
-      let l:cmd_rhs = "call Create_tab ('" .
-      \   l:args['primary_dim'] . "', "   . l:count1 . ", "   .  l:count2 . ")"
+      let l:cmd_rhs =
+      \  ":call Tabwins_create_tab_cli({ 'args_string' : '[ \""                .
+      \   l:args['primary_dim'] . "\", "   . l:count1 . ", "   .  l:count2 . " ]; " .
+      \  "\'\. <q-args> ". " })"
+     "\  "\'\. <q-args> ". "\.' })"
+      " eg :call Tabwins_create_tab_cli({ 'args_string' : '[ "V", 2, 1 ]; '. <q-args>  })
 
-      "e.g            "call Create_tab ('V', 2, 3)"
+      " Here, dynamic build of a command with syntax that makes part of the
+      " command itself dynamically evaled when the built command runs.
+      " Need <q-args> evaluable during exec of the built cmd, so need to separate
+      " <q-args> from the static part of the string in front of it
+         " \'\. <q-args> ". ' })'
+         " the two \ being the escapes needed to get '. in the result, ie
+         " to get the ' to terminate what is evaled completely on this bind
+         " here, and then the . to join with <q-args> to be evaled
+         " when this built command runs.
 
       " ------------------------------------------------------------------
-      let     l:execute_arg = 'command! ' . l:cmd_name  . ' ' .  l:cmd_rhs
+      let     l:execute_arg = 'command! -complete=file -nargs=* ' . l:cmd_name  . ' ' .  l:cmd_rhs
       execute l:execute_arg
       " ------------------------------------------------------------------
+      " eg command! -complete=file -nargs=* V2x1 :call Tabwins_create_tab_cli({ 'args_string' : '[ "V", 2, 1 ]; '. <q-args>  })
 
       " Build Cmd Abbrevs for tabs whose 2nd dim. is 1 -- e.g. abbrev 'V3' for 'V3x1'
       if (l:execute_arg =~ 'x1 ') && (l:count1 <= 10)
@@ -443,12 +465,16 @@ function! Build_cmds_for_symmetrical_tabs(args_hash)
         " w/ >10 cols or rows ?  (not many?)
         let     l:execute_arg_abbrev_cmd_name = substitute(l:execute_arg, 'x1', '', "")
         execute l:execute_arg_abbrev_cmd_name
+
+        " NOTE-DOC: Since windows in these tabs can be asymmetrical, a naming scheme 
+        " that includes strings like "2x3" does not work, because that scheme 
+        " represents symmetrical grids.  So, use V{I...} namming format -- e.g. V123
+        " for 3 vertical cols that going Left=>Right have 1, 2, & then 3
+        " windows in successive columns.
       endif
     endfor
   endfor
 endfunction
-"echo l:execute_arg
-"echo l:execute_arg_abbrev_cmd_name
 " --------------------------------------------------------------- 
 command! BuildCmdsForSymmetricalTabsV
 \ :call  Build_cmds_for_symmetrical_tabs({'primary_dim' : 'V'})
@@ -461,10 +487,8 @@ command! BuildCmdsForSymmetricalTabsERROR
 \ :call  Build_cmds_for_symmetrical_tabs({'primary_dim' : 'X'})
 " --------------------------------------------------------------- 
 
- "let                           g:dims_array = split(345,'\zs')
- "echo split(555,'\zs') "splits 555 into ['5', '5', '5']
 " --------------------------------------------------------------- 
-function! Tabwins_create_windowed_tab(args_hash)
+function! Create_windowed_tab(args_hash)
 " --------------------------------------------------------------- 
   let l:args = extend({
 \   'primary_dim' : 'V',
@@ -472,75 +496,106 @@ function! Tabwins_create_windowed_tab(args_hash)
 \   },
 \   deepcopy(a:args_hash,1)
 \ )
-  " 'dims' can be an integer or a list -- see comments in its screen code.
+"echo 'Create_windowed_tab' echo l:args
 
   " --- SCREEN ARGS
 
-  " screen l:args['primary_dim']
+  " screen l:args['dims']  -- can be an integer or a list
 
+  let l:sym_type_is_known_symmetrical = 'N'
+  "For now, this is known only when 'dims' is an explicit
+  "symmetrical command -- this could also be derived for 
+  "symmetrical IJK... 'dims'
+
+  let   g:secondary_dim_lengths = []
+
+  if Is_int({'value' :                  l:args['dims'], 'var_name' : 'dims' })
+    let g:secondary_dim_lengths = split(l:args['dims'],'\zs')
+    " e.g. 'dims' = 5924 becomes array ['5', '9', '2', '4']
+    " Convert 'dims' from an integer to a list.
+    " IF it's an integer, each digit is treated as the dimension of
+    " the secondary axis.  SO, an integer 'dims' can spec a secondary_dim
+    " not larger than 9.
+
+  elseif type(   l:args['dims']) == type([])
+
+    if (l:args['dims'][0] == 'V') || (l:args['dims'][0] == 'H')
+      " 'dims' is spec for a symmetrical structure, e.g. 'V5x2'
+      let l:args['primary_dim'] = l:args['dims'][0] "e.g. 'V'
+      let l:primary_dim_size    = l:args['dims'][1] "e.g. 5
+      let l:secondary_dim_max   = l:args['dims'][2] "e.g. 2
+
+      let l:sym_type_is_known_symmetrical = 'Y'
+    else
+      " 'dims' is (should be!) a list of secondary_dim sizes
+      " To spec a secondary_dim larger than 9, the caller needs to submit
+      " 'dims' as a list -- e.g. [19, 20, 4, 15] at the vim command line.
+      let g:secondary_dim_lengths = l:args['dims'] 
+    endif
+
+  else
+    return
+  endif
+
+  " screen l:args['primary_dim']
   if (l:args['primary_dim'] != 'V') && (l:args['primary_dim'] != 'H')
     call Report_error({ 'message' :
-    \ "ERROR: Tabwins_create_windowed_tab() Unrecognized 'primary_dim' = " .
+    \ "ERROR: Create_windowed_tab() Unrecognized 'primary_dim' = " .
     \ l:args['primary_dim']
     \})
-    return 0
+    return
   endif
 
-  " screen l:args['dims']
-
-  " 'dims' can be an integer or a list.
-  " IF it's an integer, each digit is treated as the dimension of
-  " the secondary axis.  SO, an integer 'dims' can spec a secondary_dim
-  " not larger than 9.
-  "
-  " To spec a secondary_dim larger than 9, the caller needs to submit
-  " 'dims' as a list -- e.g. [19, 20, 4, 15] at the vim command line.
-  if type(                                l:args['dims']) == type([])
-    let   g:secondary_dim_lengths =       l:args['dims'] " 'dims' is a list
-  else
-    if Is_int({'value' :                  l:args['dims'], 'var_name' : 'dims' })
-
-      " Convert 'dims' from an integer to a list.
-      let g:secondary_dim_lengths = split(l:args['dims'],'\zs')
-      " e.g. 'dims' = 5924 becomes array ['5', '9', '2', '4']
-    else
-      return 0
-    endif
+  "If above assigned to g:secondary_dim_lengths, use it
+  if len(g:secondary_dim_lengths) > 0
+    let l:primary_dim_size  = len(g:secondary_dim_lengths)
+    let l:secondary_dim_max = max(g:secondary_dim_lengths)
   endif
-
 
   " --- DO IT!
 
-  let l:primary_dim_max   = len(g:secondary_dim_lengths)
-  let l:secondary_dim_max = max(g:secondary_dim_lengths)
+  " ------------------------------------------------------------------
+  " 1st, Build a symmetric window structure
+  call Create_windowed_tab_symmetric(l:args['primary_dim'], l:primary_dim_size, l:secondary_dim_max)
+  " Chisel away at this in step 2 if the structure is to be asymmetric.
+  " ------------------------------------------------------------------
+  if(l:sym_type_is_known_symmetrical == 'Y')
+    return
+  endif
 
-  " 1st, Build a symmetric tab
-  call Create_tab (l:args['primary_dim'], l:primary_dim_max, l:secondary_dim_max)
   " 2nd, Remaining code goes thru each secondary axis and closes surplus windows.
   " (if caller specs symmetric windows, none will close)
-  " In this interface, symmetric window spec looks like: 5555 or [11, 11, 11 ]
+  " In this interface, symmetric window specs looks like: 5555 & [11, 11, 11 ]
 
-  " Window close must proceed from highest to lowest window number so that the
+  " Window close must go from highest to lowest window number so that the
   " close of a window does not change numbers of the remaining windows.
-  " Thus the two range() loops below go from high to low. See comments in 
-  " hard-coded asym tab builders section.
-  for l:primary_idx in range(l:primary_dim_max-1, 0, -1)
+  " So the two range() loops below go from high to low.
+  for l:primary_idx in range(l:primary_dim_size-1, 0, -1)
 
-    let l:surplus_win_count_this_secondary =    l:secondary_dim_max - g:secondary_dim_lengths[l:primary_idx]
+    let l:surplus_win_count_this_secondary   =  l:secondary_dim_max - g:secondary_dim_lengths[l:primary_idx]
 
-    if  l:surplus_win_count_this_secondary >    0
+    if    l:surplus_win_count_this_secondary >  0
       let l:reference_win_num = l:primary_idx * l:secondary_dim_max
-      " In the symmetric windows created by Create_tab(), the win num of the first window 
-      " in THIS secondary axis is 1 more than the num the end of the structurally
-      " previous secondary_dim -- e.g. if Create_tab() built a 6x8 w/ Vertical 
-      " primary_axis, and now l:primary_idx is 3 (col 4) then the reference window 
-      " num is to the window at the end of col 3, which would be 24, as each of the first 
-      " three cols has 8 windows.  And the current secondary axis begins w/ window
-      " 24+1 => 25 at top of col 4
+      " NOTE-DOC-VIM-WINDOW-MGT: Since Vim numbers windows down then to the 
+      " right, the highest number is always bottom right.  Each window closure
+      " forces a renumbering of windows that have a higher number than the 
+      " window that has just closed.  So, window close orders go
+      " from higher window number to lower window number, so that closing a
+      " window does not change the order of remaining windows.
 
+      " In the symmetric windows created by Create_windowed_tab_symmetric(), the 
+      " win num of the first window in THIS secondary axis is 1 more than the num 
+      " the end of the structurally previous secondary_dim -- E.G. if 
+      " Create_windowed_tab_symmetric() built a 6x8 w/ Vertical primary_axis, and 
+      " now l:primary_idx is 3 (col 4) then the reference window num is to the 
+      " window at the end of col 3, which would be 24, as each of the first three 
+      " cols has 8 windows.  And the current secondary axis begins w/ window
+      " 24+1 => 25 at top of col 4
       for l:win_num_increment in range(l:surplus_win_count_this_secondary, 1, -1)
+        " ------------------------------------------------------------------
         let     l:win_num_to_close =   l:reference_win_num + l:win_num_increment 
         execute l:win_num_to_close . 'wincmd w'
+        " ------------------------------------------------------------------
         " wincmd uses window nums that start at 1, not 0 !
         close!
       endfor
@@ -550,86 +605,146 @@ function! Tabwins_create_windowed_tab(args_hash)
   "END at window #1
   1wincmd w
 endfunction
-"echo l:win_num_to_close
-
 " --------------------------------------------------------------- 
-command! -nargs=1 TabwinsHorizontal call Tabwins_create_windowed_tab({
+command! -complete=file -nargs=+ TabwinsHorizontal call Tabwins_create_tab_cli({
 \ 'primary_dim' : 'H',
-\ 'dims'        : <args>
+\ 'args_string' : <q-args>
 \})
 " --------------------------------------------------------------- 
-command! -nargs=1 TabwinsVertical   call Tabwins_create_windowed_tab({
+command! -complete=file -nargs=+ TabwinsVertical   call Tabwins_create_tab_cli({
 \ 'primary_dim' : 'V',
-\ 'dims'        : <args>
+\ 'args_string' : <q-args>
 \})
 " --------------------------------------------------------------- 
-command! -nargs=1 Tabwins           call Tabwins_create_windowed_tab({
+command! -complete=file -nargs=+ Tabwins           call Tabwins_create_tab_cli({
 \ 'primary_dim' : 'V',
-\ 'dims'        : <args>
+\ 'args_string' : <q-args>
 \})
 " --------------------------------------------------------------- 
+"  FOR DEVELOPMENT
+" command! -complete=file -nargs=+ TabwinsZ call Tabwins_create_tab_cli({
+" \ 'primary_dim' : 'V',
+" \ 'args_string' : <q-args>
+" \})
+" --------------------------------------------------------------- 
+function! Tabwins_create_tab(args_hash)
+" --------------------------------------------------------------- 
+  let l:args = extend({
+\   'primary_dim': 'V',
+\   'dims'       : [],
+\   'fill_specs' : {}
+\   },
+\   deepcopy(a:args_hash,1)
+\ )
+" echo 'Tabwins_create_tab '
+" echo l:args
 
+  call Create_windowed_tab({
+\   'primary_dim' : l:args['primary_dim'],
+\   'dims'        : l:args['dims'],
+\ })
+  call Fill_tab(l:args['fill_specs'])
+endfunction
+" --------------------------------------------------------------- 
+function! Tabwins_create_tab_cli(args_hash)
+" --------------------------------------------------------------- 
+  let l:args = extend({
+\   'primary_dim'    : 'V',
+\   'args_string'    : '',
+\   'separator_char' : ';'
+\   },
+\   deepcopy(a:args_hash,1)
+\ )
+  let l:dims_idx         = 0
+  let l:fill_content_idx = 1
+  let l:options_idx      = 2
+
+  " Convert 'args_string' to an array
+  let l:tab_specs        = split(l:args['args_string'], l:args['separator_char'])
+  " Vim facilities for parsing user-defined command args are rudimentary,
+  " so use 'separator_char' to simplify local parsing.
+
+  let l:tab_specs_count  = len(l:tab_specs)
+
+  if  l:tab_specs_count  <  1
+    " Nothing speced, so nothing to do ...
+    return
+  endif
+
+  " 'dims' could be an int or a list -- parsing of that occurs in a called function
+  execute 'let l:dims = ' . l:tab_specs[l:dims_idx]
+  "NOTE-DOC: MUST define l:dims via above approach w/ :execute.  Due to the 
+  "way that the received a:args_hash is built and has to be processed w/
+  "split() above, l:args['dims_idx'] will have single quotes around it, 
+  "e.g. '[ ... ]' -- ie it's a string, not an array. If the data type of 
+  "'dims' really is an array, later processing will incorrectly interpret
+  "it as a string; if string, it will be interpreted as a double-quoted
+  "string (?)
+
+  if    l:tab_specs_count >=                         l:fill_content_idx + 1
+    execute 'let l:fill_content = [ ' . l:tab_specs[ l:fill_content_idx ] . ' ]'
+    "NOTE-DOC: MUST define via above approach w/ :execute.  See notes above re
+    "same for l:dims.  DO NOT assign like "let l:fill_content = ..."
+  else
+    let l:fill_content  = []
+    "let l:dims = [] " NOTE-DOC-VIM-POST-BIND-TYPE-CHECKING: let l:x = []
+    "causes Vim to define x as an ARRAY type which CANNOT be 
+    "later bound to a string or anything else that's not an array.  WELL...
+    "=> This is why the init [] bind is in the 'else' rather than an init
+    "that precedes the 'if'
+  endif
+
+
+  let   l:options          = {}
+  if    l:tab_specs_count >=                   l:options_idx +1
+    execute 'let l:options = { ' . l:tab_specs[l:options_idx] . ' }'
+    "NOTE-DOC: MUST define via above approach w/ :execute.  See notes above re
+    "same for l:dims
+  endif
+
+  let l:fill_specs = extend(
+\   {'fill_content': l:fill_content},
+\   {'options'     : l:options   }
+\ )
+" echo  l:args['primary_dim']
+" echo  l:dims
+" echo  l:fill_specs
+" echo  l:fill_content
+
+  call Tabwins_create_tab(extend({
+\  'primary_dim'   : l:args['primary_dim'],
+\  'dims'          : l:dims
+\  },
+\  {'fill_specs'   : l:fill_specs}
+\))
+endfunction
+" --------------------------------------------------------------- 
+" --------------------------------------------------------------- 
 
 " ===============================================================
 " --- ASYMMETRIC TABS
 " ===============================================================
 "
 " NOTE: tabwins.vim v1.8.0 adds :TabwinsVertical and :TabwinsHorizontal,
-" and these commands obviate the need to create a function for each
-" asymmetrical tab.  So tabwins v2.0.0 removes all but the below
-" asymmetric tab builder functions, which are kept as examples of
-" an earlier, less dynamic design approach. AND commented out.
-"
-" The notes below are still relevant, and so are kept, and will
-" eventually be moved to other parts of tabwins.vim.
-
-" NOTE-DOC-VIM: The approach of creating a grid of windows and 
-" then filling them w/ buffers via :edit seems to be more PER-
-" FORMATIVE than starting w/ a tab and doing repeated pairs of 
-" (v)split then :edit, likely because the 2nd approach has to 
-" constantly rebalance windows filled w/ buffers?
-
-" For asymmetric windows, the approach here is to first build a
-" tab of symmetric windows, and then delete the unneeded windows,
-" resulting in the intended asymmetric structure.
-
-" NOTE-DOC-VIM-WINDOW-MGT: Since Vim numbers windows down then to the 
-" right, the highest number is always bottom right.  Each window closure
-" forces a renumbering of windows that have a higher number than the 
-" window that has just closed.  So, window close orders go
-" from higher window number to lower window number, so that closing a
-" window does not change the order of remaining windows. Which means
-" that the 2nd and later closes in each func below can rely on the
-" initial window nums that resulted from calls to Create_tab().
-
-" NOTE-DOC: Since windows in these tabs are asymmetrical, a naming scheme 
-" that includes strings like "2x3" does not work, because that scheme 
-" represents symmetrical grids.  So, use V{I...} namming format -- e.g. V123
-" for 3 vertical cols that going Left=>Right have 1, 2, & then 3
-" windows in successive columns.
-
-"
-" --- Vertical Asymmetric
-
-" NOTE-DOC: Creation of commands for asymmetric tabs is not as readily 
-" automated as command creation for symmetric tabs. SO, the 
-" following inventory of asymmetric command builders can be 
-" supplemented by the users as-needed.
+" commands which obviate the need to create a function for each
+" asymmetrical tab.  So tabwins v2.0.0 removes the asymmetric tab 
+" builder functions, commented out below as examples of an earlier, 
+" less dynamic design approach.
 
 " NOTE-DOC-IMPORTANT: New asymmetric commands must call
 " Close_windows() with window_numbers in descending 
-" order !!! See comments in that func.
+" order !!!
 
-" function! Create_tab_v2123()
-"   call    Create_tab ('V', 4, 3)
+" function! Create_windowed_tab_symmetric_v2123()
+"   call    Create_windowed_tab_symmetric ('V', 4, 3)
 "   call    Close_windows ({
 "   \ 'window_numbers' : [ 9,6,5,3 ]
 "   \})
 " endfunction
-" command! V2123 :call Create_tab_v2123()
+" command! V2123 :call Create_windowed_tab_symmetric_v2123()
 " 
-" function! Create_tab_v11131()
-"   call    Create_tab ('V', 5, 1)
+" function! Create_windowed_tab_symmetric_v11131()
+"   call    Create_windowed_tab_symmetric ('V', 5, 1)
 " 
 "   4wincmd 
 "   vsplit
@@ -640,19 +755,22 @@ command! -nargs=1 Tabwins           call Tabwins_create_windowed_tab({
 " DEMOS
 " ===============================================================
 
+" NOTE-DOC-TABWINS v2.1.0: the demos could now be implemented with
+" direct calls to :Tabwins* & :{VH}JxK
+
 " ---------------------------------------------------------------
 function! Open_tab_unix_filesystem_1()
 " ---------------------------------------------------------------
   :Tabwins 234
 
   " Fill_tab() fills windows in the order of elements
-  " in 'window_fill_specs' You want to spec something for each
+  " in 'fill_specs' You want to spec something for each
   " of the windows created by :H2 above.
   " You can spec commands, filepaths, or dirpaths.
 
   call Fill_tab({
   \ 'ending_window_number'      : 3,
-  \ 'window_fill_specs' : [
+  \ 'fill_content' : [
   \   '/',
   \   '/dev',
   \
@@ -674,15 +792,16 @@ command! Otuf1 :call Open_tab_unix_filesystem_1()
 function! Open_tab_home_dir()
 " ---------------------------------------------------------------
   " 1ST, Create the windowed-tab
-  :Tabwins 232 " VERTICAL ASYMMETRIC TAB.  3 cols, from left to right with
-  " 2, 3, and then 2 windows successively.
+  :Tabwins 232
+  " VERTICAL ASYMMETRIC TAB.  3 cols, from left to right with 2, 3, 
+  " and then 2 windows successively.
 
   let l:home_parent_dirpath = substitute(finddir($HOME), '\/\w\+$', '', 'g')
 
   " 2ND, Fill buffers in the new tab
   call Fill_tab({
   \ 'line_number_at_window_top' : 1,
-  \ 'window_fill_specs' : [
+  \ 'fill_content' : [
   \   $HOME,
   \   'Explore ' . l:home_parent_dirpath,
   \
@@ -695,8 +814,8 @@ function! Open_tab_home_dir()
   \ ]
   \})
   " Fill_tab() fills windows in the order of elements
-  " in 'window_fill_specs' You want to spec something for each
-  " of the windows created by :V232 above,
+  " in 'fill_specs' You want to spec something for each
+  " of the windows created by :Tabwins 232 above,
   " either commands, filepaths, or dirpaths.
   " Specs can include shell or vim vars, and if files or dirs
   " the spec can include a vim command or use the default :edit or
@@ -717,7 +836,7 @@ function!             Open_tab_vim_help_quickref_and_index()
 
   let l:vim_doc_dirpath = $VIMRUNTIME . '/doc'
   call Fill_tab({
-  \ 'window_fill_specs' : [
+  \ 'fill_content' : [
   \   l:vim_doc_dirpath . '/quickref.txt',
   \   l:vim_doc_dirpath . '/index.txt',
   \ ]
@@ -730,7 +849,7 @@ function!             Open_tab_vim_help_tocs_args_and_opts()
   :V4
   let l:vim_doc_dirpath = $VIMRUNTIME . '/doc'
   call Fill_tab({
-  \ 'window_fill_specs' : [
+  \ 'fill_content' : [
   \   l:vim_doc_dirpath . '/usr_toc.txt',
   \   l:vim_doc_dirpath . '/help.txt',
   \   l:vim_doc_dirpath . '/starting.txt',
@@ -752,7 +871,7 @@ function!             Open_tab_vim_dirs()
   :Tabwins  323
   call Fill_tab({
   \ 'ending_window_number' : 2,
-  \ 'window_fill_specs' : [
+  \ 'fill_content' : [
   \   $VIM,
   \   $VIMRUNTIME,
   \   $VIMRUNTIME . '/doc',
@@ -773,7 +892,7 @@ function!             Open_tab_perl5lib()
 "  NOTE-DOC: Current shell MUST have set $PERL5LIB.
   :Tabwins 1511
   call Fill_tab({
-  \ 'window_fill_specs' : [
+  \ 'fill_content' : [
   \   $PERL5LIB,
   \
   \   $PERL5LIB . '/Moose',
@@ -848,7 +967,7 @@ function! Tabwins_menu_build()
 
   amenu Tabwins.Populated\ Tabs.3\ \ \ \ :Tabwins\ 2\ with\ vim_help_quickref_and_index                             :silent! call Open_tab_vim_help_quickref_and_index()<CR>
   amenu Tabwins.Populated\ Tabs.4\ \ \ \ :Tabwins\ 4\ with\ vim_help_tocs_args_and_opts                             :silent! call Open_tab_vim_help_tocs_args_and_opts()<CR>
-  amenu Tabwins.Populated\ Tabs.5\ \ \ \ BOTH\ vim\ help\ tabs                                              :silent! call Open_vim_help_tabs()<CR>
+  amenu Tabwins.Populated\ Tabs.5\ \ \ \ BOTH\ vim\ help\ tabs                                                      :silent! call Open_vim_help_tabs()<CR>
   amenu Tabwins.Populated\ Tabs.-Sep200-                                               <Nop>
 
   amenu Tabwins.Populated\ Tabs.6\ \ \ \ :Tabwins\ 323\ with\ vim_dirs\ \ (Assumes\ $VIM\ &&\ $VIMRUNTIME\ defined) :silent! call Open_tab_vim_dirs()<CR>
@@ -868,3 +987,23 @@ if g:load_tabwins_menu_is_wanted =~ '^Y\c'
   call Tabwins_menu_build()
 endif
 " ---------------------------------------------------------------
+"
+" __END__
+
+"NEXT RELEASE: expand command completion
+"command! -complete=dir,env,expression,file,file_in_path,function -nargs=+ TabwinsZ call Tabwins_create_tab_cli({
+""function Completions1 (dir,env,expression,file,file_in_path,function)
+   "see vim :help command-completion"
+
+" let          g:s = '[1,2,3]'
+" let          g:a = []
+" execute 'let g:a = ' . g:s
+" echo         g:a
+" echo type(g:a)
+" echo type([])
+"
+" let          g:a = []
+" execute 'let g:a = [ 7,8,9 ]'
+"
+" let          g:s = 'string'
+" execute 'let g:s = [ 7,8,9 ]'
