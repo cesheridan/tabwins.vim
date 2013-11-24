@@ -1,4 +1,4 @@
-*tabwins.txt* Create TABS of WINDOWS of any structure, populated or empty
+*tabwins.txt* Create tabs of symmetric or asymmetric windows, populated or empty
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ||                                                                ||   ~
@@ -12,6 +12,8 @@
 ||                                                                ||   ~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*v2.2.0* 
 
 
 ====================================================================
@@ -27,239 +29,248 @@ CONTENTS                                            *TabwinsContents*
     7. License .............. |TabwinsLicense|
     8. Bugs ................. |TabwinsBugs|
     9. Distributions ........ |TabwinsDistributions|
-   10. Credits .............. |TabwinsCredits|
+   10. Release History .......|TabwinsReleases|
+   11. Credits .............. |TabwinsCredits|
 
 
 ====================================================================
 Section 1: Introduction                         *TabwinsIntroduction*
 ====================================================================
 
+Easy access to the power of the Vim GUI. ~
+
 See the screen shots at ~
   https://github.com/cesheridan/graphics/tree/master/tabwins ~
 
-1 command for immediate access to Vim customized window structures 
+
+1 command for immediate access to customized window structures 
 and content ~during~ Vim sessions.
 
-The developer 
+The Developer 
   - Avoids hit-or-miss, time-consuming, manual, repetitious 
     runs of :split/:vsplit, and thought-sinks about how 
     to produce an intended window structure
 
-  - Avoids having to reload backed-up Vim sessions that 
-    have the required window structures, thus losing the 
-    current configuration
+  - Avoids losing current configurations due to mid-session 
+    reloads of backed-up Vim sessions that have preferred
+    window structures
 
   - Avoids loss of focus from these discontinuities
 
-Easy access to the power of the Vim GUI. ~
+
+FORMS *--*
+
+  :{Tabwins cmd}   {window_dimensions}; {fill_content,...};  {tab_option, ...}
+  :{symmetric cmd}                      {fill_content,...};  {tab_option, ...}
+
+  Where
+   :{Tabwins cmd}   is any of :Tabwins, :TabwinsVertical, :TabwinsHorizontal
+   :{symmetric cmd} is any of the form :{V|H}IxJ or :{V|H}I 
+
+  Semicolons separate arg groups, commas separate inside groups.
+
+  {window_dimensions} is the only mandatory arg, only in :{Tabwins cmd}
+
+  SECTION |TabwinsUsage| IN tabwins.txt HAS MORE DETAIL. 
 
 
-COMMAND FORMS ~
+EXAMPLES *--*
 
-  :Tabwins {window_dimensions}; {fill_content,...};  {tab_options, ...}
-  :{symmetric_command}          {fill_content,...};  {tab_options, ...}
+  >> Empty Windows 
 
-    => semicolons separate arg groups, commas separate inside groups.
-    
-EXAMPLES ~
-
-  " For a new tab of 4 columns of 1, 2, 1, & 1 windows successively
-  " left to right, with buffers empty --
   :Tabwins 1211 ~
+  " For a new tab of 4 columns of 1, 2, 1, & 1 windows successively
+  " left to right, with buffers empty.
 
-  :Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin' ~
+  :TabwinsHorizontal 4221 ~
+  " For a new tab of 4 rows, with 4,2,2, & 1 windows successively 
+  " top to bottom, with buffers empty.
+
+
+  >> Populated Windows 
+
+  :Tabwins            1211; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin' ~
   " Populate the buffers
   " => 'fill_content' specs of files are automatically opened via :edit,
   "    while specs of dirs are opened via :Explore
   " (Specify an '' empty string for windows intended to be empty.)
 
-  :Tabwins 11111; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin' ~
+  :Tabwins           11111; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin' ~
   " Same buffer content, in different window structure, of 5 cols, 
   " one window in each.
 
-  :V5x1           $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin' ~
-  " Structure & content as above -- since the structure is 
-  " SYMMETRIC, i.e. lengths of secondary axis dimensions are all 
-  " equal, this alternative is available to reduce keystrokes.
+  :TabwinsHorizontal 11111; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin' ~
+  " Flip axis priority of above to the horizontal
 
-  :V5             $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin' ~
+  :Tabwins             312; '~/.bashrc', '~/.vimrc', '~/.git', $HOME, '/', '/usr/bin' ~
+
+
+  >> Symmetric Window Structures
+
+  :V5x8 ~
+  :H5x8 ~
+  :V8x14 ~
+  :H8x14 ~
+  "Empty windows
+
+  :V5x1 $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin' ~
+  " Structure & content same as :Tabwins 11111 above
+
+  :V5   $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin' ~
   " Same result again: since the secondary axis has only 1 
   " window for its dimensions, V5 is available as an even
   " shorter alias.
 
-  :Tabwins 1112;  $HOME, '~/.bashrc', '~/.vimrc', '/', 'Explore /usr/bin | resize 20' ~
-  " Same content, different structure, which includes :resize of the last window,
-  " via Vim '|' cmd concat.  If a file or dir is followed with concated commands,
-  " the caller needs to explicitly add the command that opens the file or dir, 
-  " i.e. 'Explore' in this example.
 
+  >> Dimensions >9
 
-EXAMPLES: Dimensions >9 ~
-
-  Dimensions >9 are unparsable when {window_dimensions} is 
-  an integer.  To enable dimensions >9, use list syntax:
-
-  :Tabwins [ 8, 15, 23, 38] ~
-  " For a 4-column tab with 8, 15, 23, & 38 windows successively.
-  " {fill_content} can be added as with all tabwins.vim commands.
-
-  :Tabwins [ 18, 23 ] ~
+  :Tabwins [ 5, 8, 13, 21 ] ~
+  " For a 4-column tab with 5, 8, 13, 21 windows successively left to right.
 
   :Tabwins [ 14, 14 ] ~
   " Alternately, :V2x14
 
-  :Tabwins [ 35, 30, 40, 40 ] ~
+  :Tabwins [ 40, 30, 40, 30 ] ~
   " For large monitors ...
 
 
-EXAMPLES: {tab_options}  ** AVAILABLE IN A LATER RELEASE ** ~
+  >> fill_specs with Multiple Commands
 
-  [ these are available to callers of function Fill_tab(),
-    but not yet to the Vim command line ]
-
-  :Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'ending_window_number' : 2
-
-  These have tab-scope.  For window-scoped options, concatenate 
-  code to {fill_specs}, as shown above.
-
-  Also see tabwins.txt section |TabwinsAddingNewBuilders|.
+  :Tabwins 1112;  $HOME, '~/.bashrc', '~/.vimrc', '/', 'Explore /usr/bin | resize 20' ~
+  " Does a :resize of the last window, via Vim '|' command concat.  If a file 
+  " or dir is followed with concated commands, the caller needs to explicitly 
+  " add the command that opens the file or dir, i.e. 'Explore' in this example.
 
 
-:Tabwins, :TabwinsVertical, & :TabwinsHorizontal ~
+  >> Tab Options
 
-  :Tabwins is an alias for :TabwinsVertical, which gives
-  priority to the vertical axis.
+  :Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'ending_window_number' : 2 ~
+  :Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3 ~
 
-  :TabwinsHorizontal gives priority to the horizontal axis.
+  :Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3, 'ending_window_number' : 2 ~
+  " Multiple tab_options in same command.
 
-  See tabwins.txt section |TabwinsVandH| re vertical/horizontal 
-  & primary/secondary axes.
-
-
-:VJxK, :VJ, :HJxK, & :HJ COMMANDS ~
-
-Loading tabwins.vim creates Vim commands that have name formats
-as described in section |TabwinsUsage| of tabwins.txt.
-
-See above examples.
-
-
-MENU 'Tabwins' ~
+TABWINS MENU *--*
 
   Default settings load Vim menu Tabwins, for access to selected 
                         ~~~~~~~~~~~~~~~~~
   tab-builder commands.  Those and additional tab builders are 
   available via Vim commands defined in tabwins.vim. The menu has 
-  only a small portion of the tab builders defined in tabwins.vim,
-  and the developer is encouraged to add tab builder commands as needed.
+  only a small portion of the tab builders defined in tabwins.vim.
 
 
-DEPLOYMENT ~
+DEPLOYMENT *--*
 
-  This plugin is structured for deployment in a pathogen-managed
-  bundle directory.  
+  tabwins.vim tabwins/ dir is structured for deployment in a 
+  pathogen-managed bundle directory, e.g. ~/.vim/bundle/
 
-  See the rest of tabwins.txt for more information.
+
+  In a ~/.vim dir not configured for pathogen, put
+    tabwins/plugin/* into ~/.vim/plugin/ 
+  and
+    tabwins/doc/*    into ~/.vim/doc/ 
+
+
+  Enable :h tabwins in a pathogen environment with
+    :Helptags
+  and in a non-pathogen environment with
+    :helptags
 
 
 ====================================================================
 Section 2: Usage                                       *TabwinsUsage*
 ====================================================================
 
-NOTE: tabwins.vim v2.1.0 enables Vim command-line spec of buffer  ~
-      fill and options.  The below text is still correct, but does  ~
-      not cover the v2.1.0 enhancements, which will be described in  ~
-      a later release.  The source code is open ... ;-) ~
-
-  Loading tabwins.vim creates Vim commands that have name formats
-  as described below.
-
-  See |TabwinsVandH| for background about Vertical/Horizontal 
-  and primary/secondary axes.
+=> See FORMS    in |TabwinsIntroduction|
+=> See EXAMPLES in |TabwinsIntroduction|
 
 
-  DEFAULT AXIS :Tabwins  ~
+THREE TABWINS COMMANDS *--*
 
-  :Tabwins is an alias for :TabwinsVertical, meaning
-  that the Vertical axis is the default primary axis.
+  These commands all take the same arguments.
 
+  :Tabwins ~
+    Same as :TabwinsVertical
 
-  WINDOWS OF EMPTY BUFFERS, SYMMETRIC & ASYMMETRIC ~
+  :TabwinsVertical ~
+    Gives priority to the vertical axis.
 
-  1) :V{N},  :H{N}, :TabwinsVertical {N}, :TabwinsVertical { [ I ] } ~
-     e.g. :V3, :H4, :TabwinsVertical   4, :TabwinsVertical [ 12 ]
-                    :Tabwins           4, :Tabwins [ 12 ]
+  :TabwinsHorizontal  ~
+    Gives priority to the horizontal axis.
 
-    One-dimensional tabs, w/ primary axis identifed by V or H, and 
-    w/ N windows.  
-    
-    E.g. :V3 creates a tab of 3 vertical windows, and :H4 creates 
-    a tab of 4 horizontal windows.
+  See |TabwinsVandH| about primary/secondary axes and 
+  vertical/horizontal priority.
 
-    Loading tabwins.vim creates :HN & :VN commands where N is from
-    1 to the value of the relevant axis size in:
-       g:tabwins_max_v_size 
-       g:tabwins_max_h_size 
-
-    => for dimensions >9 with :Tabwins*(), use a list arg, as above. ~
+  These commands accept arbitrary dimension specification, 
+  unconstrained by configuration vars, other than 
+  windows-per-tabsize limits of the Vim instance.
 
 
-  2) :V{I}x{J}  & :H{I}x{J}, :TabwinsVertical {J+}, :TabwinsVertical { [ J,J,... ] } ~
-     e.g. :V3x2 &     :H4x3, :TabwinsVertical  222, :TabwinsVertical   [ 12, 12, 12 ] 
-                             :Tabwins          222, :Tabwins           [ 12, 12, 12 ] 
+SYMMETRIC WINDOW STRUCTURES *--*
 
-    Two-dimensional tabs, w/ primary axis identifed by 
-    V or H. 
-    
-    E.g. V3x2 creates a tab of 3 vertical spaces, and inside
-    each vertical space, 2 horizontal windows. Whereas H4x3 
-    means a tab of 4 rows, each w/ 3 windows.
-
-    The window structures in group 1) are all in
-    this group, but here with names like V5x1 rather 
-    than V5.
-
-    Loading tabwins.vim creates :VIxJ & :HIxJ commands where 
-    the set of {I}x{J} is the permutations of:
-       g:tabwins_max_v_size 
-       g:tabwins_max_h_size 
-
-    The :TabwinsVertical/Horizontal form accepts arbitrary dimension 
-    specification, unconstrained by configuration vars, other than 
-    window-per-tab limits of the Vim instance.
-
-    => for dimensions >9 with :Tabwins*(), use a list arg , as above. ~
-
-
-  3) :TabwinsVertical/Horizontal {J+}, :TabwinsVertical/Horizontal  { [ I, J,... ] } ~
-     e.g. :TabwinsVertical 273, :TabwinsVertical [ 12, 7, 16, 2 ] 
-          :Tabwins         273, :Tabwins         [ 12, 7, 16, 2 ] 
-
-    Tabs w/ primary axis identifed as Vertical or Horizontal in the 
-    command name.  Each integer specifies the number of windows 
-    inside each successive vertical or horizontal space. 
-    
-    E.g. V273 creates a tab w/ 3 vertical spaces, the left having 
-    2 horizontal windows, the middle 7, and the right 3.
-
-    => for dimensions >9 with :Tabwins*(), use a list arg , as above. ~
-
-
-  POPULATED WINDOWS ~
-
-  These can be both symmetric and asymmetric, for both vertical and 
-  horizontal priority tabs.  The developer specifies the content that 
-  fills each window buffer.  See the examples in the Tabwins menu, 
-  as well as documentation in |TabwinsAddingNewBuilders|.
-
-
-  OPERATING SYSTEMS ~
-
-  Core code has run successfully for gvim on Linux, Sun Solaris, HPUX,
-  iMac OS X, MSWIN, & cygwin. 
+  In these, the lengths of the secondary axis dimensions are all 
+  equal.
   
-  On MSWIN, demos of populated tabs may fail to load some buffer 
-  content due to MSWIN file system syntax conventions.
+  Symmetric commands are available to reduce keystrokes.
+  
+  'H' indicates horizontal priority, 'V' vertical priority.
+
+  Loading tabwins.vim creates :{V|H}IxJ commands where the 
+  set of IxJ is the permutations of:
+    g:tabwins_max_v_size  ~
+    g:tabwins_max_h_size  ~
+
+  The same global vars determine the set of :{V|H}J commands 
+  also produced on tabwins.vim load, where N is from 1 to the 
+  value of the relevant g:tabwins_max_{h|v}_size var above.
+
+
+DIMENSIONS GREATER THAN 9 *--*
+
+  Dimensions >9 are unparsable when {window_dimensions} is 
+  an integer.  To enable dimensions >9, use list syntax as
+  shown in EXAMPLES of |TabwinsIntroduction|
+
+  List syntax applies to any tab that has dimension >9.
+  All the dimensions of such a tab are specified in one list.
+
+
+FILL SPECS WITH MULTIPLE COMMANDS *--*
+
+  Multiple Vim commands can be specified in a fill_spec by
+  prepending commands with the Vim '|' concatenation operator.
+  See EXAMPLES in |TabwinsIntroduction|.
+
+
+TAB OPTIONS *--*
+
+  Available tab_options are as below, with defaults on 
+  the right.
+
+  These apply to the entire tab and can be combined when 
+  separated by commas.
+    
+     'explore_cmd_name'          : 'Explore', 
+     'netrw_liststyle'           : g:tabwins_netrw_liststyle_default,
+     'line_number_at_window_top' : g:tabwins_netrw_line_number_default,
+
+     => Use a fill_spec for window-specific override of the above.
+
+     'first_window_number'       : 1,
+     'ending_window_number'      : 1
+
+
+  See EXAMPLES in |TabwinsIntroduction|.
+
+  Function Fill_tab() processes tab_options.
+
+
+HELP *--*
+
+  :TabwinsFindTabwins will load the tabwins .vim & .txt files 
+  into a V2 window, if your Vim &runtimepath can see them.
+
+  This command is included in the 'Tabwins' menu.
 
 
 ====================================================================
@@ -292,23 +303,23 @@ What's the difference between Horizontal and Vertical Tabs ? ~
   mix of primary axis in their own tab builders -- See
   |TabwinsAddingNewBuilders|
 
+
 ====================================================================
-Section 4: Tabwins Menu                                *TabwinsMenu*
+Section 4: 'Tabwins' Menu                               *TabwinsMenu*
 ====================================================================
 
-In the Tabwins menu delivered with the plugin, the 
-extent that populated tabs fill their buffers is dependent
-on the shell vars available to the Vim session, and files/dirs
-present in the local environment.
+In the 'Tabwins' menu built on plugin load, the extent that 
+populated tabs fill their buffers is dependent on the shell 
+vars available to the Vim session, and files/dirs present in 
+the local environment.
 
 The menu items reference some of these shell vars.  
 
-The developer is encouraged to customize tab builders to match 
-local usage.
+The developer is encouraged to customize this menu for local usage.
 
 Update or replace func
-  Tabwins_menu_build() ~
-in tabwins.vim to include any set of tab builders.
+  function Tabwins_menu_build() ~
+in tabwins.vim to do so.
 
 
 ====================================================================
@@ -317,138 +328,61 @@ Section 5: Configuration                      *TabwinsConfiguration*
 
 The below globals are defined in tabwins.vim and are overridable.
 
+To limit tabwins.vim load to once per Vim session:
+  let g:tabwins_multiple_loads_are_permitted = 'N' ~
+Default: 'Y'
+
 To prevent 'Tabwins' menu addition when tabwins loads:
-  let g:load_tabwins_menu_is_wanted       = 'N' ~
+  let g:load_tabwins_menu_is_wanted          = 'N' ~
+Default: 'Y'
 
 To change the 'Tabwins' menu number:
-  let g:tabwins_menu_number = {menu_number} ~
+  let g:tabwins_menu_number                  = {menu_number} ~
+Default: 9998
 
 To change the default top-line of netrw windows:
-  let g:tabwins_netrw_line_number_default = {N} ~
+  let g:tabwins_netrw_line_number_default    = {N} ~
+Default: g:tabwins_netrw_line_number_dirpath = 3
 Calls to Fill_tab() can override this on a per-tab basis.
 
 To change the default netrw liststyle:
-  let g:tabwins_netrw_liststyle_default   = {N} ~
+  let g:tabwins_netrw_liststyle_default      = {N} ~
+Default: g:tabwins_netrw_liststyle_default   = 1
 Calls to Fill_tab() can override this on a per-tab basis.
+if netrw var g:netrw_liststyle is not defined, it gets this value.
 
-To change V/H max dimensions:
-  let g:tabwins_max_v_size                = {N}~
-  let g:tabwins_max_h_size                = {N}  ~
+To change Vertical/Horizontal max dimensions:
+  let g:tabwins_max_v_size                   = {N}~
+  let g:tabwins_max_h_size                   = {N}  ~
+Default: 15 for each
 
 
 ====================================================================
 Section 6: Adding New Builders            *TabwinsAddingNewBuilders*
 ====================================================================
 
-NOTE: tabwins.vim v2.1.0 enables Vim command-line spec of buffer  ~
-      fill and options.  The below text is still correct, but does  ~
-      not cover the v2.1.0 enhancements, which will be described in  ~
-      a later release.  The source code is open ... ;-) ~
 
-      One change to the below is that in v2.1.1 'fill_content'  ~
-      is the new identifier for the previous 'window_fill_specs' ~
+ADDING SYMMETRIC TAB COMMANDS *--*
 
+  Bump either/both values of:
+    g:tabwins_max_v_size ~
+    g:tabwins_max_h_size ~
 
-1) ADDING SYMMETRIC TAB COMMANDS  (Empty Buffers) ~
+  above the values assigned in tabwins.vim. 
+  
+  Loading tabwins.vim will build commands for all the HxV and 
+  VxH permutations.
 
-Bump either/both values of:
-  g:tabwins_max_v_size ~
-  g:tabwins_max_h_size ~
-above the values assigned in tabwins.vim. Loading tabwins.vim will
-build commands for all the permutations of the size vars.
-
-Of course, the set of symmetric tab builder commands can be reduced by 
-updating the same globals.
+  Of course, the set of symmetric tab builder commands can be reduced by 
+  lowering the values of the same globals.
 
 
+MORE GENERALLY *--*
+  
+  Create your own Vim commands from the various : commands in 
+  wintabs.vim.  See the plugin code for examples.
 
-2) ADDING ASYMMETRIC TAB COMMANDS  (Empty Buffers)~
-
-Copy and update any of the 
-  Create_tab_v{J...}()     ~
-  Create_tab_h{J...}() ~
-functions.
-
-See the comments in the asymmetric command building code.
-
-
-
-3) ADDING COMMANDS FOR TABS OF POPULATED BUFFERS ~
-
-Update, clone, or replace any of the 
-  Open_tab_*() ~
-functions in tabwins.vim to create populated window structures.
-
-Example in tabwins.vim:  ~
-
-      " ---------------------------------------------------------------
-      function! Open_tab_home_dir() ~
-      " ---------------------------------------------------------------
-        " 1ST, Create the windowed-tab
-        :Tabwins 232 
-        " VERTICAL ASYMMETRIC TAB.  3 cols, from left to right with 2, 3, 
-        " and 2 windows successively left to right.
-
-        let l:home_parent_dirpath = substitute(finddir($HOME), '\/\w\+$', '', 'g')
-
-        "2ND, Fill buffers in the new tab ~
-        "v2.1.1: 'fill_content' was previously 'window_fill_specs'
-        call Fill_tab({
-        \ 'line_number_at_window_top' : 1, ~
-        \ 'fill_content' : [ ~
-        \   $HOME,
-        \   'Explore ' . l:home_parent_dirpath,
-        \
-        \   'edit! ~/.bashrc',
-        \   '~/.gitignore',
-        \   'enew!',
-        \
-        \   '~/.vimrc',
-        \   '~/.vim',
-        \ ]
-        \})
-
-        " Fill_tab() fills windows in the order of elements
-        " in 'window_fill_specs' You want to spec something for each
-        " of the windows created by :Tabwins 232 above,
-        " either commands, filepaths, or dirpaths.
-        " Specs can include shell or vim vars, and if files or dirs
-        " the spec can include a vim command or use the default :edit or
-        " :Explore call in Fill_tab()
-
-        "3d, optional, apply Vim resize and/or other commands to the windows/buffers. ~
-        2wincmd w
-        resize 30
-
-        1wincmd w
-        "And end back in window 1
-      endfunction
-
-      NOTE: Since strings that specify commands are submitted to :execute,
-      it should be possible to embed multiple commands in one of these
-                               ~~~~~~~~~~~~~~~~~~~~~~~~
-      strings, e.g. the resize commands above could be included via the
-      Vim \| command concatenator.  This is not yet validated -- the 
-      developer is encouraged to try this. Notes also that if resizes of
-      multiple windows are intended, the order of the resizes can affect
-      the result, so it may sometimes still be preferable to resize 
-      after calling Fill_tab()
-
-
-Every window-populating tab-builder calls Fill_tab(), with signature:  ~
-
-      'explore_cmd_name'          : 'Explore',
-      'fill_content'              : [],
-      'netrw_liststyle'           : g:tabwins_netrw_liststyle_default,
-      'line_number_at_window_top' : g:tabwins_netrw_line_number_default,
-      'first_window_number'       : 1,
-      'ending_window_number'      : 1,
-
-See the Open_tab_*() functions for examples of overriding Fill_tab() ~
-defaults. ~
-
-See comments in tabwins.vim for more information.  ~
-
+  See HELP in |TabwinsIntroduction|.
 
 ====================================================================
 Section 7: License                                  *TabwinsLicense*
@@ -497,7 +431,28 @@ The distribution at vim.org is taken from the github repository.
 
 
 ====================================================================
-Section 10: Credits                                 *TabwinsCredits*
+Section 10: RELEASE HISTORY                        *TabwinsReleases*
+====================================================================
+
+v2.2.0   2013-11-24
+   - CLI commands support tab_option args
+     ALL tabwins.vim capability is now available directly to
+     the Vim command line.  A developer should not have to call
+     functions in tabwins.vim to create a tabwins command.
+   - Add :TabwinsFindTabwins and include it in the 'Tabwins' menu.
+   - Add a few more global config vars.
+   - Function Fill_tab() arg 'fill_content' renamed => 'fill_specs'
+   - Rework documentation.
+
+v2.1.0   2013-11-17
+   - fill_specs supported as tabwins.vim CLI commands arg
+   - Function Fill_tab() arg 'window_fill_specs' renamed => 'fill_content'
+
+v1.7.0   2013-11-11
+   - First vim.org release.
+
+====================================================================
+Section 11: Credits                                 *TabwinsCredits*
 ====================================================================
 
  Author:  Charles E. Sheridan 
