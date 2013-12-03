@@ -537,7 +537,7 @@ Section 10: RELEASE HISTORY                        *TabwinsReleases*
 Release numbering follows the Semantic Versioning approach as 
 described at http://semver.org/
 
->> v3.1.0   2013-12-02 ~
+>> v3.0.0   2013-12-02 ~
 0. No behavioral changes to command logic.
 1. Tab option 'line_number_at_window_top' 
    renamed => 'line_number_at_netrw_window_top'
