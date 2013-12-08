@@ -30,7 +30,7 @@
 "                  http://htmlpreview.github.io/?http<SID>//github.com/cesheridan/tabwins/blob/master/tabwins.txt.html
 "###############################################################################
 
-let g:tabwins_version = 3.0.0
+let g:tabwins_version = 3.1.0
 
 " Load overhead should be small, so default is to permit reload
 if !exists("g:tabwins_multiple_loads_are_permitted")
