@@ -13,7 +13,6 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-*v3.0.0* 
 
 
 ====================================================================
@@ -149,13 +148,13 @@ EXAMPLES *--*
   >> Dimensions >9
   >> ----------------------------------------------------------------
 
-  :Tabwins [ 5, 8, 13, 21 ] ~ 
+  :Tabwins [ 5, 8, 13, 21 ] ~
   :T       [ 5, 8, 13, 21 ] ~
   " For a 4-column tab with 5, 8, 13, 21 windows successively left to right.
 
   :Tabwins [ 14, 14 ] ~
   :T       [ 14, 14 ] ~
-  " Or, :V2x14
+  " Or,      :V2x14
 
   :Tabwins [ 40, 30, 40, 30 ] ~
   :T       [ 40, 30, 40, 30 ] ~
@@ -237,15 +236,20 @@ THREE TABWINS COMMANDS *--*
 
   :Tabwins ~
     Same as :TabwinsVertical
+  Default alias :T ~
 
-  :TabwinsVertical ~
+  :TabwinsVertical  ~
     Gives priority to the vertical axis.
+  Default alias :V ~
 
   :TabwinsHorizontal  ~
     Gives priority to the horizontal axis.
+  Default alias :H ~
 
   See "Vertical & Horizontal"/|TabwinsVandH| about primary/secondary 
   axes and vertical/horizontal priority.
+
+  See "Configuration"/|TabwinsConfiguration| re aliases.
 
   These commands accept arbitrary dimension specification, 
   unconstrained by configuration vars, other than 
@@ -300,7 +304,7 @@ TAB OPTIONS *--*
   These options apply to the entire tab and can be combined when 
   separated by commas. 
     
-     'dir_cmd_name'              : g:tabwins_dir_command_name_default,
+     'explore_cmd_name'          : g:tabwins_explore_cmd_name_default,
      'netrw_liststyle'           : g:tabwins_netrw_liststyle_default,
      'line_number_at_window_top' : g:tabwins_netrw_line_number_default,
 
@@ -410,14 +414,16 @@ Default: 'Y'
 To change the default beginning window number for filling fill_specs
   let g:tabwins_first_window_number_default  = {N} ~
 Default: 1 
+Calls to Fill_tab() can override this on a per-tab basis.
 
 To change the default window number that's active on :Tabwins* completion
   let g:tabwins_ending_window_number_default = {N} ~
 Default: 1 
+Calls to Fill_tab() can override this on a per-tab basis.
 
 
-To change the default directory reader command:
-  let g:tabwins_dir_reader_name_default      = {dir_reader_command_name} ~
+To change the default directory Explore command:
+  let g:explore_cmd_name                     = {explore_command_name} ~
 Default: 'Explore'
 
 To change the default top-line of netrw windows:
@@ -435,7 +441,6 @@ if netrw var g:netrw_liststyle is not defined, it gets this value.
 ====================================================================
 Section 6: Adding New Builders            *TabwinsAddingNewBuilders*
 ====================================================================
-
 
 ADDING SYMMETRIC TAB COMMANDS *--*
 
@@ -522,7 +527,6 @@ github repository for this plugin
    https://github.com/cesheridan/tabwins ~
 
 
-
 vim.org URL of this plugin 
    http://www.vim.org/scripts/script.php?script_id=4767
 
@@ -536,6 +540,13 @@ Section 10: RELEASE HISTORY                        *TabwinsReleases*
 
 Release numbering follows the Semantic Versioning approach as 
 described at http://semver.org/
+
+>> v3.1.0   2013-12-08 ~
+1. For fill_specs that are files, put line #1 at window top.
+2. tabwins.txt: correct Fill_tab() key 'dir_cmd_name'     to 'explore_cmd_name'
+3. tabwins.txt: correct 'tabwins_dir_reader_name_default' to 'tabwins_explore_cmd_name_default'
+4. tabwins.txt: various improvements.
+
 
 >> v3.0.0   2013-12-02 ~
 0. No behavioral changes to command logic.

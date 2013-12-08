@@ -40,598 +40,609 @@ body { font-family: monospace; color: #000000; background-color: #ffffff; }
 <span class="LineNr"> 13 </span><span class="PreProc">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 <span class="LineNr"> 14 </span><span class="PreProc">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 <span class="LineNr"> 15 </span>
-<span class="LineNr"> 16 </span><span class="String">v3.0.0</span>
+<span class="LineNr"> 16 </span>
 <span class="LineNr"> 17 </span>
-<span class="LineNr"> 18 </span>
-<span class="LineNr"> 19 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr"> 20 </span><span class="Statement">CONTENTS                                            </span><span class="String">TabwinsContents</span>
-<span class="LineNr"> 21 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr"> 22 </span>
-<span class="LineNr"> 23 </span>    1. Introduction ......... <span class="Identifier">TabwinsIntroduction</span>
-<span class="LineNr"> 24 </span>    2. Usage ................ <span class="Identifier">TabwinsUsage</span>
-<span class="LineNr"> 25 </span>    3. Vertical &amp; Horizontal  <span class="Identifier">TabwinsVandH</span>
-<span class="LineNr"> 26 </span>    4. Tabwins Menu ......... <span class="Identifier">TabwinsMenu</span>
-<span class="LineNr"> 27 </span>    5. Configuration ........ <span class="Identifier">TabwinsConfiguration</span>
-<span class="LineNr"> 28 </span>    6. Adding New Builders .. <span class="Identifier">TabwinsAddingNewBuilders</span>
-<span class="LineNr"> 29 </span>    7. License .............. <span class="Identifier">TabwinsLicense</span>
-<span class="LineNr"> 30 </span>    8. Bugs ................. <span class="Identifier">TabwinsBugs</span>
-<span class="LineNr"> 31 </span>    9. Distributions ........ <span class="Identifier">TabwinsDistributions</span>
-<span class="LineNr"> 32 </span>   10. Release History .......<span class="Identifier">TabwinsReleases</span>
-<span class="LineNr"> 33 </span>   11. Credits .............. <span class="Identifier">TabwinsCredits</span>
+<span class="LineNr"> 18 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr"> 19 </span><span class="Statement">CONTENTS                                            </span><span class="String">TabwinsContents</span>
+<span class="LineNr"> 20 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr"> 21 </span>
+<span class="LineNr"> 22 </span>    1. Introduction ......... <span class="Identifier">TabwinsIntroduction</span>
+<span class="LineNr"> 23 </span>    2. Usage ................ <span class="Identifier">TabwinsUsage</span>
+<span class="LineNr"> 24 </span>    3. Vertical &amp; Horizontal  <span class="Identifier">TabwinsVandH</span>
+<span class="LineNr"> 25 </span>    4. Tabwins Menu ......... <span class="Identifier">TabwinsMenu</span>
+<span class="LineNr"> 26 </span>    5. Configuration ........ <span class="Identifier">TabwinsConfiguration</span>
+<span class="LineNr"> 27 </span>    6. Adding New Builders .. <span class="Identifier">TabwinsAddingNewBuilders</span>
+<span class="LineNr"> 28 </span>    7. License .............. <span class="Identifier">TabwinsLicense</span>
+<span class="LineNr"> 29 </span>    8. Bugs ................. <span class="Identifier">TabwinsBugs</span>
+<span class="LineNr"> 30 </span>    9. Distributions ........ <span class="Identifier">TabwinsDistributions</span>
+<span class="LineNr"> 31 </span>   10. Release History .......<span class="Identifier">TabwinsReleases</span>
+<span class="LineNr"> 32 </span>   11. Credits .............. <span class="Identifier">TabwinsCredits</span>
+<span class="LineNr"> 33 </span>
 <span class="LineNr"> 34 </span>
-<span class="LineNr"> 35 </span>
-<span class="LineNr"> 36 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr"> 37 </span>Section 1: Introduction                         <span class="String">TabwinsIntroduction</span>
-<span class="LineNr"> 38 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr"> 39 </span>
-<span class="LineNr"> 40 </span><span class="PreProc">Easy access to the power of the Vim GUI.</span>
-<span class="LineNr"> 41 </span>
-<span class="LineNr"> 42 </span><span class="PreProc">See the screen shots at</span>
-<span class="LineNr"> 43 </span>  <span class="String"><a href="https://github.com/cesheridan/graphics/tree/master/tabwins">https://github.com/cesheridan/graphics/tree/master/tabwins</a></span>
+<span class="LineNr"> 35 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr"> 36 </span>Section 1: Introduction                         <span class="String">TabwinsIntroduction</span>
+<span class="LineNr"> 37 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr"> 38 </span>
+<span class="LineNr"> 39 </span><span class="PreProc">Easy access to the power of the Vim GUI.</span>
+<span class="LineNr"> 40 </span>
+<span class="LineNr"> 41 </span><span class="PreProc">See the screen shots at</span>
+<span class="LineNr"> 42 </span>  <span class="String"><a href="https://github.com/cesheridan/graphics/tree/master/tabwins">https://github.com/cesheridan/graphics/tree/master/tabwins</a></span>
+<span class="LineNr"> 43 </span>
 <span class="LineNr"> 44 </span>
-<span class="LineNr"> 45 </span>
-<span class="LineNr"> 46 </span>1 command for immediate access to customized window structures
-<span class="LineNr"> 47 </span>and content ~during~ Vim sessions.
-<span class="LineNr"> 48 </span>
-<span class="LineNr"> 49 </span>The Developer
-<span class="LineNr"> 50 </span>  - Avoids hit-or-miss, time-consuming, manual, repetitious
-<span class="LineNr"> 51 </span>    runs of :split/:vsplit, and thought-sinks about how
-<span class="LineNr"> 52 </span>    to produce the intended window structure
-<span class="LineNr"> 53 </span>
-<span class="LineNr"> 54 </span>  - Avoids losing current configurations due to mid-session
-<span class="LineNr"> 55 </span>    reloads of backed-up Vim sessions that have preferred
-<span class="LineNr"> 56 </span>    window structures
-<span class="LineNr"> 57 </span>
-<span class="LineNr"> 58 </span>  - Avoids loss of focus from these discontinuities
+<span class="LineNr"> 45 </span>1 command for immediate access to customized window structures
+<span class="LineNr"> 46 </span>and content ~during~ Vim sessions.
+<span class="LineNr"> 47 </span>
+<span class="LineNr"> 48 </span>The Developer
+<span class="LineNr"> 49 </span>  - Avoids hit-or-miss, time-consuming, manual, repetitious
+<span class="LineNr"> 50 </span>    runs of :split/:vsplit, and thought-sinks about how
+<span class="LineNr"> 51 </span>    to produce the intended window structure
+<span class="LineNr"> 52 </span>
+<span class="LineNr"> 53 </span>  - Avoids losing current configurations due to mid-session
+<span class="LineNr"> 54 </span>    reloads of backed-up Vim sessions that have preferred
+<span class="LineNr"> 55 </span>    window structures
+<span class="LineNr"> 56 </span>
+<span class="LineNr"> 57 </span>  - Avoids loss of focus from these discontinuities
+<span class="LineNr"> 58 </span>
 <span class="LineNr"> 59 </span>
-<span class="LineNr"> 60 </span>
-<span class="LineNr"> 61 </span><span class="Statement">FORMS </span><span class="String">--</span>
-<span class="LineNr"> 62 </span>
-<span class="LineNr"> 63 </span>  <span class="PreProc">:{Tabwins cmd}   {window_dimensions}; {fill_spec,...};  {tab_option, ...}</span>
-<span class="LineNr"> 64 </span>  <span class="PreProc">:{symmetric cmd}                      {fill_spec,...};  {tab_option, ...}</span>
-<span class="LineNr"> 65 </span>
-<span class="LineNr"> 66 </span>  Where
-<span class="LineNr"> 67 </span>     <span class="PreProc">:{Tabwins cmd} is any of :Tabwins, :TabwinsVertical, :TabwinsHorizontal</span>
-<span class="LineNr"> 68 </span>     <span class="PreProc">Aliases                  :Tw,      :V,             &amp; :H</span>
-<span class="LineNr"> 69 </span>     About aliases, see tabwins.txt section &quot;Configuration&quot;/<span class="Identifier">TabwinsConfiguration</span>.
-<span class="LineNr"> 70 </span>
-<span class="LineNr"> 71 </span>     <span class="PreProc">:{symmetric cmd} is any of the form :{V|H}IxJ or :{V|H}I </span>
-<span class="LineNr"> 72 </span>
-<span class="LineNr"> 73 </span>     <span class="PreProc">'fill_spec' </span>
-<span class="LineNr"> 74 </span>     is a file, dir, shell/vim var, or string evaluable
-<span class="LineNr"> 75 </span>     by :execute -- see EXAMPLES
-<span class="LineNr"> 76 </span>
-<span class="LineNr"> 77 </span>     <span class="PreProc">'tab_option'</span>
-<span class="LineNr"> 78 </span>     has Vim key:value pair syntax -- see EXAMPLES
-<span class="LineNr"> 79 </span>
-<span class="LineNr"> 80 </span>  Semicolons separate arg groups, commas separate inside groups.
-<span class="LineNr"> 81 </span>
-<span class="LineNr"> 82 </span>  <span class="PreProc">{window_dimensions} is the only mandatory arg, for :{Tabwins cmd}</span>
-<span class="LineNr"> 83 </span>
-<span class="LineNr"> 84 </span>  SECTION &quot;Usage/&quot;<span class="Identifier">TabwinsUsage</span> IN tabwins.txt HAS MORE DETAIL.
+<span class="LineNr"> 60 </span><span class="Statement">FORMS </span><span class="String">--</span>
+<span class="LineNr"> 61 </span>
+<span class="LineNr"> 62 </span>  <span class="PreProc">:{Tabwins cmd}   {window_dimensions}; {fill_spec,...};  {tab_option, ...}</span>
+<span class="LineNr"> 63 </span>  <span class="PreProc">:{symmetric cmd}                      {fill_spec,...};  {tab_option, ...}</span>
+<span class="LineNr"> 64 </span>
+<span class="LineNr"> 65 </span>  Where
+<span class="LineNr"> 66 </span>     <span class="PreProc">:{Tabwins cmd} is any of :Tabwins, :TabwinsVertical, :TabwinsHorizontal</span>
+<span class="LineNr"> 67 </span>     <span class="PreProc">Aliases                  :Tw,      :V,             &amp; :H</span>
+<span class="LineNr"> 68 </span>     About aliases, see tabwins.txt section &quot;Configuration&quot;/<span class="Identifier">TabwinsConfiguration</span>.
+<span class="LineNr"> 69 </span>
+<span class="LineNr"> 70 </span>     <span class="PreProc">:{symmetric cmd} is any of the form :{V|H}IxJ or :{V|H}I </span>
+<span class="LineNr"> 71 </span>
+<span class="LineNr"> 72 </span>     <span class="PreProc">'fill_spec' </span>
+<span class="LineNr"> 73 </span>     is a file, dir, shell/vim var, or string evaluable
+<span class="LineNr"> 74 </span>     by :execute -- see EXAMPLES
+<span class="LineNr"> 75 </span>
+<span class="LineNr"> 76 </span>     <span class="PreProc">'tab_option'</span>
+<span class="LineNr"> 77 </span>     has Vim key:value pair syntax -- see EXAMPLES
+<span class="LineNr"> 78 </span>
+<span class="LineNr"> 79 </span>  Semicolons separate arg groups, commas separate inside groups.
+<span class="LineNr"> 80 </span>
+<span class="LineNr"> 81 </span>  <span class="PreProc">{window_dimensions} is the only mandatory arg, for :{Tabwins cmd}</span>
+<span class="LineNr"> 82 </span>
+<span class="LineNr"> 83 </span>  SECTION &quot;Usage/&quot;<span class="Identifier">TabwinsUsage</span> IN tabwins.txt HAS MORE DETAIL.
+<span class="LineNr"> 84 </span>
 <span class="LineNr"> 85 </span>
-<span class="LineNr"> 86 </span>
-<span class="LineNr"> 87 </span><span class="Statement">EXAMPLES </span><span class="String">--</span>
-<span class="LineNr"> 88 </span>
-<span class="LineNr"> 89 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr"> 90 </span>  &gt;&gt; Empty Windows
-<span class="LineNr"> 91 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr"> 92 </span>
-<span class="LineNr"> 93 </span>  <span class="PreProc">:Tabwins 1211</span>
-<span class="LineNr"> 94 </span>  <span class="PreProc">:T       1211</span>
-<span class="LineNr"> 95 </span>  &quot; For a new tab of 4 columns of 1, 2, 1, &amp; 1 windows successively
-<span class="LineNr"> 96 </span>  &quot; left to right.
-<span class="LineNr"> 97 </span>
-<span class="LineNr"> 98 </span>  <span class="PreProc">:TabwinsHorizontal 4221</span>
-<span class="LineNr"> 99 </span>  <span class="PreProc">:H                 4221</span>
-<span class="LineNr">100 </span>  &quot; For a new tab of 4 rows, with 4,2,2, &amp; 1 windows successively
-<span class="LineNr">101 </span>  &quot; top to bottom.
-<span class="LineNr">102 </span>
-<span class="LineNr">103 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr">104 </span>  &gt;&gt; Populated Windows
-<span class="LineNr">105 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr">106 </span>
-<span class="LineNr">107 </span>  <span class="PreProc">:Tabwins            1211; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'</span>
-<span class="LineNr">108 </span>  <span class="PreProc">:T                  {                   as above                        }</span>
-<span class="LineNr">109 </span>  &quot; 'fill_content' specs of files are automatically opened via :edit,
-<span class="LineNr">110 </span>  &quot; while specs of dirs are opened via :Explore
-<span class="LineNr">111 </span>  &quot; (Specify the '' empty string for windows intended to be empty.)
-<span class="LineNr">112 </span>
-<span class="LineNr">113 </span>  <span class="PreProc">:Tabwins           11111; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'</span>
-<span class="LineNr">114 </span>  <span class="PreProc">:T                 {                    as above                        }</span>
-<span class="LineNr">115 </span>  &quot; Same buffer content, in different window structure, of 5 cols,
-<span class="LineNr">116 </span>  &quot; one window in each.
-<span class="LineNr">117 </span>
-<span class="LineNr">118 </span>  <span class="PreProc">:TabwinsHorizontal 11111; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'</span>
-<span class="LineNr">119 </span>  <span class="PreProc">:H                 {                    as above                        }</span>
-<span class="LineNr">120 </span>  &quot; Flip axis priority of above to the horizontal
-<span class="LineNr">121 </span>
-<span class="LineNr">122 </span>  <span class="PreProc">:Tabwins             312; '~/.bashrc', '~/.vimrc', '~/.git', $HOME, '/', '/usr/bin'</span>
-<span class="LineNr">123 </span>  <span class="PreProc">:T                   {                  as above                                  }</span>
-<span class="LineNr">124 </span>
-<span class="LineNr">125 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr">126 </span>  &gt;&gt; Symmetric Window Structures
-<span class="LineNr">127 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr">128 </span>  In a symmetric window, all secondary axis dimensions are the same.
-<span class="LineNr">129 </span>
-<span class="LineNr">130 </span>  <span class="PreProc">:V5x8</span>
-<span class="LineNr">131 </span>  <span class="PreProc">:H5x8</span>
-<span class="LineNr">132 </span>  <span class="PreProc">:V6</span>
-<span class="LineNr">133 </span>  <span class="PreProc">:H6</span>
-<span class="LineNr">134 </span>  <span class="PreProc">:V8x14</span>
-<span class="LineNr">135 </span>  <span class="PreProc">:H8x14</span>
-<span class="LineNr">136 </span>  &quot; Empty windows
-<span class="LineNr">137 </span>
-<span class="LineNr">138 </span>  <span class="PreProc">:V5x1</span>
-<span class="LineNr">139 </span>
-<span class="LineNr">140 </span>  <span class="PreProc">:V5x1 $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'</span>
-<span class="LineNr">141 </span>  &quot; Structure &amp; content same as :Tabwins 11111 above
-<span class="LineNr">142 </span>
-<span class="LineNr">143 </span>  <span class="PreProc">:V5   $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'</span>
-<span class="LineNr">144 </span>  &quot; Same result again: since the secondary axis has only 1
-<span class="LineNr">145 </span>  &quot; window for its dimensions, V5 is available as an even
-<span class="LineNr">146 </span>  &quot; shorter alias.
-<span class="LineNr">147 </span>
-<span class="LineNr">148 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr">149 </span>  &gt;&gt; Dimensions &gt;9
-<span class="LineNr">150 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr">151 </span>
-<span class="LineNr">152 </span>  :Tabwins [ 5, 8, 13, 21 ] ~
-<span class="LineNr">153 </span>  <span class="PreProc">:T       [ 5, 8, 13, 21 ]</span>
-<span class="LineNr">154 </span>  &quot; For a 4-column tab with 5, 8, 13, 21 windows successively left to right.
-<span class="LineNr">155 </span>
-<span class="LineNr">156 </span>  <span class="PreProc">:Tabwins [ 14, 14 ]</span>
-<span class="LineNr">157 </span>  <span class="PreProc">:T       [ 14, 14 ]</span>
-<span class="LineNr">158 </span>  &quot; Or, :V2x14
-<span class="LineNr">159 </span>
-<span class="LineNr">160 </span>  <span class="PreProc">:Tabwins [ 40, 30, 40, 30 ]</span>
-<span class="LineNr">161 </span>  <span class="PreProc">:T       [ 40, 30, 40, 30 ]</span>
-<span class="LineNr">162 </span>  &quot; For large monitors ...
+<span class="LineNr"> 86 </span><span class="Statement">EXAMPLES </span><span class="String">--</span>
+<span class="LineNr"> 87 </span>
+<span class="LineNr"> 88 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr"> 89 </span>  &gt;&gt; Empty Windows
+<span class="LineNr"> 90 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr"> 91 </span>
+<span class="LineNr"> 92 </span>  <span class="PreProc">:Tabwins 1211</span>
+<span class="LineNr"> 93 </span>  <span class="PreProc">:T       1211</span>
+<span class="LineNr"> 94 </span>  &quot; For a new tab of 4 columns of 1, 2, 1, &amp; 1 windows successively
+<span class="LineNr"> 95 </span>  &quot; left to right.
+<span class="LineNr"> 96 </span>
+<span class="LineNr"> 97 </span>  <span class="PreProc">:TabwinsHorizontal 4221</span>
+<span class="LineNr"> 98 </span>  <span class="PreProc">:H                 4221</span>
+<span class="LineNr"> 99 </span>  &quot; For a new tab of 4 rows, with 4,2,2, &amp; 1 windows successively
+<span class="LineNr">100 </span>  &quot; top to bottom.
+<span class="LineNr">101 </span>
+<span class="LineNr">102 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr">103 </span>  &gt;&gt; Populated Windows
+<span class="LineNr">104 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr">105 </span>
+<span class="LineNr">106 </span>  <span class="PreProc">:Tabwins            1211; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'</span>
+<span class="LineNr">107 </span>  <span class="PreProc">:T                  {                   as above                        }</span>
+<span class="LineNr">108 </span>  &quot; 'fill_content' specs of files are automatically opened via :edit,
+<span class="LineNr">109 </span>  &quot; while specs of dirs are opened via :Explore
+<span class="LineNr">110 </span>  &quot; (Specify the '' empty string for windows intended to be empty.)
+<span class="LineNr">111 </span>
+<span class="LineNr">112 </span>  <span class="PreProc">:Tabwins           11111; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'</span>
+<span class="LineNr">113 </span>  <span class="PreProc">:T                 {                    as above                        }</span>
+<span class="LineNr">114 </span>  &quot; Same buffer content, in different window structure, of 5 cols,
+<span class="LineNr">115 </span>  &quot; one window in each.
+<span class="LineNr">116 </span>
+<span class="LineNr">117 </span>  <span class="PreProc">:TabwinsHorizontal 11111; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'</span>
+<span class="LineNr">118 </span>  <span class="PreProc">:H                 {                    as above                        }</span>
+<span class="LineNr">119 </span>  &quot; Flip axis priority of above to the horizontal
+<span class="LineNr">120 </span>
+<span class="LineNr">121 </span>  <span class="PreProc">:Tabwins             312; '~/.bashrc', '~/.vimrc', '~/.git', $HOME, '/', '/usr/bin'</span>
+<span class="LineNr">122 </span>  <span class="PreProc">:T                   {                  as above                                  }</span>
+<span class="LineNr">123 </span>
+<span class="LineNr">124 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr">125 </span>  &gt;&gt; Symmetric Window Structures
+<span class="LineNr">126 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr">127 </span>  In a symmetric window, all secondary axis dimensions are the same.
+<span class="LineNr">128 </span>
+<span class="LineNr">129 </span>  <span class="PreProc">:V5x8</span>
+<span class="LineNr">130 </span>  <span class="PreProc">:H5x8</span>
+<span class="LineNr">131 </span>  <span class="PreProc">:V6</span>
+<span class="LineNr">132 </span>  <span class="PreProc">:H6</span>
+<span class="LineNr">133 </span>  <span class="PreProc">:V8x14</span>
+<span class="LineNr">134 </span>  <span class="PreProc">:H8x14</span>
+<span class="LineNr">135 </span>  &quot; Empty windows
+<span class="LineNr">136 </span>
+<span class="LineNr">137 </span>  <span class="PreProc">:V5x1</span>
+<span class="LineNr">138 </span>
+<span class="LineNr">139 </span>  <span class="PreProc">:V5x1 $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'</span>
+<span class="LineNr">140 </span>  &quot; Structure &amp; content same as :Tabwins 11111 above
+<span class="LineNr">141 </span>
+<span class="LineNr">142 </span>  <span class="PreProc">:V5   $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'</span>
+<span class="LineNr">143 </span>  &quot; Same result again: since the secondary axis has only 1
+<span class="LineNr">144 </span>  &quot; window for its dimensions, V5 is available as an even
+<span class="LineNr">145 </span>  &quot; shorter alias.
+<span class="LineNr">146 </span>
+<span class="LineNr">147 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr">148 </span>  &gt;&gt; Dimensions &gt;9
+<span class="LineNr">149 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr">150 </span>
+<span class="LineNr">151 </span>  <span class="PreProc">:Tabwins [ 5, 8, 13, 21 ]</span>
+<span class="LineNr">152 </span>  <span class="PreProc">:T       [ 5, 8, 13, 21 ]</span>
+<span class="LineNr">153 </span>  &quot; For a 4-column tab with 5, 8, 13, 21 windows successively left to right.
+<span class="LineNr">154 </span>
+<span class="LineNr">155 </span>  <span class="PreProc">:Tabwins [ 14, 14 ]</span>
+<span class="LineNr">156 </span>  <span class="PreProc">:T       [ 14, 14 ]</span>
+<span class="LineNr">157 </span>  &quot; Or,      :V2x14
+<span class="LineNr">158 </span>
+<span class="LineNr">159 </span>  <span class="PreProc">:Tabwins [ 40, 30, 40, 30 ]</span>
+<span class="LineNr">160 </span>  <span class="PreProc">:T       [ 40, 30, 40, 30 ]</span>
+<span class="LineNr">161 </span>  &quot; For large monitors ...
+<span class="LineNr">162 </span>
 <span class="LineNr">163 </span>
-<span class="LineNr">164 </span>
-<span class="LineNr">165 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr">166 </span>  &gt;&gt; fill_specs with Multiple Commands
-<span class="LineNr">167 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr">168 </span>
-<span class="LineNr">169 </span>  <span class="PreProc">:Tabwins 1112;  $HOME, '~/.bashrc', '~/.vimrc', '/', 'Explore /usr/bin | resize 20'</span>
-<span class="LineNr">170 </span>  <span class="PreProc">:T       {                           as above                                     }</span>
-<span class="LineNr">171 </span>  &quot; Does a :resize of the last window, via Vim '|' command concat.  If a file
-<span class="LineNr">172 </span>  &quot; or dir is followed with concated commands, the caller needs to explicitly
-<span class="LineNr">173 </span>  &quot; add the command that opens the file or dir, i.e. 'Explore' in this example.
-<span class="LineNr">174 </span>
-<span class="LineNr">175 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr">176 </span>  &gt;&gt; Tab Options
-<span class="LineNr">177 </span>  &gt;&gt; ----------------------------------------------------------------
-<span class="LineNr">178 </span>
-<span class="LineNr">179 </span>  <span class="PreProc">:Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'ending_window_number' : 2</span>
-<span class="LineNr">180 </span>  <span class="PreProc">:Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3</span>
-<span class="LineNr">181 </span>  <span class="PreProc">:T              {                    as above                                             }</span>
-<span class="LineNr">182 </span>
-<span class="LineNr">183 </span>  <span class="PreProc">:Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3, 'ending_window_number' : 2</span>
-<span class="LineNr">184 </span>  <span class="PreProc">:T              {                    as above                                                                         }</span>
-<span class="LineNr">185 </span>  &quot; Multiple tab_options in same command.
+<span class="LineNr">164 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr">165 </span>  &gt;&gt; fill_specs with Multiple Commands
+<span class="LineNr">166 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr">167 </span>
+<span class="LineNr">168 </span>  <span class="PreProc">:Tabwins 1112;  $HOME, '~/.bashrc', '~/.vimrc', '/', 'Explore /usr/bin | resize 20'</span>
+<span class="LineNr">169 </span>  <span class="PreProc">:T       {                           as above                                     }</span>
+<span class="LineNr">170 </span>  &quot; Does a :resize of the last window, via Vim '|' command concat.  If a file
+<span class="LineNr">171 </span>  &quot; or dir is followed with concated commands, the caller needs to explicitly
+<span class="LineNr">172 </span>  &quot; add the command that opens the file or dir, i.e. 'Explore' in this example.
+<span class="LineNr">173 </span>
+<span class="LineNr">174 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr">175 </span>  &gt;&gt; Tab Options
+<span class="LineNr">176 </span>  &gt;&gt; ----------------------------------------------------------------
+<span class="LineNr">177 </span>
+<span class="LineNr">178 </span>  <span class="PreProc">:Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'ending_window_number' : 2</span>
+<span class="LineNr">179 </span>  <span class="PreProc">:Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3</span>
+<span class="LineNr">180 </span>  <span class="PreProc">:T              {                    as above                                             }</span>
+<span class="LineNr">181 </span>
+<span class="LineNr">182 </span>  <span class="PreProc">:Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3, 'ending_window_number' : 2</span>
+<span class="LineNr">183 </span>  <span class="PreProc">:T              {                    as above                                                                         }</span>
+<span class="LineNr">184 </span>  &quot; Multiple tab_options in same command.
+<span class="LineNr">185 </span>
 <span class="LineNr">186 </span>
-<span class="LineNr">187 </span>
-<span class="LineNr">188 </span><span class="Statement">TABWINS MENU </span><span class="String">--</span>
-<span class="LineNr">189 </span>
-<span class="LineNr">190 </span>  Default settings load Vim menu Tabwins, for access to selected
-<span class="LineNr">191 </span>                        <span class="PreProc">~~~~~~~~~~~~~~~~</span>
-<span class="LineNr">192 </span>  tab-builder commands.  Those and additional tab builders are
-<span class="LineNr">193 </span>  available via Vim commands defined in tabwins.vim. The menu has
-<span class="LineNr">194 </span>  only a small portion of the tab builders defined in tabwins.vim.
+<span class="LineNr">187 </span><span class="Statement">TABWINS MENU </span><span class="String">--</span>
+<span class="LineNr">188 </span>
+<span class="LineNr">189 </span>  Default settings load Vim menu Tabwins, for access to selected
+<span class="LineNr">190 </span>                        <span class="PreProc">~~~~~~~~~~~~~~~~</span>
+<span class="LineNr">191 </span>  tab-builder commands.  Those and additional tab builders are
+<span class="LineNr">192 </span>  available via Vim commands defined in tabwins.vim. The menu has
+<span class="LineNr">193 </span>  only a small portion of the tab builders defined in tabwins.vim.
+<span class="LineNr">194 </span>
 <span class="LineNr">195 </span>
-<span class="LineNr">196 </span>
-<span class="LineNr">197 </span><span class="Statement">HELP IN VIM </span><span class="String">--</span>
-<span class="LineNr">198 </span>
-<span class="LineNr">199 </span>  :TabwinsFindTabwins loads the tabwins .vim &amp; .txt files
-<span class="LineNr">200 </span>  into a V2 window, if your Vim &amp;runtimepath can see them.
-<span class="LineNr">201 </span>
-<span class="LineNr">202 </span>  :TabwinsFindTabwins is in the 'Tabwins' menu.
+<span class="LineNr">196 </span><span class="Statement">HELP IN VIM </span><span class="String">--</span>
+<span class="LineNr">197 </span>
+<span class="LineNr">198 </span>  :TabwinsFindTabwins loads the tabwins .vim &amp; .txt files
+<span class="LineNr">199 </span>  into a V2 window, if your Vim &amp;runtimepath can see them.
+<span class="LineNr">200 </span>
+<span class="LineNr">201 </span>  :TabwinsFindTabwins is in the 'Tabwins' menu.
+<span class="LineNr">202 </span>
 <span class="LineNr">203 </span>
-<span class="LineNr">204 </span>
-<span class="LineNr">205 </span><span class="Statement">HELP IN HTML </span><span class="String">--</span>
-<span class="LineNr">206 </span>
-<span class="LineNr">207 </span>  The top-level of the github repository includes an html
-<span class="LineNr">208 </span>  version of this Vim .txt file, viewable in rendered form via
-<span class="LineNr">209 </span>    <span class="String"><a href="http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html">http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html</a></span>
+<span class="LineNr">204 </span><span class="Statement">HELP IN HTML </span><span class="String">--</span>
+<span class="LineNr">205 </span>
+<span class="LineNr">206 </span>  The top-level of the github repository includes an html
+<span class="LineNr">207 </span>  version of this Vim .txt file, viewable in rendered form via
+<span class="LineNr">208 </span>    <span class="String"><a href="http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html">http://htmlpreview.github.io/?https://github.com/cesheridan/tabwins/blob/master/tabwins.txt.html</a></span>
+<span class="LineNr">209 </span>
 <span class="LineNr">210 </span>
-<span class="LineNr">211 </span>
-<span class="LineNr">212 </span><span class="Statement">DEPLOYMENT </span><span class="String">--</span>
-<span class="LineNr">213 </span>
-<span class="LineNr">214 </span>  tabwins.vim tabwins/ dir is structured for deployment in a
-<span class="LineNr">215 </span>  pathogen-managed bundle directory, e.g. ~/.vim/bundle/
-<span class="LineNr">216 </span>
-<span class="LineNr">217 </span>  If pathogen is not installed, copy the the files in the tabwins
-<span class="LineNr">218 </span>  subdirs to the same subdirs in ~/.vim.
-<span class="LineNr">219 </span>
-<span class="LineNr">220 </span>  Enable :h tabwins in a pathogen environment with
-<span class="LineNr">221 </span>    :Helptags
-<span class="LineNr">222 </span>  and in a non-pathogen environment with
-<span class="LineNr">223 </span>    :helptags
+<span class="LineNr">211 </span><span class="Statement">DEPLOYMENT </span><span class="String">--</span>
+<span class="LineNr">212 </span>
+<span class="LineNr">213 </span>  tabwins.vim tabwins/ dir is structured for deployment in a
+<span class="LineNr">214 </span>  pathogen-managed bundle directory, e.g. ~/.vim/bundle/
+<span class="LineNr">215 </span>
+<span class="LineNr">216 </span>  If pathogen is not installed, copy the the files in the tabwins
+<span class="LineNr">217 </span>  subdirs to the same subdirs in ~/.vim.
+<span class="LineNr">218 </span>
+<span class="LineNr">219 </span>  Enable :h tabwins in a pathogen environment with
+<span class="LineNr">220 </span>    :Helptags
+<span class="LineNr">221 </span>  and in a non-pathogen environment with
+<span class="LineNr">222 </span>    :helptags
+<span class="LineNr">223 </span>
 <span class="LineNr">224 </span>
-<span class="LineNr">225 </span>
-<span class="LineNr">226 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">227 </span>Section 2: Usage                                       <span class="String">TabwinsUsage</span>
-<span class="LineNr">228 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">229 </span>
-<span class="LineNr">230 </span>=&gt; See FORMS    in <span class="Identifier">TabwinsIntroduction</span>
-<span class="LineNr">231 </span>=&gt; See EXAMPLES in <span class="Identifier">TabwinsIntroduction</span>
+<span class="LineNr">225 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">226 </span>Section 2: Usage                                       <span class="String">TabwinsUsage</span>
+<span class="LineNr">227 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">228 </span>
+<span class="LineNr">229 </span>=&gt; See FORMS    in <span class="Identifier">TabwinsIntroduction</span>
+<span class="LineNr">230 </span>=&gt; See EXAMPLES in <span class="Identifier">TabwinsIntroduction</span>
+<span class="LineNr">231 </span>
 <span class="LineNr">232 </span>
-<span class="LineNr">233 </span>
-<span class="LineNr">234 </span><span class="Statement">THREE TABWINS COMMANDS </span><span class="String">--</span>
-<span class="LineNr">235 </span>
-<span class="LineNr">236 </span>  These commands all take the same arguments.
-<span class="LineNr">237 </span>
-<span class="LineNr">238 </span>  <span class="PreProc">:Tabwins</span>
-<span class="LineNr">239 </span>    Same as :TabwinsVertical
+<span class="LineNr">233 </span><span class="Statement">THREE TABWINS COMMANDS </span><span class="String">--</span>
+<span class="LineNr">234 </span>
+<span class="LineNr">235 </span>  These commands all take the same arguments.
+<span class="LineNr">236 </span>
+<span class="LineNr">237 </span>  <span class="PreProc">:Tabwins</span>
+<span class="LineNr">238 </span>    Same as :TabwinsVertical
+<span class="LineNr">239 </span>  <span class="PreProc">Default alias :T</span>
 <span class="LineNr">240 </span>
-<span class="LineNr">241 </span>  <span class="PreProc">:TabwinsVertical</span>
+<span class="LineNr">241 </span>  <span class="PreProc">:TabwinsVertical </span>
 <span class="LineNr">242 </span>    Gives priority to the vertical axis.
-<span class="LineNr">243 </span>
-<span class="LineNr">244 </span>  <span class="PreProc">:TabwinsHorizontal </span>
-<span class="LineNr">245 </span>    Gives priority to the horizontal axis.
-<span class="LineNr">246 </span>
-<span class="LineNr">247 </span>  See &quot;Vertical &amp; Horizontal&quot;/<span class="Identifier">TabwinsVandH</span> about primary/secondary
-<span class="LineNr">248 </span>  axes and vertical/horizontal priority.
-<span class="LineNr">249 </span>
-<span class="LineNr">250 </span>  These commands accept arbitrary dimension specification,
-<span class="LineNr">251 </span>  unconstrained by configuration vars, other than
-<span class="LineNr">252 </span>  windows-per-tabsize limits of the Vim instance.
+<span class="LineNr">243 </span>  <span class="PreProc">Default alias :V</span>
+<span class="LineNr">244 </span>
+<span class="LineNr">245 </span>  <span class="PreProc">:TabwinsHorizontal </span>
+<span class="LineNr">246 </span>    Gives priority to the horizontal axis.
+<span class="LineNr">247 </span>  <span class="PreProc">Default alias :H</span>
+<span class="LineNr">248 </span>
+<span class="LineNr">249 </span>  See &quot;Vertical &amp; Horizontal&quot;/<span class="Identifier">TabwinsVandH</span> about primary/secondary
+<span class="LineNr">250 </span>  axes and vertical/horizontal priority.
+<span class="LineNr">251 </span>
+<span class="LineNr">252 </span>  See &quot;Configuration&quot;/<span class="Identifier">TabwinsConfiguration</span> re aliases.
 <span class="LineNr">253 </span>
-<span class="LineNr">254 </span>
-<span class="LineNr">255 </span><span class="Statement">SYMMETRIC WINDOW STRUCTURES </span><span class="String">--</span>
-<span class="LineNr">256 </span>
-<span class="LineNr">257 </span>  In these, the lengths of the secondary axis dimensions
-<span class="LineNr">258 </span>  are all equal.
-<span class="LineNr">259 </span>
-<span class="LineNr">260 </span>  Symmetric commands are available to reduce keystrokes.
-<span class="LineNr">261 </span>
-<span class="LineNr">262 </span>  'H' indicates horizontal priority, 'V' vertical priority.
+<span class="LineNr">254 </span>  These commands accept arbitrary dimension specification,
+<span class="LineNr">255 </span>  unconstrained by configuration vars, other than
+<span class="LineNr">256 </span>  windows-per-tabsize limits of the Vim instance.
+<span class="LineNr">257 </span>
+<span class="LineNr">258 </span>
+<span class="LineNr">259 </span><span class="Statement">SYMMETRIC WINDOW STRUCTURES </span><span class="String">--</span>
+<span class="LineNr">260 </span>
+<span class="LineNr">261 </span>  In these, the lengths of the secondary axis dimensions
+<span class="LineNr">262 </span>  are all equal.
 <span class="LineNr">263 </span>
-<span class="LineNr">264 </span>  Loading tabwins.vim creates :{V|H}IxJ commands where the
-<span class="LineNr">265 </span>  set of IxJ is the permutations of:
-<span class="LineNr">266 </span>    <span class="PreProc">g:tabwins_max_v_size </span>
-<span class="LineNr">267 </span>    <span class="PreProc">g:tabwins_max_h_size </span>
-<span class="LineNr">268 </span>
-<span class="LineNr">269 </span>  The same global vars determine the set of :{V|H}J commands
-<span class="LineNr">270 </span>  also produced on tabwins.vim load, where <span class="Special">N</span> is from 1 to the
-<span class="LineNr">271 </span>  value of the relevant g:tabwins_max_{h|v}_size var above.
+<span class="LineNr">264 </span>  Symmetric commands are available to reduce keystrokes.
+<span class="LineNr">265 </span>
+<span class="LineNr">266 </span>  'H' indicates horizontal priority, 'V' vertical priority.
+<span class="LineNr">267 </span>
+<span class="LineNr">268 </span>  Loading tabwins.vim creates :{V|H}IxJ commands where the
+<span class="LineNr">269 </span>  set of IxJ is the permutations of:
+<span class="LineNr">270 </span>    <span class="PreProc">g:tabwins_max_v_size </span>
+<span class="LineNr">271 </span>    <span class="PreProc">g:tabwins_max_h_size </span>
 <span class="LineNr">272 </span>
-<span class="LineNr">273 </span>
-<span class="LineNr">274 </span><span class="Statement">DIMENSIONS GREATER THAN 9 </span><span class="String">--</span>
-<span class="LineNr">275 </span>
-<span class="LineNr">276 </span>  Dimensions &gt;9 are unparsable when {window_dimensions} is
-<span class="LineNr">277 </span>  an integer.  To enable dimensions &gt;9, use list syntax as
-<span class="LineNr">278 </span>  shown in EXAMPLES of &quot;Introduction&quot;/<span class="Identifier">TabwinsIntroduction</span>
+<span class="LineNr">273 </span>  The same global vars determine the set of :{V|H}J commands
+<span class="LineNr">274 </span>  also produced on tabwins.vim load, where <span class="Special">N</span> is from 1 to the
+<span class="LineNr">275 </span>  value of the relevant g:tabwins_max_{h|v}_size var above.
+<span class="LineNr">276 </span>
+<span class="LineNr">277 </span>
+<span class="LineNr">278 </span><span class="Statement">DIMENSIONS GREATER THAN 9 </span><span class="String">--</span>
 <span class="LineNr">279 </span>
-<span class="LineNr">280 </span>  List syntax applies to any tab that one or more dimension &gt;9.
-<span class="LineNr">281 </span>  All the dimensions of such a tab are specified in one list.
-<span class="LineNr">282 </span>
+<span class="LineNr">280 </span>  Dimensions &gt;9 are unparsable when {window_dimensions} is
+<span class="LineNr">281 </span>  an integer.  To enable dimensions &gt;9, use list syntax as
+<span class="LineNr">282 </span>  shown in EXAMPLES of &quot;Introduction&quot;/<span class="Identifier">TabwinsIntroduction</span>
 <span class="LineNr">283 </span>
-<span class="LineNr">284 </span>
-<span class="LineNr">285 </span><span class="Statement">FILL SPECS WITH MULTIPLE COMMANDS </span><span class="String">--</span>
+<span class="LineNr">284 </span>  List syntax applies to any tab that one or more dimension &gt;9.
+<span class="LineNr">285 </span>  All the dimensions of such a tab are specified in one list.
 <span class="LineNr">286 </span>
-<span class="LineNr">287 </span>  Multiple Vim commands can be specified in a fill_spec by
-<span class="LineNr">288 </span>  prepending commands with the Vim '|' concatenation operator.
-<span class="LineNr">289 </span>  See EXAMPLES in &quot;Introduction&quot;/<span class="Identifier">TabwinsIntroduction</span>.
+<span class="LineNr">287 </span>
+<span class="LineNr">288 </span>
+<span class="LineNr">289 </span><span class="Statement">FILL SPECS WITH MULTIPLE COMMANDS </span><span class="String">--</span>
 <span class="LineNr">290 </span>
-<span class="LineNr">291 </span>
-<span class="LineNr">292 </span><span class="Statement">TAB OPTIONS </span><span class="String">--</span>
-<span class="LineNr">293 </span>
-<span class="LineNr">294 </span>  Available tab_options are below, with global default vars
-<span class="LineNr">295 </span>  on the right.
-<span class="LineNr">296 </span>
-<span class="LineNr">297 </span>  See tabwins.txt section &quot;Configuration&quot;/<span class="Identifier">TabwinsConfiguration</span>
-<span class="LineNr">298 </span>  re the globals.
-<span class="LineNr">299 </span>
-<span class="LineNr">300 </span>  These options apply to the entire tab and can be combined when
-<span class="LineNr">301 </span>  separated by commas.
-<span class="LineNr">302 </span>
-<span class="LineNr">303 </span>     'dir_cmd_name'              : g:tabwins_dir_command_name_default,
-<span class="LineNr">304 </span>     'netrw_liststyle'           : g:tabwins_netrw_liststyle_default,
-<span class="LineNr">305 </span>     'line_number_at_window_top' : g:tabwins_netrw_line_number_default,
+<span class="LineNr">291 </span>  Multiple Vim commands can be specified in a fill_spec by
+<span class="LineNr">292 </span>  prepending commands with the Vim '|' concatenation operator.
+<span class="LineNr">293 </span>  See EXAMPLES in &quot;Introduction&quot;/<span class="Identifier">TabwinsIntroduction</span>.
+<span class="LineNr">294 </span>
+<span class="LineNr">295 </span>
+<span class="LineNr">296 </span><span class="Statement">TAB OPTIONS </span><span class="String">--</span>
+<span class="LineNr">297 </span>
+<span class="LineNr">298 </span>  Available tab_options are below, with global default vars
+<span class="LineNr">299 </span>  on the right.
+<span class="LineNr">300 </span>
+<span class="LineNr">301 </span>  See tabwins.txt section &quot;Configuration&quot;/<span class="Identifier">TabwinsConfiguration</span>
+<span class="LineNr">302 </span>  re the globals.
+<span class="LineNr">303 </span>
+<span class="LineNr">304 </span>  These options apply to the entire tab and can be combined when
+<span class="LineNr">305 </span>  separated by commas.
 <span class="LineNr">306 </span>
-<span class="LineNr">307 </span>     =&gt; Use a fill_spec for window-specific override of the
-<span class="LineNr">308 </span>        above options
-<span class="LineNr">309 </span>
-<span class="LineNr">310 </span>     'first_window_number'       : g:tabwins_first_window_number_default,
-<span class="LineNr">311 </span>     =&gt; window population starts with this number, so you wouldn't
-<span class="LineNr">312 </span>        have to have to have a fill_spec for lower-numbered windows.
+<span class="LineNr">307 </span>     'explore_cmd_name'          : g:tabwins_explore_cmd_name_default,
+<span class="LineNr">308 </span>     'netrw_liststyle'           : g:tabwins_netrw_liststyle_default,
+<span class="LineNr">309 </span>     'line_number_at_window_top' : g:tabwins_netrw_line_number_default,
+<span class="LineNr">310 </span>
+<span class="LineNr">311 </span>     =&gt; Use a fill_spec for window-specific override of the
+<span class="LineNr">312 </span>        above options
 <span class="LineNr">313 </span>
-<span class="LineNr">314 </span>     'ending_window_number'      : g:tabwins_ending_window_number_default,
-<span class="LineNr">315 </span>     =&gt; the active window number after tabwins.vim builds a tab
-<span class="LineNr">316 </span>
+<span class="LineNr">314 </span>     'first_window_number'       : g:tabwins_first_window_number_default,
+<span class="LineNr">315 </span>     =&gt; window population starts with this number, so you wouldn't
+<span class="LineNr">316 </span>        have to have to have a fill_spec for lower-numbered windows.
 <span class="LineNr">317 </span>
-<span class="LineNr">318 </span>  See EXAMPLES in &quot;Introduction&quot;/<span class="Identifier">TabwinsIntroduction</span>.
-<span class="LineNr">319 </span>
+<span class="LineNr">318 </span>     'ending_window_number'      : g:tabwins_ending_window_number_default,
+<span class="LineNr">319 </span>     =&gt; the active window number after tabwins.vim builds a tab
 <span class="LineNr">320 </span>
 <span class="LineNr">321 </span>
-<span class="LineNr">322 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">323 </span>Section 3: Vertical &amp; Horizontal                    <span class="String">TabwinsVandH</span>
-<span class="LineNr">324 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">322 </span>  See EXAMPLES in &quot;Introduction&quot;/<span class="Identifier">TabwinsIntroduction</span>.
+<span class="LineNr">323 </span>
+<span class="LineNr">324 </span>
 <span class="LineNr">325 </span>
-<span class="LineNr">326 </span>Windows are built one axis at a time. The first axis built
-<span class="LineNr">327 </span>is the primary axis, and the other axis is the secondary axis.
-<span class="LineNr">328 </span>       <span class="PreProc">~~~~~~~~~~~~                            ~~~~~~~~~~~~~~</span>
-<span class="LineNr">329 </span>If the tab starts by building the vertical axis, then the
-<span class="LineNr">330 </span>vertical axis is the primary axis, and the horizontal axis
-<span class="LineNr">331 </span>is the secondary axis. And vice-versa.
-<span class="LineNr">332 </span>
-<span class="LineNr">333 </span><span class="PreProc">What's the difference between Horizontal &amp; Vertical Tabs ?</span>
-<span class="LineNr">334 </span>
-<span class="LineNr">335 </span>  Structurally, V2x3 is the same as H3x2.  The only difference
-<span class="LineNr">336 </span>  is how Vim numbers the tabs, based on the axis that is the
-<span class="LineNr">337 </span>  primary axis.
+<span class="LineNr">326 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">327 </span>Section 3: Vertical &amp; Horizontal                    <span class="String">TabwinsVandH</span>
+<span class="LineNr">328 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">329 </span>
+<span class="LineNr">330 </span>Windows are built one axis at a time. The first axis built
+<span class="LineNr">331 </span>is the primary axis, and the other axis is the secondary axis.
+<span class="LineNr">332 </span>       <span class="PreProc">~~~~~~~~~~~~                            ~~~~~~~~~~~~~~</span>
+<span class="LineNr">333 </span>If the tab starts by building the vertical axis, then the
+<span class="LineNr">334 </span>vertical axis is the primary axis, and the horizontal axis
+<span class="LineNr">335 </span>is the secondary axis. And vice-versa.
+<span class="LineNr">336 </span>
+<span class="LineNr">337 </span><span class="PreProc">What's the difference between Horizontal &amp; Vertical Tabs ?</span>
 <span class="LineNr">338 </span>
-<span class="LineNr">339 </span>  IF the primary axis is vertical, then numbering starts in
-<span class="LineNr">340 </span>  col 1 and goes down the windows in col 1, then to the top
-<span class="LineNr">341 </span>  of col 2, then down col 2, and so on.
+<span class="LineNr">339 </span>  Structurally, V2x3 is the same as H3x2.  The only difference
+<span class="LineNr">340 </span>  is how Vim numbers the tabs, based on the axis that is the
+<span class="LineNr">341 </span>  primary axis.
 <span class="LineNr">342 </span>
-<span class="LineNr">343 </span>  IF the primary axis is horizontal, numbering starts in
-<span class="LineNr">344 </span>  row 1 and goes left to right, then to row 2, left to right,
-<span class="LineNr">345 </span>  and so on.
+<span class="LineNr">343 </span>  IF the primary axis is vertical, then numbering starts in
+<span class="LineNr">344 </span>  col 1 and goes down the windows in col 1, then to the top
+<span class="LineNr">345 </span>  of col 2, then down col 2, and so on.
 <span class="LineNr">346 </span>
-<span class="LineNr">347 </span>  Most of the asymmetric tab builders defined in the plugin
-<span class="LineNr">348 </span>  use a vertical primary axis.  Developers can define any
-<span class="LineNr">349 </span>  mix of primary axis in their own tab builders -- See
-<span class="LineNr">350 </span>  &quot;Adding New Builders&quot;/<span class="Identifier">TabwinsAddingNewBuilders</span>
-<span class="LineNr">351 </span>
-<span class="LineNr">352 </span>
-<span class="LineNr">353 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">354 </span>Section 4: 'Tabwins' Menu                               <span class="String">TabwinsMenu</span>
-<span class="LineNr">355 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">347 </span>  IF the primary axis is horizontal, numbering starts in
+<span class="LineNr">348 </span>  row 1 and goes left to right, then to row 2, left to right,
+<span class="LineNr">349 </span>  and so on.
+<span class="LineNr">350 </span>
+<span class="LineNr">351 </span>  Most of the asymmetric tab builders defined in the plugin
+<span class="LineNr">352 </span>  use a vertical primary axis.  Developers can define any
+<span class="LineNr">353 </span>  mix of primary axis in their own tab builders -- See
+<span class="LineNr">354 </span>  &quot;Adding New Builders&quot;/<span class="Identifier">TabwinsAddingNewBuilders</span>
+<span class="LineNr">355 </span>
 <span class="LineNr">356 </span>
-<span class="LineNr">357 </span>In the 'Tabwins' menu built on plugin load, the extent that
-<span class="LineNr">358 </span>populated tabs fill their buffers is dependent on the shell
-<span class="LineNr">359 </span>vars available to the Vim session, and files/dirs present in
-<span class="LineNr">360 </span>the local environment.
-<span class="LineNr">361 </span>
-<span class="LineNr">362 </span>The menu items reference some of these shell vars.
-<span class="LineNr">363 </span>
-<span class="LineNr">364 </span>The developer is encouraged to customize this menu for local usage.
+<span class="LineNr">357 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">358 </span>Section 4: 'Tabwins' Menu                               <span class="String">TabwinsMenu</span>
+<span class="LineNr">359 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">360 </span>
+<span class="LineNr">361 </span>In the 'Tabwins' menu built on plugin load, the extent that
+<span class="LineNr">362 </span>populated tabs fill their buffers is dependent on the shell
+<span class="LineNr">363 </span>vars available to the Vim session, and files/dirs present in
+<span class="LineNr">364 </span>the local environment.
 <span class="LineNr">365 </span>
-<span class="LineNr">366 </span>Update or replace
-<span class="LineNr">367 </span>  <span class="PreProc">function Tabwins_menu_build()</span>
-<span class="LineNr">368 </span>in tabwins.vim to do so.
+<span class="LineNr">366 </span>The menu items reference some of these shell vars.
+<span class="LineNr">367 </span>
+<span class="LineNr">368 </span>The developer is encouraged to customize this menu for local usage.
 <span class="LineNr">369 </span>
-<span class="LineNr">370 </span>
-<span class="LineNr">371 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">372 </span>Section 5: Configuration                      <span class="String">TabwinsConfiguration</span>
-<span class="LineNr">373 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">370 </span>Update or replace
+<span class="LineNr">371 </span>  <span class="PreProc">function Tabwins_menu_build()</span>
+<span class="LineNr">372 </span>in tabwins.vim to do so.
+<span class="LineNr">373 </span>
 <span class="LineNr">374 </span>
-<span class="LineNr">375 </span>The below globals are defined in tabwins.vim and are overridable.
-<span class="LineNr">376 </span>
-<span class="LineNr">377 </span>
-<span class="LineNr">378 </span>To change Vertical/Horizontal max dimensions:
-<span class="LineNr">379 </span>  <span class="PreProc">let g:tabwins_max_v_size                   = {N}</span>
-<span class="LineNr">380 </span>  <span class="PreProc">let g:tabwins_max_h_size                   = {N} </span>
-<span class="LineNr">381 </span>Default: 15 for each
-<span class="LineNr">382 </span>
-<span class="LineNr">383 </span>
-<span class="LineNr">384 </span>To limit tabwins.vim load to once per Vim session:
-<span class="LineNr">385 </span>  <span class="PreProc">let g:tabwins_multiple_loads_are_permitted = 'N'</span>
-<span class="LineNr">386 </span>Default: 'Y'
+<span class="LineNr">375 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">376 </span>Section 5: Configuration                      <span class="String">TabwinsConfiguration</span>
+<span class="LineNr">377 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">378 </span>
+<span class="LineNr">379 </span>The below globals are defined in tabwins.vim and are overridable.
+<span class="LineNr">380 </span>
+<span class="LineNr">381 </span>
+<span class="LineNr">382 </span>To change Vertical/Horizontal max dimensions:
+<span class="LineNr">383 </span>  <span class="PreProc">let g:tabwins_max_v_size                   = {N}</span>
+<span class="LineNr">384 </span>  <span class="PreProc">let g:tabwins_max_h_size                   = {N} </span>
+<span class="LineNr">385 </span>Default: 15 for each
+<span class="LineNr">386 </span>
 <span class="LineNr">387 </span>
-<span class="LineNr">388 </span>To prevent 'Tabwins' menu addition when tabwins loads:
-<span class="LineNr">389 </span>  <span class="PreProc">let g:load_tabwins_menu_is_wanted          = 'N'</span>
+<span class="LineNr">388 </span>To limit tabwins.vim load to once per Vim session:
+<span class="LineNr">389 </span>  <span class="PreProc">let g:tabwins_multiple_loads_are_permitted = 'N'</span>
 <span class="LineNr">390 </span>Default: 'Y'
 <span class="LineNr">391 </span>
-<span class="LineNr">392 </span>To change the 'Tabwins' menu number:
-<span class="LineNr">393 </span>  <span class="PreProc">let g:tabwins_menu_number                  = {menu_number}</span>
-<span class="LineNr">394 </span>Default: 9998
+<span class="LineNr">392 </span>To prevent 'Tabwins' menu addition when tabwins loads:
+<span class="LineNr">393 </span>  <span class="PreProc">let g:load_tabwins_menu_is_wanted          = 'N'</span>
+<span class="LineNr">394 </span>Default: 'Y'
 <span class="LineNr">395 </span>
-<span class="LineNr">396 </span>
-<span class="LineNr">397 </span>To turn off creation of :Tabwins* aliases
-<span class="LineNr">398 </span>  <span class="PreProc">let  g:tabwins_create_aliases_is_wanted    = 'N'</span>
-<span class="LineNr">399 </span>Default: 'Y'
-<span class="LineNr">400 </span>=&gt; Creation of an alias command will NOT occur when an existing
-<span class="LineNr">401 </span>   command has the same name.
-<span class="LineNr">402 </span>
-<span class="LineNr">403 </span>:Tabwins* Alias Defaults:
-<span class="LineNr">404 </span>  <span class="PreProc">let g:tabwins_alias            = 'T'</span>
-<span class="LineNr">405 </span>  <span class="PreProc">let g:tabwinsvertical_alias    = 'V'</span>
-<span class="LineNr">406 </span>  <span class="PreProc">let g:tabwinshorizontal_alias  = 'H'</span>
-<span class="LineNr">407 </span>  <span class="PreProc">let g:tabwinsfindtabwins_alias = 'TF'</span>
-<span class="LineNr">408 </span>
-<span class="LineNr">409 </span>
-<span class="LineNr">410 </span>To change the default beginning window number for filling fill_specs
-<span class="LineNr">411 </span>  <span class="PreProc">let g:tabwins_first_window_number_default  = {N}</span>
-<span class="LineNr">412 </span>Default: 1
+<span class="LineNr">396 </span>To change the 'Tabwins' menu number:
+<span class="LineNr">397 </span>  <span class="PreProc">let g:tabwins_menu_number                  = {menu_number}</span>
+<span class="LineNr">398 </span>Default: 9998
+<span class="LineNr">399 </span>
+<span class="LineNr">400 </span>
+<span class="LineNr">401 </span>To turn off creation of :Tabwins* aliases
+<span class="LineNr">402 </span>  <span class="PreProc">let  g:tabwins_create_aliases_is_wanted    = 'N'</span>
+<span class="LineNr">403 </span>Default: 'Y'
+<span class="LineNr">404 </span>=&gt; Creation of an alias command will NOT occur when an existing
+<span class="LineNr">405 </span>   command has the same name.
+<span class="LineNr">406 </span>
+<span class="LineNr">407 </span>:Tabwins* Alias Defaults:
+<span class="LineNr">408 </span>  <span class="PreProc">let g:tabwins_alias            = 'T'</span>
+<span class="LineNr">409 </span>  <span class="PreProc">let g:tabwinsvertical_alias    = 'V'</span>
+<span class="LineNr">410 </span>  <span class="PreProc">let g:tabwinshorizontal_alias  = 'H'</span>
+<span class="LineNr">411 </span>  <span class="PreProc">let g:tabwinsfindtabwins_alias = 'TF'</span>
+<span class="LineNr">412 </span>
 <span class="LineNr">413 </span>
-<span class="LineNr">414 </span>To change the default window number that's active on :Tabwins* completion
-<span class="LineNr">415 </span>  <span class="PreProc">let g:tabwins_ending_window_number_default = {N}</span>
+<span class="LineNr">414 </span>To change the default beginning window number for filling fill_specs
+<span class="LineNr">415 </span>  <span class="PreProc">let g:tabwins_first_window_number_default  = {N}</span>
 <span class="LineNr">416 </span>Default: 1
-<span class="LineNr">417 </span>
+<span class="LineNr">417 </span>Calls to Fill_tab() can override this on a per-tab basis.
 <span class="LineNr">418 </span>
-<span class="LineNr">419 </span>To change the default directory reader command:
-<span class="LineNr">420 </span>  <span class="PreProc">let g:tabwins_dir_reader_name_default      = {dir_reader_command_name}</span>
-<span class="LineNr">421 </span>Default: 'Explore'
-<span class="LineNr">422 </span>
-<span class="LineNr">423 </span>To change the default top-line of netrw windows:
-<span class="LineNr">424 </span>  <span class="PreProc">let g:tabwins_netrw_line_number_default    = {N}</span>
-<span class="LineNr">425 </span>Default: g:tabwins_netrw_line_number_dirpath, which defaults to 3
-<span class="LineNr">426 </span>Calls to Fill_tab() can override this on a per-tab basis.
-<span class="LineNr">427 </span>
-<span class="LineNr">428 </span>To change the default netrw liststyle:
-<span class="LineNr">429 </span>  <span class="PreProc">let g:tabwins_netrw_liststyle_default      = {N}</span>
-<span class="LineNr">430 </span>Default: 1
-<span class="LineNr">431 </span>Calls to Fill_tab() can override this on a per-tab basis.
-<span class="LineNr">432 </span>if netrw var g:netrw_liststyle is not defined, it gets this value.
+<span class="LineNr">419 </span>To change the default window number that's active on :Tabwins* completion
+<span class="LineNr">420 </span>  <span class="PreProc">let g:tabwins_ending_window_number_default = {N}</span>
+<span class="LineNr">421 </span>Default: 1
+<span class="LineNr">422 </span>Calls to Fill_tab() can override this on a per-tab basis.
+<span class="LineNr">423 </span>
+<span class="LineNr">424 </span>
+<span class="LineNr">425 </span>To change the default directory Explore command:
+<span class="LineNr">426 </span>  <span class="PreProc">let g:explore_cmd_name                     = {explore_command_name}</span>
+<span class="LineNr">427 </span>Default: 'Explore'
+<span class="LineNr">428 </span>
+<span class="LineNr">429 </span>To change the default top-line of netrw windows:
+<span class="LineNr">430 </span>  <span class="PreProc">let g:tabwins_netrw_line_number_default    = {N}</span>
+<span class="LineNr">431 </span>Default: g:tabwins_netrw_line_number_dirpath, which defaults to 3
+<span class="LineNr">432 </span>Calls to Fill_tab() can override this on a per-tab basis.
 <span class="LineNr">433 </span>
-<span class="LineNr">434 </span>
-<span class="LineNr">435 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">436 </span>Section 6: Adding New Builders            <span class="String">TabwinsAddingNewBuilders</span>
-<span class="LineNr">437 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">438 </span>
+<span class="LineNr">434 </span>To change the default netrw liststyle:
+<span class="LineNr">435 </span>  <span class="PreProc">let g:tabwins_netrw_liststyle_default      = {N}</span>
+<span class="LineNr">436 </span>Default: 1
+<span class="LineNr">437 </span>Calls to Fill_tab() can override this on a per-tab basis.
+<span class="LineNr">438 </span>if netrw var g:netrw_liststyle is not defined, it gets this value.
 <span class="LineNr">439 </span>
-<span class="LineNr">440 </span><span class="Statement">ADDING SYMMETRIC TAB COMMANDS </span><span class="String">--</span>
-<span class="LineNr">441 </span>
-<span class="LineNr">442 </span>  Bump either/both values of:
-<span class="LineNr">443 </span>    <span class="PreProc">g:tabwins_max_v_size</span>
-<span class="LineNr">444 </span>    <span class="PreProc">g:tabwins_max_h_size</span>
-<span class="LineNr">445 </span>  above the values assigned in tabwins.vim.
+<span class="LineNr">440 </span>
+<span class="LineNr">441 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">442 </span>Section 6: Adding New Builders            <span class="String">TabwinsAddingNewBuilders</span>
+<span class="LineNr">443 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">444 </span>
+<span class="LineNr">445 </span><span class="Statement">ADDING SYMMETRIC TAB COMMANDS </span><span class="String">--</span>
 <span class="LineNr">446 </span>
-<span class="LineNr">447 </span>  Loading tabwins.vim will build commands for all the HxV and
-<span class="LineNr">448 </span>  VxH permutations.
-<span class="LineNr">449 </span>
-<span class="LineNr">450 </span>  Of course, the set of symmetric tab builder commands can be
-<span class="LineNr">451 </span>  reduced by lowering the values of the same globals.
-<span class="LineNr">452 </span>
-<span class="LineNr">453 </span>
-<span class="LineNr">454 </span><span class="Statement">MORE GENERALLY </span><span class="String">--</span>
-<span class="LineNr">455 </span>
-<span class="LineNr">456 </span>  Adapt the below example to create your own commands that build tabs
-<span class="LineNr">457 </span>  that have the window structures and content that you want.
+<span class="LineNr">447 </span>  Bump either/both values of:
+<span class="LineNr">448 </span>    <span class="PreProc">g:tabwins_max_v_size</span>
+<span class="LineNr">449 </span>    <span class="PreProc">g:tabwins_max_h_size</span>
+<span class="LineNr">450 </span>  above the values assigned in tabwins.vim.
+<span class="LineNr">451 </span>
+<span class="LineNr">452 </span>  Loading tabwins.vim will build commands for all the HxV and
+<span class="LineNr">453 </span>  VxH permutations.
+<span class="LineNr">454 </span>
+<span class="LineNr">455 </span>  Of course, the set of symmetric tab builder commands can be
+<span class="LineNr">456 </span>  reduced by lowering the values of the same globals.
+<span class="LineNr">457 </span>
 <span class="LineNr">458 </span>
-<span class="LineNr">459 </span>        let                g:home_parent_dirpath = substitute(finddir($HOME), '\/\w\+$', '', 'g')
-<span class="LineNr">460 </span>        <span class="PreProc">command! TabwinsHomeDir :Tabwins 232;</span>
-<span class="LineNr">461 </span>          <span class="PreProc">\   $HOME,</span>
-<span class="LineNr">462 </span>          <span class="PreProc">\   'Explore ' . g:home_parent_dirpath . ' | resize 30',</span>
-<span class="LineNr">463 </span>          <span class="PreProc">\</span>
-<span class="LineNr">464 </span>          <span class="PreProc">\   'edit! ~/.bashrc',</span>
-<span class="LineNr">465 </span>          <span class="PreProc">\   '~/.gitignore',</span>
-<span class="LineNr">466 </span>          <span class="PreProc">\   'enew!',</span>
-<span class="LineNr">467 </span>          <span class="PreProc">\</span>
-<span class="LineNr">468 </span>          <span class="PreProc">\   '~/.vimrc',</span>
-<span class="LineNr">469 </span>          <span class="PreProc">\   '~/.vim'</span>
-<span class="LineNr">470 </span>          <span class="PreProc">\;</span>
-<span class="LineNr">471 </span>          <span class="PreProc">\ 'line_number_at_window_top' : 1</span>
-<span class="LineNr">472 </span>
-<span class="LineNr">473 </span>          &quot; windows are filled with the order of elements
-<span class="LineNr">474 </span>          &quot; in 'fill_specs' You want to spec something for each
-<span class="LineNr">475 </span>          &quot; of the windows created by :Tabwins 232,
-<span class="LineNr">476 </span>          &quot; either commands, filepaths, or dirpaths. Spec an empty
-<span class="LineNr">477 </span>          &quot; string to bypass the fill of a window buffer.
-<span class="LineNr">478 </span>          &quot; Specs can include shell or vim vars, and if files or dirs
-<span class="LineNr">479 </span>          &quot; the spec can include a vim command or use the default :edit or
-<span class="LineNr">480 </span>          &quot; :Explore call in Fill_tab()
-<span class="LineNr">481 </span>
-<span class="LineNr">482 </span>          &quot; <span class="Todo">NOTE</span>-the .vim file implementation defines 'home_parent_dirpath' as
-<span class="LineNr">483 </span>          &quot; as a vimscript var, i.e. 's:home_parent_dirpath' -- it's changed
-<span class="LineNr">484 </span>          &quot; here to facilitate interactive experimentation.
-<span class="LineNr">485 </span>
+<span class="LineNr">459 </span><span class="Statement">MORE GENERALLY </span><span class="String">--</span>
+<span class="LineNr">460 </span>
+<span class="LineNr">461 </span>  Adapt the below example to create your own commands that build tabs
+<span class="LineNr">462 </span>  that have the window structures and content that you want.
+<span class="LineNr">463 </span>
+<span class="LineNr">464 </span>        let                g:home_parent_dirpath = substitute(finddir($HOME), '\/\w\+$', '', 'g')
+<span class="LineNr">465 </span>        <span class="PreProc">command! TabwinsHomeDir :Tabwins 232;</span>
+<span class="LineNr">466 </span>          <span class="PreProc">\   $HOME,</span>
+<span class="LineNr">467 </span>          <span class="PreProc">\   'Explore ' . g:home_parent_dirpath . ' | resize 30',</span>
+<span class="LineNr">468 </span>          <span class="PreProc">\</span>
+<span class="LineNr">469 </span>          <span class="PreProc">\   'edit! ~/.bashrc',</span>
+<span class="LineNr">470 </span>          <span class="PreProc">\   '~/.gitignore',</span>
+<span class="LineNr">471 </span>          <span class="PreProc">\   'enew!',</span>
+<span class="LineNr">472 </span>          <span class="PreProc">\</span>
+<span class="LineNr">473 </span>          <span class="PreProc">\   '~/.vimrc',</span>
+<span class="LineNr">474 </span>          <span class="PreProc">\   '~/.vim'</span>
+<span class="LineNr">475 </span>          <span class="PreProc">\;</span>
+<span class="LineNr">476 </span>          <span class="PreProc">\ 'line_number_at_window_top' : 1</span>
+<span class="LineNr">477 </span>
+<span class="LineNr">478 </span>          &quot; windows are filled with the order of elements
+<span class="LineNr">479 </span>          &quot; in 'fill_specs' You want to spec something for each
+<span class="LineNr">480 </span>          &quot; of the windows created by :Tabwins 232,
+<span class="LineNr">481 </span>          &quot; either commands, filepaths, or dirpaths. Spec an empty
+<span class="LineNr">482 </span>          &quot; string to bypass the fill of a window buffer.
+<span class="LineNr">483 </span>          &quot; Specs can include shell or vim vars, and if files or dirs
+<span class="LineNr">484 </span>          &quot; the spec can include a vim command or use the default :edit or
+<span class="LineNr">485 </span>          &quot; :Explore call in Fill_tab()
 <span class="LineNr">486 </span>
-<span class="LineNr">487 </span>  See the other demo commands at end of the tabwins.vim.
-<span class="LineNr">488 </span>
-<span class="LineNr">489 </span>  See HELP in <span class="Identifier">TabwinsUsage</span>.
+<span class="LineNr">487 </span>          &quot; <span class="Todo">NOTE</span>-the .vim file implementation defines 'home_parent_dirpath' as
+<span class="LineNr">488 </span>          &quot; as a vimscript var, i.e. 's:home_parent_dirpath' -- it's changed
+<span class="LineNr">489 </span>          &quot; here to facilitate interactive experimentation.
 <span class="LineNr">490 </span>
-<span class="LineNr">491 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">492 </span>Section 7: License                                  <span class="String">TabwinsLicense</span>
-<span class="LineNr">493 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">494 </span>
-<span class="LineNr">495 </span>Copyright (c) 2013, Charles E. Sheridan
-<span class="LineNr">496 </span>
-<span class="LineNr">497 </span>This program is free software; you can redistribute it
-<span class="LineNr">498 </span>and/or modify it under the terms of the GNU General Public
-<span class="LineNr">499 </span>License as published by the Free Software Foundation,
-<span class="LineNr">500 </span>version 2 of the License.
-<span class="LineNr">501 </span>This program is distributed in the hope that it will be
-<span class="LineNr">502 </span>useful, but WITHOUT ANY WARRANTY; without even the implied
-<span class="LineNr">503 </span>warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-<span class="LineNr">504 </span>PURPOSE.
-<span class="LineNr">505 </span>
-<span class="LineNr">506 </span>See the GNU General Public License version 2 for more details.
-<span class="LineNr">507 </span>
-<span class="LineNr">508 </span>
-<span class="LineNr">509 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">510 </span>Section 8: Bugs                                        <span class="String">TabwinsBugs</span>
-<span class="LineNr">511 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">491 </span>
+<span class="LineNr">492 </span>  See the other demo commands at end of the tabwins.vim.
+<span class="LineNr">493 </span>
+<span class="LineNr">494 </span>  See HELP in <span class="Identifier">TabwinsUsage</span>.
+<span class="LineNr">495 </span>
+<span class="LineNr">496 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">497 </span>Section 7: License                                  <span class="String">TabwinsLicense</span>
+<span class="LineNr">498 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">499 </span>
+<span class="LineNr">500 </span>Copyright (c) 2013, Charles E. Sheridan
+<span class="LineNr">501 </span>
+<span class="LineNr">502 </span>This program is free software; you can redistribute it
+<span class="LineNr">503 </span>and/or modify it under the terms of the GNU General Public
+<span class="LineNr">504 </span>License as published by the Free Software Foundation,
+<span class="LineNr">505 </span>version 2 of the License.
+<span class="LineNr">506 </span>This program is distributed in the hope that it will be
+<span class="LineNr">507 </span>useful, but WITHOUT ANY WARRANTY; without even the implied
+<span class="LineNr">508 </span>warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+<span class="LineNr">509 </span>PURPOSE.
+<span class="LineNr">510 </span>
+<span class="LineNr">511 </span>See the GNU General Public License version 2 for more details.
 <span class="LineNr">512 </span>
-<span class="LineNr">513 </span>Send bug reports and proposed fixes to
-<span class="LineNr">514 </span>  opensource at att.net
-<span class="LineNr">515 </span>
-<span class="LineNr">516 </span>
-<span class="LineNr">517 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">518 </span>Section 9: Distributions                       <span class="String">TabwinsDistributions</span>
-<span class="LineNr">519 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">513 </span>
+<span class="LineNr">514 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">515 </span>Section 8: Bugs                                        <span class="String">TabwinsBugs</span>
+<span class="LineNr">516 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">517 </span>
+<span class="LineNr">518 </span>Send bug reports and proposed fixes to
+<span class="LineNr">519 </span>  opensource at att.net
 <span class="LineNr">520 </span>
-<span class="LineNr">521 </span>github repository for this plugin
-<span class="LineNr">522 </span>   <span class="String"><a href="https://github.com/cesheridan/tabwins">https://github.com/cesheridan/tabwins</a></span>
-<span class="LineNr">523 </span>
-<span class="LineNr">524 </span>
+<span class="LineNr">521 </span>
+<span class="LineNr">522 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">523 </span>Section 9: Distributions                       <span class="String">TabwinsDistributions</span>
+<span class="LineNr">524 </span><span class="PreProc">====================================================================</span>
 <span class="LineNr">525 </span>
-<span class="LineNr">526 </span>vim.org URL of this plugin
-<span class="LineNr">527 </span>   <span class="String"><a href="http://www.vim.org/scripts/script.php?script_id=4767">http://www.vim.org/scripts/script.php?script_id=4767</a></span>
+<span class="LineNr">526 </span>github repository for this plugin
+<span class="LineNr">527 </span>   <span class="String"><a href="https://github.com/cesheridan/tabwins">https://github.com/cesheridan/tabwins</a></span>
 <span class="LineNr">528 </span>
 <span class="LineNr">529 </span>
-<span class="LineNr">530 </span>The distribution at vim.org is taken from the github repository.
-<span class="LineNr">531 </span>
+<span class="LineNr">530 </span>vim.org URL of this plugin
+<span class="LineNr">531 </span>   <span class="String"><a href="http://www.vim.org/scripts/script.php?script_id=4767">http://www.vim.org/scripts/script.php?script_id=4767</a></span>
 <span class="LineNr">532 </span>
-<span class="LineNr">533 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">534 </span>Section 10: RELEASE HISTORY                        <span class="String">TabwinsReleases</span>
-<span class="LineNr">535 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">533 </span>
+<span class="LineNr">534 </span>The distribution at vim.org is taken from the github repository.
+<span class="LineNr">535 </span>
 <span class="LineNr">536 </span>
-<span class="LineNr">537 </span>Release numbering follows the Semantic Versioning approach as
-<span class="LineNr">538 </span>described at <span class="String"><a href="http://semver.org/">http://semver.org/</a></span>
-<span class="LineNr">539 </span>
-<span class="LineNr">540 </span><span class="PreProc">&gt;&gt; v3.0.0   2013-12-02</span>
-<span class="LineNr">541 </span>0. No behavioral changes to command logic.
-<span class="LineNr">542 </span>1. Tab option 'line_number_at_window_top'
-<span class="LineNr">543 </span>   renamed =&gt; 'line_number_at_netrw_window_top'
-<span class="LineNr">544 </span>
-<span class="LineNr">545 </span>2. Add configurable build of command aliases :T, :V, :H, and :TF
-<span class="LineNr">546 </span>   for :Tabwins* commands.  An alias is NOT BUILT IF an existing
-<span class="LineNr">547 </span>   command has the same name.  See &quot;&quot;Configuration&quot;/<span class="String">TabwinsConfiguration</span>
-<span class="LineNr">548 </span>   in tabwins.txt.
+<span class="LineNr">537 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">538 </span>Section 10: RELEASE HISTORY                        <span class="String">TabwinsReleases</span>
+<span class="LineNr">539 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">540 </span>
+<span class="LineNr">541 </span>Release numbering follows the Semantic Versioning approach as
+<span class="LineNr">542 </span>described at <span class="String"><a href="http://semver.org/">http://semver.org/</a></span>
+<span class="LineNr">543 </span>
+<span class="LineNr">544 </span><span class="PreProc">&gt;&gt; v3.1.0   2013-12-08</span>
+<span class="LineNr">545 </span>1. For fill_specs that are files, put line #1 at window top.
+<span class="LineNr">546 </span>2. tabwins.txt: correct Fill_tab() key 'dir_cmd_name'     to 'explore_cmd_name'
+<span class="LineNr">547 </span>3. tabwins.txt: correct 'tabwins_dir_reader_name_default' to 'tabwins_explore_cmd_name_default'
+<span class="LineNr">548 </span>4. tabwins.txt: various improvements.
 <span class="LineNr">549 </span>
-<span class="LineNr">550 </span>3. All defaults to Fill_tab() are now user-configurable global vars.
-<span class="LineNr">551 </span>
-<span class="LineNr">552 </span>4. Most functions converted to vimscript ':s' scope -- the
-<span class="LineNr">553 </span>   Explore_*() functions and Fill_tab() are the exceptions.
-<span class="LineNr">554 </span>
-<span class="LineNr">555 </span>5. Demo tabs are now :Tabwins* commands rather than functions.
-<span class="LineNr">556 </span>6. Remove the :Ot* abbreviated commands for the demo tabs.
-<span class="LineNr">557 </span>7. tabwins.txt: Add example builder command, &amp; various improvements.
-<span class="LineNr">558 </span>8. Comments in code cleaned up.
-<span class="LineNr">559 </span>
+<span class="LineNr">550 </span>
+<span class="LineNr">551 </span><span class="PreProc">&gt;&gt; v3.0.0   2013-12-02</span>
+<span class="LineNr">552 </span>0. No behavioral changes to command logic.
+<span class="LineNr">553 </span>1. Tab option 'line_number_at_window_top'
+<span class="LineNr">554 </span>   renamed =&gt; 'line_number_at_netrw_window_top'
+<span class="LineNr">555 </span>
+<span class="LineNr">556 </span>2. Add configurable build of command aliases :T, :V, :H, and :TF
+<span class="LineNr">557 </span>   for :Tabwins* commands.  An alias is NOT BUILT IF an existing
+<span class="LineNr">558 </span>   command has the same name.  See &quot;&quot;Configuration&quot;/<span class="String">TabwinsConfiguration</span>
+<span class="LineNr">559 </span>   in tabwins.txt.
 <span class="LineNr">560 </span>
-<span class="LineNr">561 </span><span class="PreProc">&gt;&gt; v2.2.0   2013-11-24</span>
-<span class="LineNr">562 </span>1. CLI commands support tab_option args.
-<span class="LineNr">563 </span>   ALL tabwins.vim capability is now available directly to
-<span class="LineNr">564 </span>   the Vim command line.  A developer should not have to call
-<span class="LineNr">565 </span>   functions in tabwins.vim to create a tabwins command.
-<span class="LineNr">566 </span>
-<span class="LineNr">567 </span>2. Configurable reloadability of tabwins.vim.
-<span class="LineNr">568 </span>3. Add :TabwinsFindTabwins and include it in the 'Tabwins' menu.
-<span class="LineNr">569 </span>4. Function Fill_tab() arg 'fill_content' renamed =&gt; 'fill_specs'
-<span class="LineNr">570 </span>5. Rework documentation.
+<span class="LineNr">561 </span>3. All defaults to Fill_tab() are now user-configurable global vars.
+<span class="LineNr">562 </span>
+<span class="LineNr">563 </span>4. Most functions converted to vimscript ':s' scope -- the
+<span class="LineNr">564 </span>   Explore_*() functions and Fill_tab() are the exceptions.
+<span class="LineNr">565 </span>
+<span class="LineNr">566 </span>5. Demo tabs are now :Tabwins* commands rather than functions.
+<span class="LineNr">567 </span>6. Remove the :Ot* abbreviated commands for the demo tabs.
+<span class="LineNr">568 </span>7. tabwins.txt: Add example builder command, &amp; various improvements.
+<span class="LineNr">569 </span>8. Comments in code cleaned up.
+<span class="LineNr">570 </span>
 <span class="LineNr">571 </span>
-<span class="LineNr">572 </span>
-<span class="LineNr">573 </span><span class="PreProc">&gt;&gt; v2.1.0   2013-11-17</span>
-<span class="LineNr">574 </span>1. fill_specs supported as tabwins.vim CLI commands arg
-<span class="LineNr">575 </span>2. Function Fill_tab() arg 'window_fill_specs' renamed =&gt; 'fill_content'
-<span class="LineNr">576 </span>
+<span class="LineNr">572 </span><span class="PreProc">&gt;&gt; v2.2.0   2013-11-24</span>
+<span class="LineNr">573 </span>1. CLI commands support tab_option args.
+<span class="LineNr">574 </span>   ALL tabwins.vim capability is now available directly to
+<span class="LineNr">575 </span>   the Vim command line.  A developer should not have to call
+<span class="LineNr">576 </span>   functions in tabwins.vim to create a tabwins command.
 <span class="LineNr">577 </span>
-<span class="LineNr">578 </span><span class="PreProc">&gt;&gt; v2.0.0   2013-11-13</span>
-<span class="LineNr">579 </span>1. As previewed in v1.8.0, the predefined asymmetric :<span class="Special">{VH}</span>{I…}
-<span class="LineNr">580 </span>   commands are removed, replaced with calls to :TabwinsVertical,
-<span class="LineNr">581 </span>   :TabwinsHorizontal, and :Tabwins.  All the Create_tab_<span class="Special">{vh}</span>*()
-<span class="LineNr">582 </span>   commands are removed, as the :Tabwins* commands can create the
-<span class="LineNr">583 </span>   same tabs, with arbitrary dimensions.
-<span class="LineNr">584 </span>2. Addition of :Tabwins, establishing a plugin default to :TabwinsVertical.
-<span class="LineNr">585 </span>3. Lots of updates to comments, reflecting 1) &amp; 2).
-<span class="LineNr">586 </span>
+<span class="LineNr">578 </span>2. Configurable reloadability of tabwins.vim.
+<span class="LineNr">579 </span>3. Add :TabwinsFindTabwins and include it in the 'Tabwins' menu.
+<span class="LineNr">580 </span>4. Function Fill_tab() arg 'fill_content' renamed =&gt; 'fill_specs'
+<span class="LineNr">581 </span>5. Rework documentation.
+<span class="LineNr">582 </span>
+<span class="LineNr">583 </span>
+<span class="LineNr">584 </span><span class="PreProc">&gt;&gt; v2.1.0   2013-11-17</span>
+<span class="LineNr">585 </span>1. fill_specs supported as tabwins.vim CLI commands arg
+<span class="LineNr">586 </span>2. Function Fill_tab() arg 'window_fill_specs' renamed =&gt; 'fill_content'
 <span class="LineNr">587 </span>
-<span class="LineNr">588 </span><span class="PreProc">&gt;&gt; v1.8.0   2013-11-13</span>
-<span class="LineNr">589 </span>1. New commands :TabwinsVertical and :TabwinsHorizontal to create
-<span class="LineNr">590 </span>   arbitrarily-dimensioned symmetric AND asymmetric tabs.
-<span class="LineNr">591 </span>   In v.1.7.0, each asymmetric command required creation of
-<span class="LineNr">592 </span>   a dedicated function, which is no longer the case.
-<span class="LineNr">593 </span>
-<span class="LineNr">594 </span>   Most of the predefined asymmetric commands in v.1.7.0 will be
-<span class="LineNr">595 </span>   removed in a later release.
-<span class="LineNr">596 </span>
+<span class="LineNr">588 </span>
+<span class="LineNr">589 </span><span class="PreProc">&gt;&gt; v2.0.0   2013-11-13</span>
+<span class="LineNr">590 </span>1. As previewed in v1.8.0, the predefined asymmetric :<span class="Special">{VH}</span>{I…}
+<span class="LineNr">591 </span>   commands are removed, replaced with calls to :TabwinsVertical,
+<span class="LineNr">592 </span>   :TabwinsHorizontal, and :Tabwins.  All the Create_tab_<span class="Special">{vh}</span>*()
+<span class="LineNr">593 </span>   commands are removed, as the :Tabwins* commands can create the
+<span class="LineNr">594 </span>   same tabs, with arbitrary dimensions.
+<span class="LineNr">595 </span>2. Addition of :Tabwins, establishing a plugin default to :TabwinsVertical.
+<span class="LineNr">596 </span>3. Lots of updates to comments, reflecting 1) &amp; 2).
 <span class="LineNr">597 </span>
-<span class="LineNr">598 </span><span class="PreProc">&gt;&gt; v1.7.0   2013-11-11</span>
-<span class="LineNr">599 </span>1. First vim.org release.
-<span class="LineNr">600 </span>
-<span class="LineNr">601 </span><span class="PreProc">====================================================================</span>
-<span class="LineNr">602 </span>Section 11: Credits                                 <span class="String">TabwinsCredits</span>
-<span class="LineNr">603 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">598 </span>
+<span class="LineNr">599 </span><span class="PreProc">&gt;&gt; v1.8.0   2013-11-13</span>
+<span class="LineNr">600 </span>1. New commands :TabwinsVertical and :TabwinsHorizontal to create
+<span class="LineNr">601 </span>   arbitrarily-dimensioned symmetric AND asymmetric tabs.
+<span class="LineNr">602 </span>   In v.1.7.0, each asymmetric command required creation of
+<span class="LineNr">603 </span>   a dedicated function, which is no longer the case.
 <span class="LineNr">604 </span>
-<span class="LineNr">605 </span> Author:  Charles E. Sheridan
-<span class="LineNr">606 </span>Contact:  opensource at att.net
+<span class="LineNr">605 </span>   Most of the predefined asymmetric commands in v.1.7.0 will be
+<span class="LineNr">606 </span>   removed in a later release.
 <span class="LineNr">607 </span>
+<span class="LineNr">608 </span>
+<span class="LineNr">609 </span><span class="PreProc">&gt;&gt; v1.7.0   2013-11-11</span>
+<span class="LineNr">610 </span>1. First vim.org release.
+<span class="LineNr">611 </span>
+<span class="LineNr">612 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">613 </span>Section 11: Credits                                 <span class="String">TabwinsCredits</span>
+<span class="LineNr">614 </span><span class="PreProc">====================================================================</span>
+<span class="LineNr">615 </span>
+<span class="LineNr">616 </span> Author:  Charles E. Sheridan
+<span class="LineNr">617 </span>Contact:  opensource at att.net
+<span class="LineNr">618 </span>
 </pre>
 </body>
 </html>

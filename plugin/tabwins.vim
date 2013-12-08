@@ -180,6 +180,10 @@ function! Explore_file_system_element(args_hash)
 
     "silent! & the redraws together free the user from having to hit a 
     "key in order to load & see the new buffer content
+
+    " leave line #1 at top of window
+    :normal gg 
+   ":1 why does this sometimes fail, while `:normal gg` does not  ?
     return
   endif
 
@@ -521,7 +525,7 @@ function! s:create_windowed_tab(args_hash)
     if    l:surplus_win_count_this_secondary  >  0
       let l:reference_win_num                 =  l:secondary_dim_max * l:primary_idx
 
-      " In the symmetric windows created by <SID>create_windowed_tab_symmetric(), the 
+      " In the symmetric windows created by <SID>create_windowed_tab_symmetric(), the
       " win num of the first window in THIS secondary axis is 1 more than the num 
       " the end of the structurally previous secondary_dim -- E.G. if 
       " <SID>create_windowed_tab_symmetric() built a 6x8 w/ Vertical primary_axis, and 
@@ -713,18 +717,12 @@ command! -complete=file -nargs=+ Tabwins           call <SID>create_tab_cli({
 \ 'primary_dim' : 'V',
 \ 'args_string' : <q-args>
 \})
-" --------------------------------------------------------------- 
-"  FOR DEVELOPMENT
-" command! -complete=file -nargs=+ TabwinsZ call <SID>create_tab_cli({
-" \ 'primary_dim' : 'V',
-" \ 'args_string' : <q-args>
-" \})
 
 " ===============================================================
 " --- ASYMMETRIC TABS
 " ===============================================================
 "
-" NOTE: tabwins.vim v1.8.0 obviates the need to create a functions
+" NOTE: tabwins.vim v1.8.0 obviates the need to create a function
 " for each asymmetric tab.  So tabwins v2.0.0 removes the asymmetric 
 " tab builder functions, commented out below as examples of an 
 " earlier, less dynamic design.
@@ -786,12 +784,12 @@ endfunction
 command! TabwinsUnixFilesystem1 :Tabwins 234;
   \   '/',
   \   '/dev',
-  \   '/bin',
   \
+  \   '/bin',
   \   '/usr/bin',
   \   '/opt/local/bin',
-  \   '/opt/X11',
   \
+  \   '/opt/X11',
   \   '/opt/X11/bin',
   \   '/opt/X11/lib',
   \   '/opt/X11/share'
