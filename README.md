@@ -1,30 +1,26 @@
-*1 command for custom window structures that persist*
-
 # *tabwins.vim*
+*1 command for custom window structures that persist*   /   Charles E. Sheridan
 
 ![alt text][8x14]
 
 [8x14]: ./doc/images/V8x14.jpg?raw=true  "8x14"
-[8x14]: ./doc/images/Populated Tab 1 - V234.jpg?raw=true  "8x14"
 
 _"I'm very impressed with it. **It gets my highest accolade: the coveted 'Why The 
 Hell Isn't This Functionality Built-In To Vim' award**_"  -  Damian Conway 
 
-
-## Section 1: Introduction
-
+---
 
 __**The Developer:**__
   * Avoids hit-or-miss, time-consuming, manual, repetitious 
-    runs of :split/:vsplit, and thought-sinks about how 
-    to produce an intended window structure
+    runs of :split/:vsplit
+    
+  * Avoids detours thinking about how to produce an intended window structure
 
-  * Avoids losing current configurations due to mid-session 
-    reloads of backed-up Vim sessions that have preferred
-    window structures
+  * Avoids losing current configurations due to mid-session reloads of backed-up Vim sessions that have preferred window structures
 
   * Avoids loss of focus from these discontinuities
 
+---
 
 ### FORMS 
 ````vim
