@@ -5,6 +5,7 @@
 ![alt text][8x14]
 
 [8x14]: ./doc/images/V8x14.jpg?raw=true  "8x14"
+[8x14]: ./doc/images/Populated Tab 1 - V234.jpg?raw=true  "8x14"
 
 _"I'm very impressed with it. **It gets my highest accolade: the coveted 'Why The 
 Hell Isn't This Functionality Built-In To Vim' award**_"  -  Damian Conway 
