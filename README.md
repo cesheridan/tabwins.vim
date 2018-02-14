@@ -7,12 +7,10 @@
 _"I'm very impressed with it. **It gets my highest accolade: the coveted 'Why The 
 Hell Isn't This Functionality Built-In To Vim' award**_"  -  Damian Conway 
 
-
 ![alt text][gif1]
 [gif1]: ./doc/gif/tabwins.1dimension.HV.2-8.gif?raw=true  "gif1"
 
 ---
-
 __**The Developer:**__
   * Avoids hit-or-miss, time-consuming, manual, repetitious runs of :split/:vsplit
     
@@ -21,8 +19,11 @@ __**The Developer:**__
   * Avoids losing current configurations due to mid-session reloads of backed-up Vim sessions that have preferred window structures
 
   * Avoids loss of focus from these discontinuities
-
 ---
+
+![alt text][pop1]
+[pop1]: ./doc/images/populated_tab_1.v234.jpg?raw=true  "pop1"
+
 
 # FORMS 
 ````vim
@@ -34,6 +35,8 @@ __**The Developer:**__
        Alias:                              :V,             & :H 
 
       '{window_dimensions}' is the only mandatory arg, for :{Tabwins cmd}  
+      'see the Asymmetric & Dimensions >9 subsections in USAGE re the 
+      'two syntax conventions for 'window_dimensions'
    
       ':{symmetric cmd}' is any of the form :{V|H}IxJ or :{V|H}I  
    
@@ -67,7 +70,7 @@ These commands take the same arguments and accept arbitrary dimension specificat
 
 ### Tabwins Menu
     
-_This menu shows how tabwins.vim **shields the developer from nuisances** listed earlier in this document, by making window structures persistent, and invokable from the Vim GUI._
+This menu shows how tabwins.vim _**shields developers from the nuisances**_ listed above, by _making complex window structures persistent, quick-building, and easily-invokable from the Vim GUI._
 
 Most of the  tab builders referenced here are defined in tabwins.vim, and several of these are available from the 'Tabwins' menu.
 
@@ -75,7 +78,7 @@ The developer is encouraged to customize this menu for local usage.  Update or r
 
 Global **g:load_tabwins_menu_is_wanted** is defaulted to **'Y'** and can be set to 'N' to turn off this menu.
 
-The extent that the populated tabs in this menu load their buffers is dependent on shell vars available to the Vim session, and files/dirs present in the local environment.
+The extent that populated tabs invoked from this menu load their buffers is dependent on shell vars available to the Vim session, and files/dirs present in the local environment -- again, this is intended as a starting point for the developer to 'fill-in' with content from the local environment(s).
 
 
 ### Symmetric Window Structures 
@@ -108,8 +111,9 @@ _Structures with 2 dimensions with length >1_ are shown immediately above.
 
 
 ### Asymmetric Window Structures 
-![alt text][gif2]
-[gif2]: ./doc/gif/tabwins.2dimension.HV.gif?raw=true  "gif2"
+
+![alt text][gif3]
+[gif3]: ./doc/gif/tabwins.2dimension.asym.HV.gif?raw=true "gif3"
 
 In an asymmetric window, secondary axis dimensions vary, and _axis-specification syntax is different_ than for symmetric windows.
 ````vim
@@ -124,10 +128,13 @@ In an asymmetric window, secondary axis dimensions vary, and _axis-specification
     " top to bottom "````
 
 
+
 ### Dimensions >9
-![alt text][gif2]
-[gif2]: ./doc/gif/tabwins.2dimension.HV.gif?raw=true  "gif2"
-For asymmetric tabs with one or both dimensions >9, use list syntax as below.
+
+![alt text][gt9]
+[gt9]: ./doc/gif/tabwins.2dimension.HV.GT9.gif?raw=true  "gt9"
+
+For tabs with one or both dimensions >9, use list syntax as below.
 
 ````vim
     :Tabwins [ 5, 8, 13, 21 ] 
@@ -140,10 +147,19 @@ For asymmetric tabs with one or both dimensions >9, use list syntax as below.
    
     :Tabwins [ 40, 30, 40, 30 ] 
     :T       [ 40, 30, 40, 30 ] 
-    " For large monitors ...  " ````
+    " For really big monitors ...  " ````
 
 ### FILL SPECS 
+
+![alt text][fill_specs]
+[fill_specs]: ./doc/gif/tabwins.2dimension.HV.GT9.gif?raw=true  "fill_specs"
+
+'fill_specs' enable the developer to specify that _tabwins.vim_ **fill buffers with files and directories**, and along with those, or instead of those, the **outputs of commands** specified in a fill_spec, including **command sequences** where '|' bars separate the commands.
+
 ````vim
+:Tabwins           11111; $HOME, '/.bashrc', '~/.vimrc', '/', '/usr/bin' 
+:T                 {                  same args                        } 
+
 :V5x1 $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin' 
 " Structure & content same as :Tabwins 11111 above
 
@@ -153,31 +169,24 @@ For asymmetric tabs with one or both dimensions >9, use list syntax as below.
 " shorter alias.
 
 :Tabwins            1211; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin' 
-:T                  {                   as above                        } 
+:T                  {                  same args                        } 
 " 'fill_content' specs of files are automatically opened via :edit,
 " while specs of dirs are opened via :Explore
 " (Specify the '' empty string for windows intended to be empty.)
 
-:Tabwins           11111; $HOME, '/.bashrc', '~/.vimrc', '/', '/usr/bin' 
-:T                 {                    as above                        } 
-" Same buffer content, in different window structure, of 5 cols, 
-" one window in each.
 
 :TabwinsHorizontal 11111; $HOME, '/.bashrc', '/.vimrc', '/', '/usr/bin' 
-:H                 {                    as above                        } 
-" Flip axis priority of above to the horizontal
+:H                        {                  same args                } 
+" FLIP axis priority of above to the horizontal
 
 :Tabwins             312; '/.bashrc', '/.vimrc', '/.git', $HOME, '/', '/usr/bin' 
-:T                   {                  as above                                  } 
-````
-Multiple Vim commands can be specified in a fill_spec by prepending commands with the Vim '|' concatenation operator.
+:T                        {                  same args                         } 
 
-````vim
-    :Tabwins 1112;  $HOME, '~/.bashrc', '~/.vimrc', '/', 'Explore /usr/bin | resize 20' 
-    :T       {                           as above                                     } 
-    " Does a :resize of the last window, via Vim '|' command concat.  If a file 
-    " or dir is followed with concated commands, the caller needs to explicitly 
-    " add the command that opens the file or dir, i.e. 'Explore' in this example." ````
+:Tabwins 1112;  $HOME, '~/.bashrc', '~/.vimrc', '/', 'Explore /usr/bin | resize 20' 
+:T       {                           same args                                    } 
+" Does a :resize of the last window, via Vim '|' command concat.  If a file 
+" or dir is followed with concated commands, the caller needs to explicitly 
+" add the command that opens the file or dir, e.g. 'Explore' here." ````
 
 
 ### TAB OPTIONS 
@@ -203,12 +212,14 @@ These options apply to the entire tab and can be combined when separated by comm
    
 Examples
 ````vim
-    :Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'ending_window_number' : 2 
-    :Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3 
-    :T              {                    as above                                             } 
+    :Tabwins 1211; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'ending_window_number' : 2 
+    :Tabwins 1211; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3 
+    :T             {                    as above                                             } 
    
-    :Tabwins 1211;  $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3, 'ending_window_number' : 2 
-    :T              {                    as above                                                                         }  " Multiple tab_options in same command.  " ````
+    :Tabwins 1211; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3, 
+     \                                                              'ending_window_number' : 2 
+    :T             {                           same args                                      } 
+    " Multiple tab_options in same command.  " ````
 
 # CONFIGURATION  
 Overridable globals in _tabwins.vim_:
@@ -269,6 +280,7 @@ if netrw var g:netrw_liststyle is not defined, it gets this value.
 ````
 
 ## VERTICAL & HORIZONTAL
+
 Windows are built one axis at a time. The first axis built is the **primary axis**, and the other axis is the **secondary axis.**
 
 If a tab starts by building the vertical axis, then the vertical axis is the primary axis, and the horizontal axis is the secondary axis. And vice-versa.
