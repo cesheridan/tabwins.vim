@@ -1,18 +1,19 @@
 # *tabwins.vim*
 *1 command for custom window structures that persist*   /   Charles E. Sheridan
 
-![alt text][8x14]
-
 [8x14]: ./doc/images/V8x14.jpg?raw=true  "8x14"
+![alt text][8x14]
 
 _"I'm very impressed with it. **It gets my highest accolade: the coveted 'Why The 
 Hell Isn't This Functionality Built-In To Vim' award**_"  -  Damian Conway 
 
+![alt text][gif1]
+[gif1]: ./doc/gif/tabwins.1dimension.HV.2-8.gif?raw=true  "gif1"
+
 ---
 
 __**The Developer:**__
-  * Avoids hit-or-miss, time-consuming, manual, repetitious 
-    runs of :split/:vsplit
+  * Avoids hit-or-miss, time-consuming, manual, repetitious runs of :split/:vsplit
     
   * Avoids detours thinking about how to produce an intended window structure
 
@@ -45,7 +46,6 @@ __**The Developer:**__
    
     {window_dimensions} is the only mandatory arg, for :{Tabwins cmd}  ````
 SECTION "Usage" HAS MORE DETAIL. 
-
 
 ### EXAMPLES
 
@@ -84,6 +84,8 @@ SECTION "Usage" HAS MORE DETAIL.
     ````
 
 #### Symmetric Window Structures 
+![alt text][gif2]
+[gif2]: ./doc/gif/tabwins.2dimension.HV.gif?raw=true  "gif2"
     In a symmetric window, all secondary axis dimensions are the same.
 ````vim
     :V5x8 
@@ -104,6 +106,7 @@ SECTION "Usage" HAS MORE DETAIL.
     " window for its dimensions, V5 is available as an even
     " shorter alias.
     "
+
 ````
 #### Dimensions >9
 ````vim
@@ -202,15 +205,13 @@ subdirs to the same subdirs in ~/.vim.
 
 #### SYMMETRIC WINDOW STRUCTURES 
 
-    In these, the lengths of the secondary axis dimensions
-    are all equal.
-    
-    Symmetric commands are available to reduce keystrokes.
-    
-    'H' indicates horizontal priority, 'V' vertical priority.
-   
-    Loading tabwins.vim creates :{V|H}IxJ commands where the 
-    set of IxJ is the permutations of:
+In these, the lengths of the secondary axis dimensions are all equal.
+
+Symmetric commands are available to reduce keystrokes.
+
+'H' indicates horizontal priority, 'V' vertical priority.
+
+Loading tabwins.vim creates :{V|H}IxJ commands where the set of IxJ is the permutations of:
 ````vim
       g:tabwins_max_v_size  
       g:tabwins_max_h_size  
@@ -223,32 +224,28 @@ subdirs to the same subdirs in ~/.vim.
 
 #### DIMENSIONS GREATER THAN 9 
 
-    Dimensions >9 are unparsable when {window_dimensions} is 
-    an integer.  To enable dimensions >9, use list syntax as
-    shown in EXAMPLES of "Introduction"
-   
-    List syntax applies to any tab that one or more dimension >9.
-    All the dimensions of such a tab are specified in one list.
+Dimensions >9 are unparsable when {window_dimensions} is an integer.  
+
+To enable dimensions >9, use list syntax as shown in EXAMPLES of "Introduction"
+
+List syntax applies to any tab that one or more dimension >9.  All the dimensions of such a tab are specified in one list.
 
 
 
 #### FILL SPECS WITH MULTIPLE COMMANDS 
 
-    Multiple Vim commands can be specified in a fill_spec by
-    prepending commands with the Vim '|' concatenation operator.
-    See EXAMPLES in "Introduction"
+Multiple Vim commands can be specified in a fill_spec by prepending commands with the Vim '|' concatenation operator.
+
+See EXAMPLES in "Introduction"
 
 
 #### TAB OPTIONS 
 
-    Available tab_options are below, with global default vars
-    on the right.  
-   
-    See tabwins.txt section "Configuration"
-    re the globals.
-   
-    These options apply to the entire tab and can be combined when 
-    separated by commas. 
+Available tab_options are below, with global default vars on the right.  
+
+See tabwins.txt section "Configuration" re the globals.
+
+These options apply to the entire tab and can be combined when separated by commas. 
       
 ````vim
        'explore_cmd_name'          : g:tabwins_explore_cmd_name_default,
@@ -265,19 +262,15 @@ subdirs to the same subdirs in ~/.vim.
        'ending_window_number'      : g:tabwins_ending_window_number_default,
       " => the active window number after tabwins.vim builds a tab
        "
-````
-   
    
     See EXAMPLES in "Introduction"
+````
 
 
-
-
-## Section 3: Vertical & Horizontal
+## VERTICAL & HORIZONTAL
     
 Windows are built one axis at a time. The first axis built
-is the primary axis, and the other axis is the secondary axis.
-       ~~~~~~~~~~~~                            ~~~~~~~~~~~~~~~
+is the **primary axis**, and the other axis is the **secondary axis.**
 If the tab starts by building the vertical axis, then the
 vertical axis is the primary axis, and the horizontal axis
 is the secondary axis. And vice-versa.
@@ -302,23 +295,23 @@ What's the difference between Horizontal & Vertical Tabs ?
   "Adding New Builders"
 
 
-## Section 4: Tabwins Menu  
+## TABWINS MENU  
 
-    In the 'Tabwins' menu built on plugin load, the extent that 
-    populated tabs fill their buffers is dependent on the shell 
-    vars available to the Vim session, and files/dirs present in 
-    the local environment.
-   
-    The menu items reference some of these shell vars.  
-   
-    The developer is encouraged to customize this menu for local usage.
-   
-    Update or replace
-      function Tabwins_menu_build() 
-    in tabwins.vim to do so.
+In the 'Tabwins' menu built on plugin load, the extent that 
+populated tabs fill their buffers is dependent on the shell 
+vars available to the Vim session, and files/dirs present in 
+the local environment.
+
+The menu items reference some of these shell vars.  
+
+The developer is encouraged to customize this menu for local usage.
+
+Update or replace
+  function Tabwins_menu_build() 
+in tabwins.vim to do so.
 
 
-## Section 5: Configuration  
+## CONFIGURATION  
 ````vim
     The below globals are defined in tabwins.vim and are overridable.
    
@@ -340,9 +333,9 @@ What's the difference between Horizontal & Vertical Tabs ?
 MISSING 
 MISSING 
 
-## Section 6: Adding New Builders
+## ADDING NEW BUILDERS
 
-#### ADDING SYMMETRIC TAB COMMANDS *--*
+#### Adding Symmetric tab commands 
 
     Bump either/both values of:
 ````vim
@@ -358,7 +351,7 @@ MISSING
     ````
 
 
-#### MORE GENERALLY *--*
+#### More Generally 
   
   Adapt the below example to create your own commands that build tabs
   that have the window structures and content that you want.
@@ -398,7 +391,7 @@ MISSING
 
 *  See HELP in TabwinsUsage
 
-## Section 7: License 
+## License 
     Copyright (c) 2013, Charles E. Sheridan
    
     This program is free software; you can redistribute it
@@ -414,93 +407,14 @@ MISSING
     See the GNU General Public License version 3.0 for more details.
 
 
-## Section 8: Bugs
-
-    Send bug reports and proposed fixes to 
-      opensource at att.net
+## Bugs
+Send bug reports and proposed fixes to opensource at att.net
 
 
-## Section 9: Distributions
+## Distributions
 
-    github repository for this plugin
-       https://github.com/cesheridan/tabwins 
-   
-   
-    vim.org URL of this plugin 
-       http://www.vim.org/scripts/script.php?script_id=4767
-   
-   
-    The distribution at vim.org is taken from the github repository.
+github repository for this plugin: https://github.com/cesheridan/tabwins 
 
+vim.org URL of this plugin: http://www.vim.org/scripts/script.php?script_id=4767
 
-## Section 10: RELEASE HISTORY
-
-Release numbering follows the Semantic Versioning approach as described at http://semver.org/
-
-    >> v3.1.0   2013-12-08 
-    1. For fill_specs that are files, put line #1 at window top.
-    2. tabwins.txt: correct Fill_tab() key 'dir_cmd_name'     to 'explore_cmd_name'
-    3. tabwins.txt: correct 'tabwins_dir_reader_name_default' to 'tabwins_explore_cmd_name_default'
-    4. tabwins.txt: various improvements.
-   
-   
-    >> v3.0.0   2013-12-02 
-    0. No behavioral changes to command logic.
-    1. Tab option 'line_number_at_window_top' 
-       renamed => 'line_number_at_netrw_window_top'
-   
-    2. Add configurable build of command aliases :T, :V, :H, and :TF 
-       for :Tabwins* commands.  An alias is NOT BUILT IF an existing
-       command has the same name.  See ""Configuration"/*TabwinsConfiguration*
-       in tabwins.txt.
-   
-    3. All defaults to Fill_tab() are now user-configurable global vars.
-   
-    4. Most functions converted to vimscript ':s' scope -- the 
-       Explore_*() functions and Fill_tab() are the exceptions.
-   
-    5. Demo tabs are now :Tabwins* commands rather than functions.
-    6. Remove the :Ot* abbreviated commands for the demo tabs.
-    7. tabwins.txt: Add example builder command, & various improvements.
-    8. Comments in code cleaned up.
-   
-   
-    >> v2.2.0   2013-11-24 
-    1. CLI commands support tab_option args.
-       ALL tabwins.vim capability is now available directly to
-       the Vim command line.  A developer should not have to call
-       functions in tabwins.vim to create a tabwins command.
-   
-    2. Configurable reloadability of tabwins.vim. 
-    3. Add :TabwinsFindTabwins and include it in the 'Tabwins' menu.
-    4. Function Fill_tab() arg 'fill_content' renamed => 'fill_specs'
-    5. Rework documentation.
-   
-   
-    >> v2.1.0   2013-11-17 
-    1. fill_specs supported as tabwins.vim CLI commands arg
-    2. Function Fill_tab() arg 'window_fill_specs' renamed => 'fill_content'
-   
-   
-    >> v2.0.0   2013-11-13 
-    1. As previewed in v1.8.0, the predefined asymmetric :{VH}{I…} 
-       commands are removed, replaced with calls to :TabwinsVertical, 
-       :TabwinsHorizontal, and :Tabwins.  All the Create_tab_{vh}*() 
-       commands are removed, as the :Tabwins* commands can create the 
-       same tabs, with arbitrary dimensions. 
-    2. Addition of :Tabwins, establishing a plugin default to :TabwinsVertical.
-    3. Lots of updates to comments, reflecting 1) & 2).
-   
-   
-    >> v1.8.0   2013-11-13 
-    1. New commands :TabwinsVertical and :TabwinsHorizontal to create 
-       arbitrarily-dimensioned symmetric AND asymmetric tabs.  
-       In v.1.7.0, each asymmetric command required creation of 
-       a dedicated function, which is no longer the case.   
-   
-       Most of the predefined asymmetric commands in v.1.7.0 will be 
-       removed in a later release.
-   
-   
-    >> v1.7.0   2013-11-11 
-    1. First vim.org release.
+The distribution at vim.org is taken from the github repository.
