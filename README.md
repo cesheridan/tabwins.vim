@@ -69,16 +69,23 @@ These commands take the same arguments and accept arbitrary dimension specificat
 # USAGE
 
 ### Tabwins Menu
+
+
+![alt text][tabwins_menu]
+[tabwins_menu]: ./doc/images/tabwins_menu.jpg?raw=true  "tabwins_menu"
+
     
-This menu shows _**how tabwins.vim helps developers avoid the nuisances**_ listed above, by _making complex window structures persistent, quickly-built, and easily-invoked._
+_tabwins.vim_ helps developers _avoid the nuisances_ mentioned above, by _**making complex window structures quickly-built, persistent, and easily-invoked**_.  
+
+The 'Tabwins' menu exemplifies this.
 
 Most of the  tab builders referenced here are defined in tabwins.vim, and several of these are available from the 'Tabwins' menu.
 
-The developer is encouraged to customize this menu for local use.  Update or replace function **Tabwins_menu_build()** to do so.  
+The _**developer is encouraged to customize**_ this menu and its _tabwins.vim_ commands for local use.  Update **Tabwins_menu_build()** to do so.  
+
+The extent that **populated tabs** invoked from this menu load their buffers is dependent on shell vars available to the Vim session, and files/dirs present in the local environment -- again, this menu is intended as _a starting point_ for the developer to 'fill-in' with local content.
 
 Global **g:load_tabwins_menu_is_wanted** is defaulted to **'Y'** and can be set to 'N' to turn off this menu.
-
-The extent that populated tabs invoked from this menu load their buffers is dependent on shell vars available to the Vim session, and files/dirs present in the local environment -- again, this is intended as a starting point for the developer to 'fill-in' with content from the local environment(s).
 
 
 ### Symmetric Window Structures 
