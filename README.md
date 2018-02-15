@@ -70,11 +70,11 @@ These commands take the same arguments and accept arbitrary dimension specificat
 
 ### Tabwins Menu
     
-This menu shows _**how tabwins.vim helps developers avoid the nuisances**_ listed above, by _making complex window structures persistent, quick-building, and easily-invokable from the Vim GUI._
+This menu shows _**how tabwins.vim helps developers avoid the nuisances**_ listed above, by _making complex window structures persistent, quick-building, and easily-invokable._
 
 Most of the  tab builders referenced here are defined in tabwins.vim, and several of these are available from the 'Tabwins' menu.
 
-The developer is encouraged to customize this menu for local usage.  Update or replace function **Tabwins_menu_build()** to do so.  
+The developer is encouraged to customize this menu for local use.  Update or replace function **Tabwins_menu_build()** to do so.  
 
 Global **g:load_tabwins_menu_is_wanted** is defaulted to **'Y'** and can be set to 'N' to turn off this menu.
 
@@ -149,7 +149,7 @@ For tabs with one or both dimensions >9, use list syntax as below.
     :T       [ 40, 30, 40, 30 ] 
     " For really big monitors ...  " ````
 
-### FILL SPECS 
+### Fill Specs 
 
 ![alt text][fill_specs]
 [fill_specs]: ./doc/gif/tabwins.2dimension.HV.populated.gif?raw=true  "fill_specs"
@@ -189,9 +189,9 @@ For tabs with one or both dimensions >9, use list syntax as below.
 " add the command that opens the file or dir, e.g. 'Explore' here." ````
 
 
-### TAB OPTIONS 
+### Tab Options 
 
-Available tab_options are below, with global default vars on the right.  
+Available tab options are below, with global default vars on the right.  
 
 These options apply to the entire tab and can be combined when separated by commas. 
       
@@ -210,7 +210,7 @@ These options apply to the entire tab and can be combined when separated by comm
        'ending_window_number'      : g:tabwins_ending_window_number_default,
       " => the active window number after tabwins.vim builds a tab"````
    
-Examples
+##### Examples
 ````vim
     :Tabwins 1211; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'ending_window_number' : 2 
     :Tabwins 1211; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3 
@@ -219,10 +219,10 @@ Examples
     :Tabwins 1211; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3, 
      \                                                              'ending_window_number' : 2 
     :T             {                           same args                                      } 
-    " Multiple tab_options in same command.  " ````
+    " Multiple tab options in same command.  " ````
 
 # CONFIGURATION  
-Overridable globals in _tabwins.vim_:
+##### Overridable globals in _tabwins.vim_:
 
 ````vim
 To change Vertical/Horizontal max dimensions:
@@ -339,6 +339,29 @@ Adapt the below example to create your own commands that build tabs with the win
           " as a vimscript var, i.e. 's:home_parent_dirpath' -- it's changed
           " here to facilitate interactive experimentation." ````
 
+
+# DISTRIBUTIONS
+
+github repository for this plugin: https://github.com/cesheridan/tabwins 
+
+vim.org URL of this plugin: http://www.vim.org/scripts/script.php?script_id=4767
+
+The distribution at vim.org is taken from the github repository.
+
+
+# DEPLOYMENT
+tabwins.vim tabwins/ dir is structured for deployment in a pathogen-managed bundle directory, e.g. ~/.vim/bundle/ 
+
+If pathogen is not installed, copy the the files in the tabwins subdirs to the same subdirs in ~/.vim.
+   
+````vim
+    Enable :h tabwins in a pathogen environment with
+      :Helptags
+
+    and in a non-pathogen environment with
+      :helptags ````
+
+
 # LICENSE 
     Copyright (c) 2013, Charles E. Sheridan
    
@@ -354,27 +377,3 @@ Adapt the below example to create your own commands that build tabs with the win
    
     See the GNU General Public License version 3.0 for more details.
 
-
-# DEPLOYMENT
-tabwins.vim tabwins/ dir is structured for deployment in a 
-pathogen-managed bundle directory, e.g. ~/.vim/bundle/
-
-If pathogen is not installed, copy the the files in the tabwins 
-subdirs to the same subdirs in ~/.vim.
-   
-````vim
-    Enable :h tabwins in a pathogen environment with
-      :Helptags
-
-    and in a non-pathogen environment with
-      :helptags
-    "
-````
-
-# DISTRIBUTIONS
-
-github repository for this plugin: https://github.com/cesheridan/tabwins 
-
-vim.org URL of this plugin: http://www.vim.org/scripts/script.php?script_id=4767
-
-The distribution at vim.org is taken from the github repository.
