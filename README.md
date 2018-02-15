@@ -70,7 +70,7 @@ These commands take the same arguments and accept arbitrary dimension specificat
 
 ### Tabwins Menu
     
-This menu shows _**how tabwins.vim helps developers avoid the nuisances**_ listed above, by _making complex window structures persistent, quick-building, and easily-invokable._
+This menu shows _**how tabwins.vim helps developers avoid the nuisances**_ listed above, by _making complex window structures persistent, quickly-built, and easily-invoked._
 
 Most of the  tab builders referenced here are defined in tabwins.vim, and several of these are available from the 'Tabwins' menu.
 
