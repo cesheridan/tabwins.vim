@@ -70,7 +70,7 @@ These commands take the same arguments and accept arbitrary dimension specificat
 
 ### Tabwins Menu
     
-This menu shows how tabwins.vim _**shields developers from the nuisances**_ listed above, by _making complex window structures persistent, quick-building, and easily-invokable from the Vim GUI._
+This menu shows _**how tabwins.vim helps developers avoid the nuisances**_ listed above, by _making complex window structures persistent, quick-building, and easily-invokable from the Vim GUI._
 
 Most of the  tab builders referenced here are defined in tabwins.vim, and several of these are available from the 'Tabwins' menu.
 
@@ -152,7 +152,7 @@ For tabs with one or both dimensions >9, use list syntax as below.
 ### FILL SPECS 
 
 ![alt text][fill_specs]
-[fill_specs]: ./doc/gif/tabwins.2dimension.HV.GT9.gif?raw=true  "fill_specs"
+[fill_specs]: ./doc/gif/tabwins.2dimension.HV.populated.gif?raw=true  "fill_specs"
 
 'fill_specs' enable the developer to specify that _tabwins.vim_ **fill buffers with files and directories**, and along with those, or instead of those, the **outputs of commands** specified in a fill_spec, including **command sequences** where '|' bars separate the commands.
 
