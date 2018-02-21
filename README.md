@@ -364,30 +364,8 @@ vim.org URL of this plugin: http://www.vim.org/scripts/script.php?script_id=4767
 
 
 # DEPLOYMENT
-tabwins.vim tabwins/ dir is structured for deployment in a pathogen-managed bundle directory, e.g. ~/.vim/bundle/ 
-
-If pathogen is not installed, copy the the files in the tabwins subdirs to the same subdirs in ~/.vim.
-   
-````vim
-    Enable :h tabwins in a pathogen environment with
-      :Helptags
-
-    and in a non-pathogen environment with
-      :helptags ````
-
+* This plugin, in its default configuration, has no dependencies on other plugins and should load for any established Vim package manager, provided the package manager does not require special hooks in plugin code.  
 
 # LICENSE 
-    Copyright (c) 2013, Charles E. Sheridan
-   
-    This program is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public
-    License as published by the Free Software Foundation,
-    version 3.0 of the License.
-   
-    This program is distributed in the hope that it will be
-    useful, but WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-    PURPOSE.
-   
-    See the GNU General Public License version 3.0 for more details.
-
+License: GPL (Gnu Public License) version 3
+Copyright (c) 2013 Charles E. Sheridan
