@@ -11,6 +11,13 @@ Hell Isn't This Functionality Built-In To Vim' award**_"  -  Damian Conway
 [gif1]: ./doc/gif/tabwins.1dimension.HV.2-8.gif?raw=true  "gif1"
 
 ---
+**Scenarios**
+
+_tabwins.vim_ enables developers to create _predefined sets of tabs with designed window structures_, for scenarios that include:
+* **Research into established libraries**, accessed via sets of meaningfully-arranged, many-windowed tabs
+* **Multiple-terminal sessons** where the developer both edits and interacts with static or varying sets of network terminals
+* **File system scans** for quick assessment of what is and is not present in the core directories of an OS instance
+
 __**The Developer:**__
   * Avoids hit-or-miss, time-consuming, manual, repetitious runs of :split/:vsplit
     
@@ -19,14 +26,6 @@ __**The Developer:**__
   * Avoids losing current configurations due to mid-session reloads of backed-up Vim sessions that have preferred window structures
 
   * Avoids loss of focus from these discontinuities
-
-**Scenarios**
-
-_tabwins.vim_ enables developers to create _predefined sets of tabs with designed window structures_, for scenarios that include:
-* **Research into established libraries**, accessed via sets of meaningfully-arranged, many-windowed tabs
-* **Multiple-terminal sessons** where the developer both edits and interacts with static or varying sets of network terminals
-* **File system scans** for quick assessment of what is and is not present in the core directories of an OS instance
-
 ---
 
 ![alt text][pop1]
@@ -356,7 +355,7 @@ Adapt the below example to create your own commands that build tabs with the win
 
 
 ## RELATED PLUGINS
-*  _**streamline.vim** Essential wares, to get there._  Optimal navigation through tabwins window structures.
+*  _**streamline.vim** Essential wares, to get there._  Optimal navigation through tabwins window structures.  For release in Feb 2018.
 *  _**txtmux.vim** ( tabwins x textwins ) multiplexer_
 
 
