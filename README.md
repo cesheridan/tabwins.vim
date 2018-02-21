@@ -356,7 +356,7 @@ Adapt the below example to create your own commands that build tabs with the win
 
 ## RELATED PLUGINS
 *  _**streamline.vim** Essential wares, to get there._  Optimal navigation through tabwins window structures.  For release in Feb 2018.
-*  _**txtmux.vim** ( tabwins x textwins ) multiplexer_
+*  _**txtmux.vim** ( tabwins x textwins ) multiplexer._  For release in Feb 2018.
 
 
 # DISTRIBUTION
