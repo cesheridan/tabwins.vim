@@ -1,5 +1,5 @@
-# *tabwins.vim*
 *1 command for custom window structures that persist*   /   Charles E. Sheridan
+# *tabwins.vim*
 
 [8x14]: ./doc/images/V8x14.jpg?raw=true  "8x14"
 ![alt text][8x14]
@@ -19,6 +19,14 @@ __**The Developer:**__
   * Avoids losing current configurations due to mid-session reloads of backed-up Vim sessions that have preferred window structures
 
   * Avoids loss of focus from these discontinuities
+
+**Scenarios**
+
+_tabwins.vim_ enables developers to create _predefined sets of tabs with designed window structures_, for scenarios that include:
+* **Research into established libraries**, accessed via sets of meaningfully-arranged, many-windowed tabs
+* **Multiple-terminal sessons** where the developer both edits and interacts with static or varying sets of network terminals
+* **File system scans** for quick assessment of what is and is not present in the core directories of an OS instance
+
 ---
 
 ![alt text][pop1]
@@ -347,13 +355,13 @@ Adapt the below example to create your own commands that build tabs with the win
           " here to facilitate interactive experimentation." ````
 
 
-# DISTRIBUTIONS
+## RELATED PLUGINS
+*  _**streamline.vim** Essential wares, to get there._  Optimal navigation through tabwins window structures.
+*  _**txtmux.vim** ( tabwins x textwins ) multiplexer_
 
-github repository for this plugin: https://github.com/cesheridan/tabwins 
 
+# DISTRIBUTION
 vim.org URL of this plugin: http://www.vim.org/scripts/script.php?script_id=4767
-
-The distribution at vim.org is taken from the github repository.
 
 
 # DEPLOYMENT
