@@ -1,4 +1,4 @@
-*1 command for custom window structures that persist*   /   Charles E. Sheridan
+*1 command for custom window structures that persist*   /   Charles Sheridan
 # *tabwins.vim*
 
 [8x14]: ./doc/images/V8x14.jpg?raw=true  "8x14"
@@ -14,7 +14,7 @@ Hell Isn't This Functionality Built-In To Vim' award**_"  -  Damian Conway
 **Scenarios**
 
 _tabwins.vim_ enables developers to create _predefined sets of tabs with designed window structures_, for scenarios that include:
-* **Research into established libraries**, accessed via sets of meaningfully-arranged, many-windowed tabs
+* **Research into established libraries**, viewed from galleries of meaningfully-arranged, many-windowed tabs
 * **Multiple-terminal sessons** where the developer both edits and interacts with static or varying sets of network terminals
 * **File system scans** for quick assessment of what is and is not present in the core directories of an OS instance
 
@@ -76,8 +76,6 @@ These commands take the same arguments and accept arbitrary dimension specificat
 # USAGE
 
 ### Tabwins Menu
-
-
 ![alt text][tabwins_menu]
 [tabwins_menu]: ./doc/images/tabwins_menu.jpg?raw=true  "tabwins_menu"
 
@@ -355,12 +353,15 @@ Adapt the below example to create your own commands that build tabs with the win
 
 
 ## RELATED PLUGINS
-*  _**streamline.vim** Essential wares, to get there._  Optimal navigation through tabwins window structures.  For release in Feb 2018.
-*  _**txtmux.vim** ( tabwins x textwins ) multiplexer._  For release in Feb 2018.
+*  _**streamline.vim** Essential wares, to get there._  Optimal navigation through tabwins window structures.
+  https://raw.githubusercontent.com/cesheridan/streamline.vim/master/README.md
+
+*  _**txtmux.vim** ( tabwins x textwins ) multiplexer._ 
+  https://raw.githubusercontent.com/cesheridan/txtmux.vim/master/README.md
 
 
 # DISTRIBUTION
-vim.org URL of this plugin: http://www.vim.org/scripts/script.php?script_id=4767
+http://www.vim.org/scripts/script.php?script_id=4767
 
 
 # DEPLOYMENT
