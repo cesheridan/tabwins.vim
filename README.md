@@ -361,11 +361,12 @@ Adapt the below example to create your own commands that build tabs with the win
 
 
 # DISTRIBUTION
-http://www.vim.org/scripts/script.php?script_id=4767
+* http://www.vim.org/scripts/script.php?script_id=4767
+* Includes release history 
 
 
 # DEPLOYMENT
-* This plugin, in its default configuration, has no dependencies on other plugins and should load for any established Vim package manager, provided the package manager does not require special hooks in plugin code.  
+The .tgz decompresses to ./plugin & ./doc dirs compatatible with established Vim package managers. 
 
 # LICENSE 
 License: GPL (Gnu Public License) version 3
