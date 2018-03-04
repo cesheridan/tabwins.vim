@@ -349,10 +349,10 @@ Adapt the below example to create your own commands that build tabs with the win
 
           " NOTE-the .vim file implementation defines 'home_parent_dirpath' as
           " as a vimscript var, i.e. 's:home_parent_dirpath' -- it's changed
-          " here to facilitate interactive experimentation." ````
+          " here to facilitate experimentation." ````
 
 
-## RELATED PLUGINS
+#### RELATED PLUGINS
 *  _**streamline.vim** Essential wares, to get there._  Optimal navigation through tabwins window structures.
   https://raw.githubusercontent.com/cesheridan/streamline.vim/master/README.md
 
@@ -360,14 +360,14 @@ Adapt the below example to create your own commands that build tabs with the win
   https://raw.githubusercontent.com/cesheridan/txtmux.vim/master/README.md
 
 
-# DISTRIBUTION
+#### DISTRIBUTION
 * http://www.vim.org/scripts/script.php?script_id=4767
 * Includes release history 
 
 
-# DEPLOYMENT
+#### DEPLOYMENT
 The .tgz decompresses to ./plugin & ./doc dirs compatible with established Vim package managers. 
 
-# LICENSE 
+#### LICENSE 
 License: GPL (Gnu Public License) version 3
 Copyright (c) 2013 Charles E. Sheridan
