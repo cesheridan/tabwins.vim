@@ -364,9 +364,11 @@ Adapt the below example to create your own commands that build tabs with the win
 * http://www.vim.org/scripts/script.php?script_id=4767
 * Includes release history 
 
-
 #### DEPLOYMENT
 The .tgz decompresses to ./plugin & ./doc dirs compatible with established Vim package managers. 
+
+#### LIKE ?
+* If you like _tabwins.vim_, please vote for it at vim.org.
 
 #### LICENSE 
 License: GPL (Gnu Public License) version 3
