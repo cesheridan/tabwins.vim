@@ -7,8 +7,8 @@
 _"I'm very impressed with it. **It gets my highest accolade: the coveted 'Why The 
 Hell Isn't This Functionality Built-In To Vim' award**_"  -  Damian Conway 
 
-![alt text][gif1]
 [gif1]: ./doc/gif/tabwins.1dimension.HV.2-8.gif?raw=true  "gif1"
+![alt text][gif1]
 
 ---
 **Scenarios**
@@ -28,8 +28,9 @@ __**The Developer:**__
   * Avoids loss of focus from these discontinuities
 ---
 
-![alt text][pop1]
 [pop1]: ./doc/images/populated_tab_1.v234.jpg?raw=true  "pop1"
+![alt text][pop1]
+
 
 
 # FORMS 
@@ -50,7 +51,7 @@ __**The Developer:**__
       'fill_spec'  is a file, dir, shell/vim var, or string evaluable by :execute 
    
       'tab_option' has Vim key:value pair syntax 
-  ```` 
+```` 
 **Semicolons** separate arg groups, **commas** separate inside groups.
    
 
@@ -71,14 +72,15 @@ These commands take the same arguments and accept arbitrary dimension specificat
    
     :TabwinsHorizontal  
     " Priority to the horizontal axis.
-    " Default alias :H " ````
+    " Default alias :H 
+ ````
 
 # USAGE
 
 ### Tabwins Menu
-![alt text][tabwins_menu]
-[tabwins_menu]: ./doc/images/tabwins_menu.jpg?raw=true  "tabwins_menu"
 
+[tabwins_menu]: ./doc/images/tabwins_menu.jpg?raw=true  "tabwins_menu"
+![alt text][tabwins_menu]
     
 _tabwins.vim_ helps developers _avoid the nuisances_ mentioned above, by _**making complex window structures quickly-built, persistent, and easily-invoked**_.  
 
@@ -94,8 +96,8 @@ Global **g:load_tabwins_menu_is_wanted** is defaulted to **'Y'** and can be set 
 
 
 ### Symmetric Window Structures 
+[gif2]:  ./doc/gif/tabwins.2dimension.HV.gif?raw=true  "gif2"
 ![alt text][gif2]
-[gif2]: ./doc/gif/tabwins.2dimension.HV.gif?raw=true  "gif2"
 
 Sourcing _tabwins.vim_ creates **symmetric tab-builder commands** of the form :{V|H}IxJ, where the IxJ permutation set defines on:
 ````vim
@@ -119,13 +121,13 @@ _Structures with 2 dimensions with length >1_ are shown immediately above.
    
     :V6x1
     :V6 
-    :H6 ````
+    :H6
+````
 
 
 ### Asymmetric Window Structures 
-
-![alt text][gif3]
 [gif3]: ./doc/gif/tabwins.2dimension.asym.HV.gif?raw=true "gif3"
+![alt text][gif3]
 
 In an asymmetric window, secondary axis dimensions vary, and _axis-specification syntax is different_ than for symmetric windows.
 ````vim
@@ -137,14 +139,13 @@ In an asymmetric window, secondary axis dimensions vary, and _axis-specification
     :TabwinsHorizontal 4221 
     :H                 4221 
     " For a new tab of 4 rows, with 4,2,2, & 1 windows successively 
-    " top to bottom "````
-
+    " top to bottom "
+ ````
 
 
 ### Dimensions >9
-
-![alt text][gt9]
 [gt9]: ./doc/gif/tabwins.2dimension.HV.GT9.gif?raw=true  "gt9"
+![alt text][gt9]
 
 For tabs with one or both dimensions >9, use list syntax as below.
 
@@ -159,12 +160,13 @@ For tabs with one or both dimensions >9, use list syntax as below.
    
     :Tabwins [ 40, 30, 40, 30 ] 
     :T       [ 40, 30, 40, 30 ] 
-    " For really big monitors ...  " ````
+    " For really big monitors ...  " 
+````
 
 ### Fill Specs 
 
-![alt text][fill_specs]
 [fill_specs]: ./doc/gif/tabwins.2dimension.HV.populated.gif?raw=true  "fill_specs"
+![alt text][fill_specs]
 
 'fill_specs' enable the developer to specify that _tabwins.vim_ **fill buffers with files and directories**, and along with those, or instead of those, the **outputs of commands** specified in a fill_spec, including **command sequences** where '|' bars separate the commands.
 
@@ -198,7 +200,8 @@ For tabs with one or both dimensions >9, use list syntax as below.
 :T       {                           same args                                    } 
 " Does a :resize of the last window, via Vim '|' command concat.  If a file 
 " or dir is followed with concated commands, the caller needs to explicitly 
-" add the command that opens the file or dir, e.g. 'Explore' here." ````
+" add the command that opens the file or dir, e.g. 'Explore' here." 
+````
 
 
 ### Tab Options 
@@ -220,7 +223,8 @@ These options apply to the entire tab and can be combined when separated by comm
       "   have to have to have a fill_spec for lower-numbered windows.
    
        'ending_window_number'      : g:tabwins_ending_window_number_default,
-      " => the active window number after tabwins.vim builds a tab"````
+      " => the active window number after tabwins.vim builds a tab"
+````
    
 ##### Examples
 ````vim
@@ -231,7 +235,8 @@ These options apply to the entire tab and can be combined when separated by comm
     :Tabwins 1211; $HOME, '~/.bashrc', '~/.vimrc', '/', '/usr/bin'; 'netrw_liststyle'      : 3, 
      \                                                              'ending_window_number' : 2 
     :T             {                           same args                                      } 
-    " Multiple tab options in same command.  " ````
+    " Multiple tab options in same command.  " 
+ ````
 
 # CONFIGURATION  
 ##### Overridable globals in _tabwins.vim_:
@@ -314,7 +319,8 @@ Most of the asymmetric tab builders defined in the plugin use a vertical primary
 Sourcing of _tabwins.vim_ creates tab builder commands on the HxV and VxH permutations of:
 ````vim
       g:tabwins_max_v_size  
-      g:tabwins_max_h_size ````
+      g:tabwins_max_h_size 
+````
 
 _**Increase**_ either/both of these, for additional commands that build tabs with more windows.
 
@@ -349,7 +355,8 @@ Adapt the below example to create your own commands that build tabs with the win
 
           " NOTE-the .vim file implementation defines 'home_parent_dirpath' as
           " as a vimscript var, i.e. 's:home_parent_dirpath' -- it's changed
-          " here to facilitate experimentation." ````
+          " here to facilitate experimentation." 
+````
 
 
 #### RELATED PLUGINS
